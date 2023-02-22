@@ -8,6 +8,7 @@ namespace Meridian_Web.Database.Models
     {
         public string Title { get; set; }
         public decimal Price { get; set; }
+        public string DiscountPrice { get; set; }
         public decimal OldPrice { get; set; }
         public int InStock { get; set; }
         public string Content { get; set; }
