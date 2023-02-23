@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -27,19 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Areas\Admin\ViewModels\" />
-    <Folder Include="Areas\Admin\Validators\" />
-    <Folder Include="Areas\Client\Controllers\" />
     <Folder Include="Areas\Client\ViewComponents\" />
     <Folder Include="Areas\Client\Validators\" />
-    <Folder Include="Areas\Client\ViewModels\" />
-    <Folder Include="Areas\Client\Views\" />
     <Folder Include="Database\Configurations\" />
-    <Folder Include="Services\" />
-    <Folder Include="wwwroot\admin\" />
-    <Folder Include="wwwroot\client\" />
+    <Folder Include="wwwroot\client\assets\images\newsletter\" />
+    <Folder Include="wwwroot\client\assets\ludus\" />
+    <Folder Include="wwwroot\client\assets\video\" />
   </ItemGroup>
 
 </Project>

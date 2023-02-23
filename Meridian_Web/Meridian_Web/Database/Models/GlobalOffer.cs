@@ -13,4 +13,4 @@ namespace Meridian_Web.Database.Models
         public DateTime UpdatedAt { get; set; }
     }
 }
-}
+

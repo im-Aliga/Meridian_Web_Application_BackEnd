@@ -1,0 +1,38 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.SubNavbar
+
+@model UpdateViewModel
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> Add New Subnavbar</h4>
+            <p class="card-description"> Add New Subnavbar </p>
+            <form class="forms-sample" method="POST" asp-route="admin-navbar-update">
+                <div class="form-group">
+                    <label>Subnavbars</label>
+                    <select asp-for="NavbarId" asp-items="@(new SelectList(Model.Navbars, nameof(NavbarListItemViewModel.Id), nameof(NavbarListItemViewModel.Title)))" class="js-example-basic-single" style="width:100%">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Order"></label>
+                    <input asp-for="Order" class="form-control" placeholder="Order">
+                    <span asp-validation-for="Order" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Url"></label>
+                    <input asp-for="Url" class="form-control" placeholder="Url">
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+
+               
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>

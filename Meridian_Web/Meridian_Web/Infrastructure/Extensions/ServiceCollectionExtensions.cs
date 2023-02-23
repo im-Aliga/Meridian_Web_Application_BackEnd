@@ -2,8 +2,8 @@
 using Meridian_Web.Database;
 using Meridian_Web.Infrastructure.Configurations;
 using Meridian_Web.Options;
-using Meridian_Web.Services.Abstracts;
-using Meridian_Web.Services.Concretes;
+//using Meridian_Web.Services.Abstracts;
+//using Meridian_Web.Services.Concretes;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
