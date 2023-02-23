@@ -1,0 +1,47 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.Banner
+@model List<ListBannerViewModel>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mt-5">Banners</h4>
+            <a asp-route="admin-banner-add" class="btn btn-danger btn-lg mb-5 m">Add new Banner</a>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Main Content</th>
+                            <th>Content</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var banner in Model)
+                        {
+                            <tr>
+                                <td><img style="width:100%" src="~/@banner.ImageUrl"></td>
+                                <td>@banner.Title</td>
+                                <td>@banner.MainContext</td>
+                                <td>@banner.Context</td>
+                                <td>@banner.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                <td>@banner.UpdatedAt.ToString("dd/MM/yyyy")</td>
+
+                                <td class="text-end">
+                                    <a asp-route="admin-banner-update" asp-route-id="@banner.Id" class="btn-outline-secondary p-3">Update</a>
+
+                                    <form class="d-none" method="POST" asp-route="admin-banner-delete" asp-route-id="@banner.Id" id="delete-@banner.Id">
+                                    </form>
+
+                                    <button type="submit" form="delete-@banner.Id" class="btn-outline-danger p-3">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
