@@ -56,6 +56,8 @@ namespace Meridian_Web.Services.Concretes
                     return Path.Combine(startPath, "products");
                 case UploadDirectory.Slider:
                     return Path.Combine(startPath, "sliders");
+                case UploadDirectory.Banner:
+                    return Path.Combine(startPath, "banners");
                 case UploadDirectory.Payment:
                     return Path.Combine(startPath, "payments");
                 case UploadDirectory.FeedBack:
@@ -79,9 +81,11 @@ namespace Meridian_Web.Services.Concretes
             switch (uploadDirectory)
             {
                 case UploadDirectory.Product:
-                    return $"{initialSegment}/Product/{fileName}";
+                    return $"{initialSegment}/product/{fileName}";
                 case UploadDirectory.Slider:
                     return $"{initialSegment}/sliders/{fileName}";
+                case UploadDirectory.Banner:
+                    return $"{initialSegment}/banners/{fileName}";
                 case UploadDirectory.Payment:
                     return $"{initialSegment}/payments/{fileName}";
                 case UploadDirectory.FeedBack:

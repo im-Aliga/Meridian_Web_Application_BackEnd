@@ -4,9 +4,10 @@
     {
         Product = 1,
         Slider= 2,
-        Payment=4,
-        FeedBack= 8,
-        Blog= 16,
-        Brand= 32,
+        Banner=4,
+        Payment=8,
+        FeedBack= 16,
+        Blog= 32,
+        Brand= 64,
     }
 }
