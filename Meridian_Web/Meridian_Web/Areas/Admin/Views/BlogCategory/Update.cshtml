@@ -1,0 +1,20 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.BlogCategory
+
+
+@model UpdateViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Update Banner</h4>
+            <form method="POST" asp-route="admin-blogcategory-update" asp-route-id="@Model.Id" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>

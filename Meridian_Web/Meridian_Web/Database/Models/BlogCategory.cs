@@ -6,7 +6,7 @@ namespace Meridian_Web.Database.Models
     {
         public string Title { get; set; }
        
-        public List<BlogAndBlogCategory> BlogCatagories { get; set; }
+        public List<BlogAndBlogCategory>? BlogCatagories { get; set; }
        
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
