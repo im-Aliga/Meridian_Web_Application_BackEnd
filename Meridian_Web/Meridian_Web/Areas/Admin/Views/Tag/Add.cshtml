@@ -1,0 +1,21 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.Tag
+
+@model AddViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Add New Tag</h4>
+            <form method="POST" asp-route="admin-tag-add" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="Tagname"></label>
+                    <input asp-for="Tagname" class="form-control" placeholder="Tagname">
+                    <span asp-validation-for="Tagname" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
