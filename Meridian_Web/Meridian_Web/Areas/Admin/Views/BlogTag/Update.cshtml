@@ -1,0 +1,21 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.BlogTag
+
+
+@model UpdateViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Update Tag</h4>
+            <form method="POST" asp-route="admin-blogtag-update" asp-route-id="@Model.Id" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="TagName"></label>
+                    <input asp-for="TagName" class="form-control" placeholder="Tagname">
+                    <span asp-validation-for="TagName" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+

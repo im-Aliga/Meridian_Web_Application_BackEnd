@@ -3,9 +3,9 @@ using Meridian_Web.Areas.Admin.ViewModels.Banner;
 
 namespace Meridian_Web.Areas.Admin.Validators.Admin.Banner
 {
-    public class AddBannerViewModelValidator : AbstractValidator<AddBannerViewModel>
+    public class AddViewModelValidator : AbstractValidator<AddBannerViewModel>
     {
-        public AddBannerViewModelValidator()
+        public AddViewModelValidator()
         {
                   RuleFor(avm => avm.Title)
                  .NotNull()

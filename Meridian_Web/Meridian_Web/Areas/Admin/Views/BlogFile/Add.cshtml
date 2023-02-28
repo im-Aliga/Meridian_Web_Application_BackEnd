@@ -1,0 +1,49 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.BlogFile
+@model BlogFileAddViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Add New File</h4>
+            <form method="POST" asp-route="admin-blogfile-add" class="forms-sample" enctype="multipart/form-data">
+             
+                <div class="form-group">
+                    <label asp-for="File"></label>
+                    <input asp-for="File" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                        <input asp-for="File" type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                    </div>
+                     <span asp-validation-for="File" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-form-label">Choose One</label>
+
+                    <div class="form-check form-check-primary">
+                        <label class="form-check-label">
+                            <input asp-for="IsShowImage" type="checkbox" class="form-check-input" checked> Image
+                        </label>
+                    </div>
+                    <div class="form-check form-check-success">
+                        <label class="form-check-label">
+                            <input asp-for="IsShowVideo" type="checkbox" class="form-check-input"> Video
+                        </label>
+                    </div>
+                    <div class="form-check form-check-info">
+                        <label class="form-check-label">
+                            <input asp-for="IsShowAudio" type="checkbox" class="form-check-input"> Audio
+                        </label>
+                    </div>
+                   
+
+                </div>
+                 <div asp-validation-summary="ModelOnly"></div>
+                  
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>

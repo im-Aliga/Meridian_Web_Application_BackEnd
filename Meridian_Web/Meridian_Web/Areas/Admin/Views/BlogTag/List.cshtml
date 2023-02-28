@@ -1,0 +1,41 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.BlogTag
+
+@model List<ListItemViewModel>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mt-5">Blog Tags</h4>
+            <a asp-route="admin-blogtag-add" class="btn btn-danger btn-lg mb-5 m">Add new Tag</a>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>Tag</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var blogTag in Model)
+                        {
+                            <tr>
+                                <td>@blogTag.TagName</td>
+                                <td>@blogTag.CreatedAt</td>
+                                <td>@blogTag.UpdatedAt</td>
+                                <td class="text-end">
+                                    <a asp-route="admin-blogtag-update" asp-route-id="@blogTag.Id" class="btn-outline-secondary p-3">Update</a>
+
+                                    <form class="d-none" method="POST" asp-route="admin-blogtag-delete" asp-route-id="@blogTag.Id" id="delete-@blogTag.Id">
+                                    </form>
+
+                                    <button type="submit" form="delete-@blogTag.Id" class="btn-outline-danger p-3">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

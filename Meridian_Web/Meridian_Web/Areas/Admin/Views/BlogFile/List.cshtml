@@ -1,0 +1,67 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.BlogFile
+
+@model BlogFileViewModel
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mt-5">Blog Files</h4>
+            <a asp-route="admin-blogfile-add" asp-route-blogId="@Model.Blogİd" class="btn btn-danger btn-lg mb-5 m">Add New Blog File</a>
+            <a asp-route="admin-blog-list" class="btn btn-danger btn-lg mb-5 m">Blog List</a>
+
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+
+                            <th>Image</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var blogFile in Model.Files)
+                        {
+                            <tr>
+                                @if (blogFile.IsShowImage && !blogFile.IsShowVideo &!blogFile.IsShowAudio)
+                                {
+
+                                    <td><img src="~/@blogFile.FileUrl" style="width:50%;height:50%; border-radius:0" /></td>
+                                }
+                                @if (blogFile.IsShowVideo && !blogFile.IsShowImage && !blogFile.IsShowAudio)
+                                {
+                                    <td>
+
+                                        <video controls style="width:50%;height:50%; border-radius:0">
+                                            <source src="~/@blogFile.FileUrl" type="video/mp4">
+                                        </video>
+                                    </td>
+                                }
+                                @if (blogFile.IsShowAudio && !blogFile.IsShowImage && !blogFile.IsShowVideo)
+                                {
+                                    <td>
+
+
+                                        <audio controls style="width:50%;height:50%; border-radius:0">
+                                            <source src="~/@blogFile.FileUrl">
+                                        </audio>
+
+                                    </td>
+                                }
+                                <td>@blogFile.CreatedAt.ToString("dd/MM/yyyy")</td>
+
+                                <td class="text-end">
+                                   
+                                    <form method="POST" asp-route="admin-blogfile-delete" asp-route-blogId="@Model.Blogİd" asp-route-blogFileId="@blogFile.Id" id="book-image-form-@blogFile.Id"></form>
+                                    <button type="submit" form="book-image-form-@blogFile.Id" class="btn btn-outline-danger btn-fw p-3">
+                                        DELETE
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
