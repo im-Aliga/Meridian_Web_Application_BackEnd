@@ -67,6 +67,8 @@ namespace Meridian_Web.Areas.Admin.Controllers
             {
                 Id = id,
                 Title = discount.Title,
+                DiscontPers = discount.DiscontPers,
+                DiscountTime = discount.DiscountTime,
             };
 
             return View(model);
@@ -75,18 +77,36 @@ namespace Meridian_Web.Areas.Admin.Controllers
         [HttpPost("update/{id}", Name = "admin-discount-update")]
         public async Task<IActionResult> UpdateAsync(UpdateViewModel model)
         {
-            var blogCategory = await _dataContext.BlogCategories.FirstOrDefaultAsync(n => n.Id == model.Id);
-            if (blogCategory is null) return NotFound();
+            var discount = await _dataContext.Disconts.FirstOrDefaultAsync(n => n.Id == model.Id);
+            if (discount is null) return NotFound();
             if (!ModelState.IsValid) return View(model);
-            if (!_dataContext.BlogCategories.Any(n => n.Id == model.Id)) return View(model);
+            if (!_dataContext.Disconts.Any(n => n.Id == model.Id)) return View(model);
 
-            blogCategory.Title = model.Title;
+            discount.Title = model.Title;
+            discount.DiscontPers = model.DiscontPers;
+            discount.DiscountTime=model.DiscountTime;
             await _dataContext.SaveChangesAsync();
 
-            return RedirectToRoute("admin-blogcategory-list");
+            return RedirectToRoute("admin-discount-list");
 
         }
 
+        #endregion
+
+        #region Delete
+        [HttpPost("delete/{id}", Name = "admin-discount-delete")]
+        public async Task<IActionResult> DeleteAsync(UpdateViewModel model)
+        {
+            var discount = await _dataContext.Disconts.FirstOrDefaultAsync(n => n.Id == model.Id);
+            if (discount is null) return NotFound();
+            _dataContext.Disconts.Remove(discount);
+            await _dataContext.SaveChangesAsync();
+
+
+
+            return RedirectToRoute("admin-discount-list");
+
+        }
         #endregion
     }
 }
