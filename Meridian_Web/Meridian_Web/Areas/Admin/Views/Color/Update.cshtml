@@ -1,0 +1,18 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.Color
+@model UpdateViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Update Color</h4>
+            <form method="POST" asp-route="admin-color-update" asp-route-id="@Model.Id" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Title">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
