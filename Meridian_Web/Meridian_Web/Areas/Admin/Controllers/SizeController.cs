@@ -22,7 +22,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
         [HttpGet("list", Name = "admin-size-list")]
         public async Task<IActionResult> ListAsync()
         {
-            var model = await _dataContext.Colors
+            var model = await _dataContext.Sizes
                 .Select(c => new ListItemViewModel(c.Id, c.Name, c.CreatedAt, c.UpdatedAt))
                 .ToListAsync();
 
