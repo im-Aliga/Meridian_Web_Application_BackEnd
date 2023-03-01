@@ -1,0 +1,41 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.Size
+@model List<ListItemViewModel>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mt-5">Product Sizes</h4>
+            <a asp-route="admin-color-add" class="btn btn-danger btn-lg mb-5 m">Add new Size</a>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var size in Model)
+                        {
+                            <tr>
+                                <td>@size.Name</td>
+                                <td>@size.CreatedAt</td>
+                                <td>@size.UpdatedAt</td>
+                                <td class="text-end">
+                                    <a asp-route="admin-size-update" asp-route-id="@size.Id" class="btn-outline-secondary p-3">Update</a>
+
+                                    <form class="d-none" method="POST" asp-route="admin-size-delete" asp-route-id="@size.Id" id="delete-@size.Id">
+                                    </form>
+
+                                    <button type="submit" form="delete-@size.Id" class="btn-outline-danger p-3">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
