@@ -1,27 +1,41 @@
-﻿namespace BackEndFinalProject.Areas.Admin.ViewModels.Plant
+﻿using Meridian_Web.Areas.Admin.ViewModels.Discount;
+using Meridian_Web.Areas.Admin.ViewModels.Brand;
+
+namespace Meridian_Web.Areas.Admin.ViewModels.Product
 {
     public class ProductListViewModel
     {
+       
 
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; }   
         public decimal Price { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public int InStock { get; set; }
+        public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public List<CategoryViewModeL> Categories { get; set; }
         public List<ColorViewModeL> Colors { get; set; }
+        public List<BrandViewModel> Brands { get; set;}
+        public List<DiscountViewModel> Discounts { get; set; }
         public List<SizeViewModeL> Sizes { get; set; }
         public List<TagViewModel> Tags { get; set; }
-        public ProductListViewModel(int id, string name, string description,
-            decimal price, DateTime createdAt, List<CategoryViewModeL> categories, List<ColorViewModeL> colors, List<SizeViewModeL> sizes, List<TagViewModel> tags)
+
+        public ProductListViewModel(int ıd, string title, decimal price, decimal? discountPrice, int ınStock, string content, DateTime createdAt, DateTime updatedAt, List<CategoryViewModeL> categories, List<ColorViewModeL> colors, List<BrandViewModel> brands, List<DiscountViewModel> discounts, List<SizeViewModeL> sizes, List<TagViewModel> tags)
         {
-            Id = id;
-            Name = name;
-            Description = description;
+            Id = ıd;
+            Title = title;
             Price = price;
+            DiscountPrice = discountPrice;
+            InStock = ınStock;
+            Content = content;
             CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
             Categories = categories;
             Colors = colors;
+            Brands = brands;
+            Discounts = discounts;
             Sizes = sizes;
             Tags = tags;
         }
@@ -29,17 +43,43 @@
 
 
 
-
-        public class CategoryViewModeL
+        public class BrandViewModel
         {
-            public CategoryViewModeL(string title, string parentTitle)
+            public BrandViewModel(string title)
             {
                 Title = title;
-                ParentTitle = parentTitle;
+               
             }
 
             public string Title { get; set; }
-            public string ParentTitle { get; set; }
+           
+
+
+        }
+        public class DiscountViewModel
+        {
+
+            public string Title { get; set; }
+            public int DiscontPers { get; set; }
+            public DateTime DiscountTime { get; set; }
+            public DiscountViewModel(string title, int discontPers, DateTime discountTime)
+            {
+                Title = title;
+                DiscontPers = discontPers;
+                DiscountTime = discountTime;
+            }
+           
+        }
+        public class CategoryViewModeL
+        {
+               
+
+            public string Title { get; set; }
+            public CategoryViewModeL(string title)
+            {
+                Title = title;
+            }
+            
 
 
         }

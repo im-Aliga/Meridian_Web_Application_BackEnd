@@ -1,4 +1,4 @@
-﻿namespace BackEndFinalProject.Areas.Admin.ViewModels.Plant
+﻿namespace Meridian_Web.Areas.Admin.ViewModels.Plant
 {
     public class TagListItemViewModel
     {

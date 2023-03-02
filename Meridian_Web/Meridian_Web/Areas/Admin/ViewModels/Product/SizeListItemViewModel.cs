@@ -1,15 +1,17 @@
-﻿namespace BackEndFinalProject.Areas.Admin.ViewModels.Plant
+﻿namespace Meridian_Web.Areas.Admin.ViewModels.Plant
 {
     public class SizeListItemViewModel
     {
+
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
 
-
-        public SizeListItemViewModel(int id, string title)
+        public SizeListItemViewModel(int ıd, string name)
         {
-            Id = id;
-            Title = title;
+            Id = ıd;
+            Name = name;
         }
+
+       
     }
 }
