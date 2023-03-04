@@ -8,7 +8,7 @@ namespace Meridian_Web.Services.Abstract
         public  void FindPers(AddViewModel model,Product product);
 
         public   Task<AddViewModel> GetViewForModel(AddViewModel model);
-        public  Task<UpdateViewModel> GetViewForModel(UpdateViewModel model);
+        //public  Task<UpdateViewModel> GetViewForModel(UpdateViewModel model);
 
     }
 }

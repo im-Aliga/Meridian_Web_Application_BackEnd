@@ -49,9 +49,6 @@ namespace Meridian_Web.Services.Concretes
             return model;
         }
 
-        public Task<UpdateViewModel> GetViewForModel(UpdateViewModel model)
-        {
-            
-        }
+       
     }
 }

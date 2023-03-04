@@ -1,0 +1,72 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.Product
+
+@model UpdateViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Update Product</h4>
+            <form method="POST" asp-route="admin-update-add" asp-route-id="@Model.Id" class="forms-sample">
+                <div class="form-group">
+                    <label>Discount</label>
+                    <select asp-for="DiscountIds" asp-items="@(new SelectList(Model.Discounts, nameof(DiscountListViewModel.Id), nameof(DiscountListViewModel.Title)))" class="js-example-basic-multiple" style="width:100%">
+                    </select>
+                    <span asp-validation-for="DiscountIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Colors</label>
+                    <select asp-for="ColorIds" asp-items="@(new SelectList(Model.Colors, nameof(ColorListItemViewModel.Id), nameof(ColorListItemViewModel.Name)))" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                    </select>
+                    <span asp-validation-for="ColorIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Sizies</label>
+                    <select asp-for="SizeIds" asp-items="@(new SelectList(Model.Sizes, nameof(SizeListItemViewModel.Id), nameof(SizeListItemViewModel.Name)))" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                    </select>
+                    <span asp-validation-for="SizeIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Brands</label>
+                    <select asp-for="BrandsIds" asp-items="@(new SelectList(Model.Brands, nameof(BrandListItemViewModel.Id), nameof(BrandListItemViewModel.Title)))" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                    </select>
+                    <span asp-validation-for="BrandsIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Categories</label>
+                    <select asp-for="CategoryIds" asp-items="@(new SelectList(Model.Categories, nameof(CatagoryListItemViewModel.Id), nameof(CatagoryListItemViewModel.Title)))" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                    </select>
+                    <span asp-validation-for="CategoryIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Tags</label>
+                    <select asp-for="TagIds" asp-items="@(new SelectList(Model.Tags, nameof(TagListItemViewModel.Id), nameof(TagListItemViewModel.Tagname)))" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                    </select>
+                    <span asp-validation-for="TagIds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Content">Description</label>
+                    <textarea asp-for="Content" class="form-control" id="exampleTextarea1" rows="4" placeholder="Description"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" placeholder="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InStock"></label>
+                    <input asp-for="InStock" class="form-control" placeholder="InStock">
+                    <span asp-validation-for="InStock" class="text-danger"></span>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>

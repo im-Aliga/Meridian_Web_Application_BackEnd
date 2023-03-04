@@ -169,13 +169,13 @@ namespace Meridian_Web.Areas.Admin.Controllers
 
             if (model.DiscountIds != null)
             {
-                var discounts = _dataContext.ProductDisconts.Select(d => d.DiscontId).ToList();
+                var discounts = await _dataContext.ProductDisconts.Select(d => d.DiscontId).ToListAsync();
                 var items = discounts.Intersect(model.DiscountIds).ToList();
 
 
                 foreach (var item in items)
                 {
-                    var discasount = _dataContext.Disconts.FirstOrDefault(pd => pd.Id == item);
+                    var discasount =  await _dataContext.Disconts.FirstOrDefaultAsync(pd => pd.Id == item);
                     if (discasount != null)
                     {
                         decimal discountPercentage = discasount.DiscontPers;
@@ -357,8 +357,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
                     {
                         ModelState.AddModelError(string.Empty, "Something went wrong");
                         _logger.LogWarning($"Brand with id({discountId}) not found in db ");
-                        model = await _productService.GetViewForModel(model);
-                        return View(model);
+                        return GetView(model);
                     }
 
                 }
@@ -371,8 +370,8 @@ namespace Meridian_Web.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Something went wrong");
                     _logger.LogWarning($"Brand with id({brandId}) not found in db ");
-                    model = await _productService.GetViewForModel(model);
-                    return View(model);
+                   
+                    return GetView(model);
                 }
 
             }
@@ -383,8 +382,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Something went wrong");
                     _logger.LogWarning($"Category with id({categoryId}) not found in db ");
-                    model = await _productService.GetViewForModel(model);
-                    return View(model);
+                    return GetView(model);
                 }
 
             }
@@ -395,8 +393,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Something went wrong");
                     _logger.LogWarning($"Size with id({sizeId}) not found in db ");
-                    model = await _productService.GetViewForModel(model);
-                    return View(model);
+                    return GetView(model);
                 }
 
             }
@@ -407,8 +404,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Something went wrong");
                     _logger.LogWarning($"Color with id({colorId}) not found in db ");
-                    model = await _productService.GetViewForModel(model);
-                    return View(model);
+                    return GetView(model);
                 }
 
             }
@@ -419,19 +415,21 @@ namespace Meridian_Web.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Something went wrong");
                     _logger.LogWarning($"Tag with id({tagId}) not found in db ");
-                    model = await _productService.GetViewForModel(model);
-                    return View(model);
+                    return GetView(model);
                 }
 
             }
+            
 
+            product.Title = model.Title;
+            product.Content = model.Content;
+            product.Price = model.Price;
+            product.InStock = model.InStock;
 
-            UpdateProductAsync();
             if (model.DiscountIds != null)
             {
                 var discounts = _dataContext.ProductDisconts.Select(d => d.DiscontId).ToList();
                 var items = discounts.Intersect(model.DiscountIds).ToList();
-
 
                 foreach (var item in items)
                 {
@@ -448,6 +446,142 @@ namespace Meridian_Web.Areas.Admin.Controllers
                     }
                 }
             }
+            else
+            {
+
+                product.DiscountPrice =null;
+                product.ProductDisconts = null;
+                
+
+
+            }
+
+
+
+            #region Catagory
+            var categoriesInDb = product.ProductCatagories.Select(bc => bc.CategoryId).ToList();
+            var categoriesToRemove = categoriesInDb.Except(model.CategoryIds).ToList();
+            var categoriesToAdd = model.CategoryIds.Except(categoriesInDb).ToList();
+
+            product.ProductCatagories.RemoveAll(bc => categoriesToRemove.Contains(bc.CategoryId));
+
+            foreach (var categoryId in categoriesToAdd)
+            {
+                var productCategory = new ProductCatagory
+                {
+                    CategoryId = categoryId,
+                    Product = product,
+                };
+
+                await _dataContext.ProductCatagories.AddAsync(productCategory);
+            }
+            #endregion
+
+            #region Color
+            var colorInDb = product.ProductColors.Select(bc => bc.ColorId).ToList();
+            var colorToRemove = colorInDb.Except(model.ColorIds).ToList();
+            var colorToAdd = model.ColorIds.Except(colorInDb).ToList();
+
+            product.ProductColors.RemoveAll(bc => colorToRemove.Contains(bc.ColorId));
+
+
+            foreach (var colorId in colorToAdd)
+            {
+                var productColor = new ProductColor
+                {
+                    ColorId = colorId,
+                    Product = product,
+                };
+
+                await _dataContext.ProductColors.AddAsync(productColor);
+            }
+            #endregion
+
+            #region Size
+            var sizeInDb = product.ProductSizes.Select(bc => bc.SizeId).ToList();
+            var sizeToRemove = sizeInDb.Except(model.SizeIds).ToList();
+            var sizeToAdd = model.SizeIds.Except(sizeInDb).ToList();
+
+            product.ProductSizes.RemoveAll(bc => sizeToRemove.Contains(bc.SizeId));
+
+
+            foreach (var sizeId in sizeToAdd)
+            {
+                var productSize = new ProductSize
+                {
+                    SizeId = sizeId,
+                    Product = product,
+                };
+
+                await _dataContext.ProductSizes.AddAsync(productSize);
+            }
+
+            #endregion
+
+            #region Tag
+            var tagInDb = product.ProductTags.Select(bc => bc.TagId).ToList();
+            var tagToRemove = tagInDb.Except(model.TagIds).ToList();
+            var tagToAdd = model.TagIds.Except(tagInDb).ToList();
+
+            product.ProductTags.RemoveAll(bc => tagToRemove.Contains(bc.TagId));
+
+
+            foreach (var tagId in tagToAdd)
+            {
+                var productTag = new ProductTag
+                {
+                    TagId = tagId,
+                    Product = product,
+                };
+
+                await _dataContext.ProductTags.AddAsync(productTag);
+            }
+            #endregion
+
+            #region Brand
+            var brandInDb = product.ProductBrands.Select(bc => bc.BrandId).ToList();
+            var brandToRemove = brandInDb.Except(model.BrandsIds).ToList();
+            var brandToAdd = model.BrandsIds.Except(brandInDb).ToList();
+
+            product.ProductBrands.RemoveAll(bc => brandToRemove.Contains(bc.BrandId));
+
+
+            foreach (var brandId in brandToAdd)
+            {
+                var productBrand = new ProductBrand
+                {
+                    BrandId = brandId,
+                    Product = product,
+                };
+
+                await _dataContext.ProductBrands.AddAsync(productBrand);
+            }
+            #endregion
+
+            #region Discount
+
+            if (model.DiscountIds != null)
+            {
+                var discountInDb = product.ProductDisconts.Select(bc => bc.DiscontId).ToList();
+                var discountToRemove = discountInDb.Except(model.DiscountIds).ToList();
+                var discountToAdd = model.DiscountIds.Except(discountInDb).ToList();
+
+                product.ProductDisconts.RemoveAll(bc => discountToRemove.Contains(bc.DiscontId));
+
+
+                foreach (var discountId in discountToAdd)
+                {
+                    var productDiscount = new ProductDiscont
+                    {
+                        DiscontId = discountId,
+                        Product = product,
+                    };
+
+                    await _dataContext.ProductDisconts.AddAsync(productDiscount);
+                }
+            }
+
+            #endregion
             await _dataContext.SaveChangesAsync();
 
             return RedirectToRoute("admin-product-list");
@@ -492,140 +626,25 @@ namespace Meridian_Web.Areas.Admin.Controllers
 
                 return View(model);
             }
-            async Task UpdateProductAsync()
+            
+
+        }
+        #endregion
+
+        #region Delete
+        [HttpPost("delete/{id}", Name = "admin-product-delete")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
+        {
+            var products = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (products is null)
             {
-                product.Title = model.Title;
-                product.Content = model.Content;
-                product.Price = model.Price;
-                product.InStock = model.InStock;
-
-
-                #region Catagory
-                var categoriesInDb = product.ProductCatagories.Select(bc => bc.CategoryId).ToList();
-                var categoriesToRemove = categoriesInDb.Except(model.CategoryIds).ToList();
-                var categoriesToAdd = model.CategoryIds.Except(categoriesInDb).ToList();
-
-                product.ProductCatagories.RemoveAll(bc => categoriesToRemove.Contains(bc.CategoryId));
-
-                foreach (var categoryId in categoriesToAdd)
-                {
-                    var productCategory = new ProductCatagory
-                    {
-                        CategoryId = categoryId,
-                        Product = product,
-                    };
-
-                    await _dataContext.ProductCatagories.AddAsync(productCategory);
-                }
-                #endregion
-
-                #region Color
-                var colorInDb = product.ProductColors.Select(bc => bc.ColorId).ToList();
-                var colorToRemove = colorInDb.Except(model.ColorIds).ToList();
-                var colorToAdd = model.ColorIds.Except(colorInDb).ToList();
-
-                product.ProductColors.RemoveAll(bc => colorToRemove.Contains(bc.ColorId));
-
-
-                foreach (var colorId in colorToAdd)
-                {
-                    var productColor = new ProductColor
-                    {
-                        ColorId = colorId,
-                        Product = product,
-                    };
-
-                    await _dataContext.ProductColors.AddAsync(productColor);
-                }
-                #endregion
-
-                #region Size
-                var sizeInDb = product.ProductSizes.Select(bc => bc.SizeId).ToList();
-                var sizeToRemove = sizeInDb.Except(model.SizeIds).ToList();
-                var sizeToAdd = model.SizeIds.Except(sizeInDb).ToList();
-
-                product.ProductSizes.RemoveAll(bc => sizeToRemove.Contains(bc.SizeId));
-
-
-                foreach (var sizeId in sizeToAdd)
-                {
-                    var productSize = new ProductSize
-                    {
-                        SizeId = sizeId,
-                        Product = product,
-                    };
-
-                    await _dataContext.ProductSizes.AddAsync(productSize);
-                }
-
-                #endregion
-
-                #region Tag
-                var tagInDb = product.ProductTags.Select(bc => bc.TagId).ToList();
-                var tagToRemove = tagInDb.Except(model.TagIds).ToList();
-                var tagToAdd = model.TagIds.Except(tagInDb).ToList();
-
-                product.ProductTags.RemoveAll(bc => tagToRemove.Contains(bc.TagId));
-
-
-                foreach (var tagId in tagToAdd)
-                {
-                    var productTag = new ProductTag
-                    {
-                        TagId = tagId,
-                        Product = product,
-                    };
-
-                    await _dataContext.ProductTags.AddAsync(productTag);
-                }
-                #endregion
-
-                #region Brand
-                var brandInDb = product.ProductBrands.Select(bc => bc.BrandId).ToList();
-                var brandToRemove = brandInDb.Except(model.BrandsIds).ToList();
-                var brandToAdd = model.BrandsIds.Except(brandInDb).ToList();
-
-                product.ProductBrands.RemoveAll(bc => brandToRemove.Contains(bc.BrandId));
-
-
-                foreach (var brandId in brandToAdd)
-                {
-                    var productBrand = new ProductBrand
-                    {
-                        BrandId = brandId,
-                        Product = product,
-                    };
-
-                    await _dataContext.ProductBrands.AddAsync(productBrand);
-                }
-                #endregion
-
-                #region Discount
-
-                if (model.DiscountIds != null)
-                {
-                    var discountInDb = product.ProductDisconts.Select(bc => bc.DiscontId).ToList();
-                    var discountToRemove = discountInDb.Except(model.DiscountIds).ToList();
-                    var discountToAdd = model.DiscountIds.Except(discountInDb).ToList();
-
-                    product.ProductDisconts.RemoveAll(bc => discountToRemove.Contains(bc.DiscontId));
-
-
-                    foreach (var discountId in discountToAdd)
-                    {
-                        var productDiscount = new ProductDiscont
-                        {
-                            DiscontId = discountId,
-                            Product = product,
-                        };
-
-                        await _dataContext.ProductDisconts.AddAsync(productDiscount);
-                    }
-                }
-                
-                #endregion
+                return NotFound();
             }
 
+            _dataContext.Products.Remove(products);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToRoute("admin-product-list");
         }
         #endregion
     }
