@@ -10,9 +10,6 @@ namespace Meridian_Web.Areas.Admin.Validators.Admin.BlogFile
             RuleFor(f => f.File)
            .NotNull().WithMessage("Please select a file.")
            .NotEmpty().WithMessage("file can't be empty");
-           //.Must(f => f.Length >= 0).WithMessage("The file is empty.")
-           //.Must(file => file.Length <= 1024 * 1024 * 100).WithMessage("The file size must not exceed 100 MB.");
-
             RuleFor(model => model)
           .Must(HaveExactlyOneCheckboxSelected).WithMessage("Please select exactly one checkbox.");
 

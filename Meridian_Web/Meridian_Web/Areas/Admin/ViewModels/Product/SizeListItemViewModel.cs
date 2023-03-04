@@ -1,4 +1,4 @@
-﻿namespace Meridian_Web.Areas.Admin.ViewModels.Plant
+﻿namespace Meridian_Web.Areas.Admin.ViewModels.Product
 {
     public class SizeListItemViewModel
     {
