@@ -83,7 +83,7 @@ namespace Meridian_Web.Services.Concretes
             switch (uploadDirectory)
             {
                 case UploadDirectory.Product:
-                    return $"{initialSegment}/product/{fileName}";
+                    return $"{initialSegment}/products/{fileName}";
                 case UploadDirectory.Slider:
                     return $"{initialSegment}/sliders/{fileName}";
                 case UploadDirectory.Banner:
