@@ -29,9 +29,9 @@ namespace Meridian_Web.Areas.Admin.Validators.Admin.ContactInformation
 
                  RuleFor(avm => avm.Content)
                 .NotNull()
-                .WithMessage("ToURL can't be empty")
+                .WithMessage("Content can't be empty")
                 .NotEmpty()
-                .WithMessage("ToURL can't be empty")
+                .WithMessage("Content can't be empty")
                 .MinimumLength(2)
                 .WithMessage("Minimum length should be 2")
                 .MaximumLength(50)
