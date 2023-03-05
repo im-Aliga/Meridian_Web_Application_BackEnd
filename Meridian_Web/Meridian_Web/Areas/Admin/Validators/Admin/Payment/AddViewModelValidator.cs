@@ -17,15 +17,15 @@ namespace Meridian_Web.Areas.Admin.Validators.Admin.Payment
                 .MaximumLength(40)
                 .WithMessage("Maximum length should be 40");
 
-            RuleFor(avm => avm.Content)
-           .NotNull()
-           .WithMessage("Content can't be empty")
-           .NotEmpty()
-           .WithMessage("Content can't be empty")
-           .MinimumLength(2)
-           .WithMessage("Minimum length should be 2")
-           .MaximumLength(50)
-           .WithMessage("Maximum length should be 50");
+               RuleFor(avm => avm.Content)
+               .NotNull()
+               .WithMessage("Content can't be empty")
+               .NotEmpty()
+               .WithMessage("Content can't be empty")
+               .MinimumLength(2)
+               .WithMessage("Minimum length should be 2")
+               .MaximumLength(50)
+               .WithMessage("Maximum length should be 50");
 
             RuleFor(f => f.Image)
                .NotNull()
