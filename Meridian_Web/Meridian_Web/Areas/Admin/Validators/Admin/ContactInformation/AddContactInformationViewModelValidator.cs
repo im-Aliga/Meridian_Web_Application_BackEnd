@@ -3,9 +3,9 @@ using Meridian_Web.Areas.Admin.ViewModels.ContactInformation;
 
 namespace Meridian_Web.Areas.Admin.Validators.Admin.ContactInformation
 {
-    public class AddViewModelValidator : AbstractValidator<AddContactInformationViewModel>
+    public class AddContactInformationViewModelValidator : AbstractValidator<AddContactInformationViewModel>
     {
-        public AddViewModelValidator()
+        public AddContactInformationViewModelValidator()
         {
                   RuleFor(avm => avm.Title)
                  .NotNull()

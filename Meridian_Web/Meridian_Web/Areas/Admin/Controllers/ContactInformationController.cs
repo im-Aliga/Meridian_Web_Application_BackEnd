@@ -105,7 +105,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
         }
 
         [HttpPost("update/{id}", Name = "admin-contactinformation-update")]
-        public async Task<IActionResult> UpdateAsync(AddBannerViewModel model)
+        public async Task<IActionResult> UpdateAsync(AddContactInformationViewModel model)
         {
             var contactInformation = await _dataContext.ContactInformations.FirstOrDefaultAsync(b => b.Id == model.Id);
             if (contactInformation is null)
