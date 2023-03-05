@@ -1,0 +1,47 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.ContactInformation
+@model List<ListContactInformationViewModel>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title mt-5">Contact Informations Benefits</h4>
+            <a asp-route="admin-contactinformation-add" class="btn btn-danger btn-lg mb-5 m">Add New Contact Informations </a>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Main Content</th>
+                            <th>Content</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ci in Model)
+                        {
+                            <tr>
+                                <td><img style="width:50%;height:50%; border-radius:0" src="~/@ci.ImageUrl"></td>
+                                <td>@ci.Title</td>
+                                <td>@ci.MainContext</td>
+                                <td>@ci.Context</td>
+                                <td>@ci.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                <td>@ci.UpdatedAt.ToString("dd/MM/yyyy")</td>
+
+                                <td class="text-end">
+                                    <a asp-route="admin-contactinformation-update" asp-route-id="@ci.Id" class="btn-outline-secondary p-3">Update</a>
+
+                                    <form class="d-none" method="POST" asp-route="admin-contactinformation-delete" asp-route-id="@ci.Id" id="delete-@ci.Id">
+                                    </form>
+
+                                    <button type="submit" form="delete-@ci.Id" class="btn-outline-danger p-3">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,5 +9,6 @@
         FeedBack= 16,
         Blog= 32,
         Brand= 64,
+        ContactInformation=128,
     }
 }

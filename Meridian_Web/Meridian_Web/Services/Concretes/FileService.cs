@@ -66,6 +66,8 @@ namespace Meridian_Web.Services.Concretes
                     return Path.Combine(startPath, "blogs");
                 case UploadDirectory.Brand:
                     return Path.Combine(startPath, "brands");
+                case UploadDirectory.ContactInformation:
+                    return Path.Combine(startPath, "contactinformations");
                 default:
                     throw new Exception("Something went wrong");
             }
@@ -96,6 +98,8 @@ namespace Meridian_Web.Services.Concretes
                     return $"{initialSegment}/blogs/{fileName}";
                 case UploadDirectory.Brand:
                     return $"{initialSegment}/brands/{fileName}";
+                case UploadDirectory.ContactInformation:
+                    return $"{initialSegment}/contactinformations/{fileName}";
                 default:
                     throw new Exception("Something went wrong");
             }
