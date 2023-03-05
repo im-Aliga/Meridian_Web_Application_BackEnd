@@ -37,6 +37,8 @@ namespace Meridian_Web.Areas.Admin.Validators.Admin.Banner
                 .MaximumLength(50)
                 .WithMessage("Maximum length should be 50");
 
+
+                
         }
     }
 }

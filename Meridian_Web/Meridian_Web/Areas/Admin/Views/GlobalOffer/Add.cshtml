@@ -1,0 +1,42 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.GlobalOffer
+
+@model AddViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Add New Global Offer</h4>
+            <form method="POST" asp-route="admin-globaloffer-add" class="forms-sample">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MainContext"></label>
+                    <input asp-for="MainContext" class="form-control" placeholder="MainContext">
+                    <span asp-validation-for="MainContext" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Context">Textarea</label>
+                    <textarea asp-for="Context" class="form-control" id="exampleTextarea1" rows="4" placeholder="Context"></textarea>
+                    <span asp-validation-for="Context" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ButtonContext"></label>
+                    <input asp-for="ButtonContext" class="form-control" placeholder="ButtonContext">
+                    <span asp-validation-for="ButtonContext" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferTime"></label>
+                    <div class="date">
+                        <input asp-for="OfferTime" class="salsa-calendar-input form-control" />
+                    </div>
+                    <span asp-validation-for="OfferTime" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>
