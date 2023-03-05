@@ -57,13 +57,14 @@ namespace Meridian_Web.Areas.Admin.Controllers
 
                 return View(model);
             }
+            var address = await CreateUserAddress();
             var user = await CreateUser();
 
             await _dataContext.SaveChangesAsync();
 
             async Task<Basket> CreateBasketAsync()
             {
-                //Create basket process
+               
                 var basket = new Basket
                 {
                     User = user,
@@ -75,7 +76,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
             }
             async Task<Wishlist> CreateWishlistAsync()
             {
-                //Create basket process
+              
                 var wishlist = new Wishlist
                 {
                     User = user,
@@ -86,19 +87,6 @@ namespace Meridian_Web.Areas.Admin.Controllers
                 return wishlist;
             }
 
-            async Task<string> RequiredPassword(string password, string comfirmPassword)
-            {
-                if (password == comfirmPassword)
-                {
-                    BC.HashPassword(password);
-                }
-                else
-                {
-                    return await Task.FromResult("The password and confirm password do not match.");
-                }
-                return password;
-            }
-
             async Task<User> CreateUser()
             {
                 var user = new User
@@ -106,9 +94,8 @@ namespace Meridian_Web.Areas.Admin.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Password = await RequiredPassword(model.Password,model.ConfirmPassword),
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    UserAddress=address,
+                    Password = BC.HashPassword(model.Password),
                     RoleId = model.RoleId,
 
                 };
@@ -116,6 +103,20 @@ namespace Meridian_Web.Areas.Admin.Controllers
 
                 await _dataContext.Users.AddAsync(user);
                 return user;
+            }
+
+            async Task<UserAddress> CreateUserAddress()
+            {
+                var address = new UserAddress
+                {
+                    City = model.Address.City,
+                    Address = model.Address.Address,
+
+                };
+
+
+                await _dataContext.UserAddresses.AddAsync(address);
+                return address;
             }
 
             IActionResult GetView()
