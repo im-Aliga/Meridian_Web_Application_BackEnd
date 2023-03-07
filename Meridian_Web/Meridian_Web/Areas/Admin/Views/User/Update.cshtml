@@ -1,16 +1,16 @@
 ﻿@using Meridian_Web.Areas.Admin.ViewModels.Role
 @using Meridian_Web.Areas.Admin.ViewModels.User
 
-@model AddUserViewModel
+@model UpdateUserViewModel
 <div class="col-12 grid-margin stretch-card">
     <div class="card mt-2">
         <div class="card-body">
             <h4 class="card-title">Add New User</h4>
-            <form method="POST" asp-route="admin-user-add" class="forms-sample">
+            <form method="POST" asp-route="admin-user-update" asp-route-id="@Model.Id" class="forms-sample">
                 <div class="form-group">
                     <label>Roles</label>
                     <select asp-for="RoleId" asp-items="@(new SelectList(Model.Roles, nameof(RoleViewModel.Id), nameof(RoleViewModel.Name)))" class="js-example-basic-single" style="width:100%">
-                      <option value="">User</option>
+                        <option value="">User</option>
                     </select>
                     <span asp-validation-for="RoleId" class="text-danger"></span>
                 </div>

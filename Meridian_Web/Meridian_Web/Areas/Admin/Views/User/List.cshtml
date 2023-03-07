@@ -17,6 +17,7 @@
                             <th>Password Hash</th>
                             <th>City</th>
                             <th>Address </th>
+                            <th>Role</th>
                             <th>Created</th>
                             <th>Updated</th>
                         </tr>
@@ -32,6 +33,14 @@
                                 <td>@user.Password</td>
                                 <td>@user.Address.City</td>
                                 <td>@user.Address.Address</td>
+                                @if (@user.Roles != null)
+                                {
+                                    <td>@user.Roles</td>
+                                }
+                                @if (@user.Roles == null)
+                                {
+                                    <td>User</td>
+                                }
                                 <td>@user.CreatedAt.ToString("dd/MM/yyyy")</td>
                                 <td>@user.UpdatedAt.ToString("dd/MM/yyyy")</td>
 
