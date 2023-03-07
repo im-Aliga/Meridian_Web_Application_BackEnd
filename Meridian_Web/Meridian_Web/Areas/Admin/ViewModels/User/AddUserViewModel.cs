@@ -10,10 +10,10 @@ namespace Meridian_Web.Areas.Admin.ViewModels.User
         public string LastName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
         public int? RoleId { get; set; }
         public List<RoleViewModel>? Roles { get; set; }
         public UserAddress? Address { get; set; }
+
+       
     }
 }

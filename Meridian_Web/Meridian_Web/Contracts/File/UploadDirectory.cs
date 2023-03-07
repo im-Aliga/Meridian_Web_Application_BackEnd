@@ -10,5 +10,6 @@
         Blog= 32,
         Brand= 64,
         ContactInformation=128,
+        TeamMember= 256,
     }
 }

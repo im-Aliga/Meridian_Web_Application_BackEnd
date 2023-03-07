@@ -2,13 +2,16 @@
 {
     public class RoleViewModel
     {
+
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public RoleViewModel(int id, string name)
+        public RoleViewModel(int ıd, string name)
         {
-            Id = id;
+            Id = ıd;
             Name = name;
         }
+      
+       
     }
 }
