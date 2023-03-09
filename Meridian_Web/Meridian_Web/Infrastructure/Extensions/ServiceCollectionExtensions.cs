@@ -8,6 +8,9 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
+using System.Globalization;
 
 namespace Meridian_Web.Infrastructure.Extensions
 {
@@ -23,6 +26,7 @@ namespace Meridian_Web.Infrastructure.Extensions
                     o.LoginPath = "/auth/login";
                     o.AccessDeniedPath = "/admin/auth/login";
                 });
+            services.AddSession();
 
             services.AddHttpContextAccessor();
             
@@ -37,6 +41,8 @@ namespace Meridian_Web.Infrastructure.Extensions
             services.ConfigureFluentValidatios(configuration);
 
             services.RegisterCustomServices(configuration);
-        }
+
+            
+         }
     }
 }

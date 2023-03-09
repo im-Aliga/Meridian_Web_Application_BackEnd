@@ -25,7 +25,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
         {
             _dataContext = dataContext;
             _logger = logger;
-
+          
         }
         #region List
 

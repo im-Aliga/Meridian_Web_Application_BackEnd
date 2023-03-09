@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Meridian_Web.Areas.Admin.ViewComponents
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -128,25 +129,7 @@
 
                                                 <!--====== Dropdown ======-->
 
-                                                <span class="js-menu-toggle"></span>
-                                                <ul style="width:120px">
-                                                    <li>
-
-                                                        <a class="u-c-brand">ENGLISH</a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a>ARABIC</a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a>FRANCAIS</a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a>ESPANOL</a>
-                                                    </li>
-                                                </ul>
+                                                @Html.Partial("_LanguagePartial")
                                                 <!--====== End - Dropdown ======-->
                                             </li>
 
@@ -179,111 +162,7 @@
 
 
                         <!--====== Dropdown Main plugin ======-->
-                        <div class="menu-init" id="navigation2">
-
-                            <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog" type="button"></button>
-
-                            <!--====== Menu ======-->
-                            <div class="ah-lg-mode">
-
-                                <span class="ah-close">✕ Close</span>
-
-                                <!--====== List ======-->
-                                <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">HOME</a>
-                                    </li>
-                                    <li class="has-dropdown">
-
-                                        <a>PAGES<i class="fas fa-angle-down u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:170px">
-                                            <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                                <a>Catagories<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                                <!--====== Dropdown ======-->
-
-                                                <span class="js-menu-toggle"></span>
-                                                <ul style="width:118px">
-                                                    <li>
-
-                                                        <a href="index.html">Man</a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="index-2.html">Woman</a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="index-3.html">Glasses</a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="index-3.html">Wallets</a>
-                                                    </li>
-                                                </ul>
-                                                <!--====== End - Dropdown ======-->
-                                            </li>
-
-
-
-                                            <li>
-
-                                                <a href="cart.html">Cart</a>
-                                            </li>
-                                            <li>
-
-                                                <a href="wishlist.html">Wishlist</a>
-                                            </li>
-                                            <li>
-
-                                                <a href="checkout.html">Checkout</a>
-                                            </li>
-                                            <li>
-
-                                                <a href="faq.html">FAQ</a>
-                                            </li>
-                                            <li>
-
-                                                <a href="about.html">About us</a>
-                                            </li>
-                                            <li>
-
-                                                <a href="contact.html">Contact</a>
-                                            </li>
-                                            <li>
-
-                                                <a href="404.html">404</a>
-                                            </li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li>
-
-                                        <a>BLOG</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">SHOP</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">ABOUT US</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">CONTACT</a>
-                                    </li>
-                                </ul>
-                                <!--====== End - List ======-->
-                            </div>
-                            <!--====== End - Menu ======-->
-                        </div>
+                        @await Component.InvokeAsync(nameof(NavbarViewHeaderComponent))
                         <!--====== End - Dropdown Main plugin ======-->
                         <!--====== Dropdown Main plugin ======-->
                         <div class="menu-init" id="navigation3">

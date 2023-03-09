@@ -1,0 +1,60 @@
+﻿@using Meridian_Web.Database.Models
+@model List<Navbar>
+<div class="menu-init" id="navigation2">
+
+    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog" type="button"></button>
+
+    <!--====== Menu ======-->
+    <div class="ah-lg-mode">
+
+        <span class="ah-close">✕ Close</span>
+
+        <!--====== List ======-->
+        <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
+
+            @foreach(var navItem in Model)
+            {
+                @if (navItem.SubNavbars.Count == 0)
+                {
+                    <li>
+                        <a asp-route="@navItem.Url">@navItem.Title</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="has-dropdown">
+
+                        <a asp-route="@navItem.Url">@navItem.Title<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+
+                        <!--====== Dropdown ======-->
+
+                        <span class="js-menu-toggle"></span>
+                        <ul style="width:170px">
+                            @foreach (var subNav in navItem.SubNavbars)
+                            {
+                                <li class="has-dropdown has-dropdown--ul-left-100">
+
+                                    <a asp-route="@subNav.Url">@subNav.Title<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
+
+                                </li>
+                            }
+
+
+
+
+                        </ul>
+                        <!--====== End - Dropdown ======-->
+                    </li>
+                }
+               
+               
+
+
+
+            }
+           
+        </ul>
+        <!--====== End - List ======-->
+    </div>
+    <!--====== End - Menu ======-->
+</div>
