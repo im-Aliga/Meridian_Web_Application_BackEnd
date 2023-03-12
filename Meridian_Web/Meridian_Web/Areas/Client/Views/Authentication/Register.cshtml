@@ -1,0 +1,118 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Authentication
+@model RegisterViewModel
+
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-60">
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="breadcrumb">
+                    <div class="breadcrumb__wrap">
+                        <ul class="breadcrumb__list">
+                            <li class="has-separator">
+
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="is-marked">
+
+                                <a href="signup.html">Signup</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section 1 ======-->
+    <!--====== Section 2 ======-->
+    <div class="u-s-p-b-60">
+
+        <!--====== Section Intro ======-->
+        <div class="section__intro u-s-m-b-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            <h1 class="section__heading u-c-secondary">CREATE AN ACCOUNT</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Intro ======-->
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="row row--center">
+                    <div class="col-lg-6 col-md-8 u-s-m-b-30">
+                        <div class="l-f-o">
+                            <div class="l-f-o__pad-box">
+                                <h1 class="gl-h1">PERSONAL INFORMATION</h1>
+                                <form method="POST" asp-route="client-auth-register" class="l-f-o__form">
+                                    <div class="gl-s-api">
+
+                                        <div class="u-s-m-b-30">
+
+                                            <button class="gl-s-api__btn gl-s-api__btn--gplus" type="button">
+                                                <i class="fab fa-google"></i>
+
+                                                <span>Signup with Google</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="reg-fname">FIRST NAME *</label>
+
+                                        <input asp-for="FirstName" class="input-text input-text--primary-style" type="text" id="reg-fname" placeholder="First Name">
+                                        <span asp-validation-for="FirstName"></span>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="reg-lname">LAST NAME *</label>
+
+                                        <input asp-for="LastName" class="input-text input-text--primary-style" type="text" id="reg-lname" placeholder="Last Name">
+                                        <span asp-validation-for="LastName"></span>
+                                    </div>
+
+                                    <div class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="reg-email">E-MAIL *</label>
+
+                                        <input asp-for="Email" class="input-text input-text--primary-style" type="text" id="reg-email" placeholder="Enter E-mail">
+                                        <span asp-validation-for="Email"></span>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="reg-password">PASSWORD *</label>
+
+                                        <input asp-for="Password" class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Enter Password">
+                                        <span asp-validation-for="Password"></span>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+
+                                        <label class="gl-label" for="reg-password">CONFIRM PASSWORD *</label>
+
+                                        <input asp-for="ConfirmPassword" class="input-text input-text--primary-style" type="text" id="reg-password" placeholder="Enter Confirm Password">
+                                        <span asp-validation-for="ConfirmPassword"></span>
+                                    </div>
+                                    <div class="u-s-m-b-15">
+
+                                        <button class="btn btn--e-transparent-brand-b-2" type="submit">CREATE</button>
+                                    </div>
+
+                                    <a class="gl-link" href="#">Return to Store</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+    <!--====== End - Section 2 ======-->
+</div>

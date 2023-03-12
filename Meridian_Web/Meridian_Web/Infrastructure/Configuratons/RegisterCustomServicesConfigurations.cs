@@ -1,5 +1,5 @@
 ﻿
-using BackEndFinalProject.Services.Concretes;
+using Meridian_Web.Services.Concretes;
 using Meridian_Web.Services.Abstract;
 using Meridian_Web.Services.Abstracts;
 using Meridian_Web.Services.Concretes;
@@ -13,8 +13,8 @@ namespace Meridian_Web.Infrastructure.Configurations
             services.AddScoped<IEmailService, SMTPService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IProductService, ProductService>();
-            //services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IUserActivationService, UserActivationService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserActivationService, UserActivationService>();
             //services.AddScoped<IBasketService, BasketService>();
             //services.AddScoped<IOrderService, OrderService>();
         }

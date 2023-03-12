@@ -87,7 +87,12 @@
                     <span class="pd-detail__preview-desc"> @Model.Description</span>
                 </div>
                 <div class="u-s-m-b-15">
-                    
+                    <span class="selector-title border-bottom-0">Color</span>
+                    <select style="width:30%" class="nice-select wide border-bottom-0 rounded-0" asp-items="@(new SelectList(Model.Colors, nameof(ModalViewModel.ColorViewModeL.Id), nameof(ModalViewModel.ColorViewModeL.Name)))"></select>
+                </div>
+                <div class="u-s-m-b-15">
+                    <span class="selector-title">Size</span>
+                    <select style="width:30%" class="nice-select wide rounded-0" asp-items="@(new SelectList(Model.Sizes, nameof(ModalViewModel.SizeViewModeL.Id), nameof(ModalViewModel.SizeViewModeL.Title)))"></select>
                 </div>
                 <div class="u-s-m-b-15">
                    

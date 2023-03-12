@@ -56,6 +56,8 @@ namespace Meridian_Web.Areas.Client.Controllers
             var product = await _dbContext.Products
                 .Include(p => p.ProductImages)
                 .Include(p=>p.ProductDisconts)
+                .Include(p=>p.ProductColors)
+                .Include(p=>p.ProductSizes)
                  .FirstOrDefaultAsync(p => p.Id == id);
 
 
@@ -63,9 +65,20 @@ namespace Meridian_Web.Areas.Client.Controllers
             {
                 return NotFound();
             }
-            var ProductDisconts = _dbContext.ProductDisconts
+            var productDisconts = await _dbContext.ProductDisconts
                 .Where(pd => pd.ProductId == product.Id)
-                .Include(pd => pd.Discont).Select(pd => new ModalViewModel.DiscountList(pd.Discont.Id, pd.Discont.DiscontPers)).ToList();
+                .Include(pd => pd.Discont)
+                .Select(pd => new ModalViewModel.DiscountList(pd.Discont.Id, pd.Discont.DiscontPers)).ToListAsync();
+
+            var productColors = await _dbContext.ProductColors
+                .Where(pc => pc.ProductId == product.Id)
+                .Include(pc => pc.Color)
+                .Select(pc => new ModalViewModel.ColorViewModeL(pc.Color.Name, pc.Color.Id)).ToListAsync();
+
+            var productSize = await _dbContext.ProductSizes
+                .Where(ps => ps.ProductId == product.Id)
+                .Include(pc => pc.Size)
+                .Select(pc => new ModalViewModel.SizeViewModeL(pc.Size.Name, pc.Size.Id)).ToListAsync();
 
 
             var model = new ModalViewModel(
@@ -78,9 +91,9 @@ namespace Meridian_Web.Areas.Client.Controllers
                 product.ProductImages!.Take(4).FirstOrDefault() != null
                 ? _fileService.GetFileUrl(product.ProductImages.Take(4).FirstOrDefault()!.ImageNameInFileSystem, UploadDirectory.Product)
                 : String.Empty,
-                 ProductDisconts
-
-
+                 productDisconts,
+                 productColors,
+                 productSize
                 );
 
             return PartialView("~/Areas/Client/Views/Shared/Partials/_ModalPartial.cshtml", model);

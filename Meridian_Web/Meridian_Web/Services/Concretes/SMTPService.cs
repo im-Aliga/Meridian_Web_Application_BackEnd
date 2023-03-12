@@ -5,7 +5,7 @@ using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace BackEndFinalProject.Services.Concretes
+namespace Meridian_Web.Services.Concretes
 {
     public class SMTPService : IEmailService
     {

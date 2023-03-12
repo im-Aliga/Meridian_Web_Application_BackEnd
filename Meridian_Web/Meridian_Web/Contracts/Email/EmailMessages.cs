@@ -10,7 +10,7 @@
 
         public static class Body
         {
-            public const string ACTIVATION_MESSAGE = $"Sizin activation urliniz : {EmailMessageKeywords.ACTIVATION_URL}";
+            public const string ACTIVATION_MESSAGE = $"Thanks for signing up with Meridian!\r\nYou must follow this link to activate your account : {EmailMessageKeywords.ACTIVATION_URL}";
         }
     }
 }

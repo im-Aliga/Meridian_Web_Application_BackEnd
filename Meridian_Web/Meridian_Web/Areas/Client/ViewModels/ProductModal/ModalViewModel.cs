@@ -3,17 +3,6 @@ namespace BackEndFinalProject.Areas.Client.ViewModels.Home.Modal
 {
     public class ModalViewModel
     {
-        public ModalViewModel(int ıd, string title, string description, decimal price, decimal? discountPrice, int ınStock, string ımgUrl, List<DiscountList>? discounts)
-        {
-            Id = ıd;
-            Title = title;
-            Description = description;
-            Price = price;
-            DiscountPrice = discountPrice;
-            InStock = ınStock;
-            ImgUrl = ımgUrl;
-            Discounts = discounts;
-        }
 
         public int Id { get; set; }
         public string Title { get; set; }
@@ -23,8 +12,23 @@ namespace BackEndFinalProject.Areas.Client.ViewModels.Home.Modal
         public int InStock { get; set; }
         public string ImgUrl { get; set; }
         public List<DiscountList>? Discounts { get; set; }
+        public List<ColorViewModeL> Colors { get; set; }
+        public List<SizeViewModeL> Sizes { get; set; }
+        public ModalViewModel(int ıd, string title, string description, decimal price, decimal? discountPrice, int ınStock, string ımgUrl, List<DiscountList>? discounts, List<ColorViewModeL> colors, List<SizeViewModeL> sizes)
+        {
+            Id = ıd;
+            Title = title;
+            Description = description;
+            Price = price;
+            DiscountPrice = discountPrice;
+            InStock = ınStock;
+            ImgUrl = ımgUrl;
+            Discounts = discounts;
+            Colors = colors;
+            Sizes = sizes;
+        }
 
-       
+
 
         public class DiscountList
         {
@@ -36,6 +40,28 @@ namespace BackEndFinalProject.Areas.Client.ViewModels.Home.Modal
 
             public int Id { get; set; }
             public int Percentage { get; set; }
+        }
+
+        public class SizeViewModeL
+        {
+            public SizeViewModeL(string title, int id)
+            {
+                Title = title;
+                Id = id;
+            }
+
+            public int Id { get; set; }
+            public string Title { get; set; }
+        }
+        public class ColorViewModeL
+        {
+            public ColorViewModeL(string name, int id)
+            {
+                Name = name;
+                Id = id;
+            }
+            public int Id { get; set; }
+            public string Name { get; set; }
         }
 
     }
