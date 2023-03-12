@@ -50,6 +50,539 @@ custom-colors, box-mode, custom-header, custom-menu, custom-logo, featured-image
 /**
  * Setup box-sizing
  */
+
+body {
+    font-family: "Roboto", sans-serif;
+    color: #ffffff;
+    background-color: #ffffff;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+
+
+.bezel-screen {
+    margin: auto;
+    width: 380px;
+    height: 464px;
+    border-radius: 4em;
+    position: relative;
+    background: #d0d0d0;
+    background: linear-gradient(to right, #d0d0d0 0%, #ebebeb 3%, #d0d0d0 7%, #d0d0d0 100%);
+}
+
+.glass-screen {
+    margin: auto;
+    width: 356px;
+    height: 438px;
+    background: #999999;
+    background: linear-gradient(to right, #999999 0%, #111111 10%, #111111 100%);
+    border-radius: 3.75em;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+}
+
+.inner-screen {
+    margin: auto;
+    width: 19.5em;
+    height: 390px;
+    position: absolute;
+    top: 24px;
+    right: 22px;
+}
+
+.counter-container {
+    width: 9em;
+    margin-left: 100px;
+}
+
+.text-container {
+    background-color: #333333;
+    border-radius: 25px;
+    margin-top: 100px;
+    opacity: 0.5;
+    position: absolute;
+    bottom: 1.25em;
+    right: 3.25em;
+}
+
+.main-text {
+    display: block;
+    font-size: 3.25em;
+    text-align: right;
+    width: 4em;
+}
+
+    .main-text.pink {
+        color: #fb2468;
+    }
+
+    .main-text.green {
+        color: #b3fe06;
+    }
+
+    .main-text.blue {
+        color: #10f4ee;
+    }
+
+.sub-text {
+    display: block;
+    font-size: 1.25em;
+    padding: 0 0.5em;
+    color: #ebebeb;
+    text-align: center;
+}
+
+.img {
+    display: block;
+    width: 50px;
+    margin: auto;
+}
+
+.icon-container {
+    background-color: #333333;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.animation-container {
+    position: absolute;
+    top: 150px;
+    left: 30px;
+}
+
+.arc-container {
+    position: absolute;
+    width: 10em;
+    height: 10em;
+    display: inline-block;
+}
+
+    .arc-container::before {
+        content: "";
+        width: 2em;
+        height: 2em;
+        position: absolute;
+        z-index: 10;
+    }
+
+    .arc-container::after {
+        content: "";
+        background: #111;
+        border-radius: 50%;
+        width: 8em;
+        height: 8em;
+        position: absolute;
+        top: 1em;
+        left: 1em;
+    }
+
+    .arc-container .progress-container {
+        width: 5em;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+    .arc-container .arc-fill {
+        background: #fb2468;
+        border-radius: 50%;
+        width: 5em;
+        height: 10em;
+        position: absolute;
+    }
+
+    .arc-container .arc-right {
+        left: 5em;
+    }
+
+        .arc-container .arc-right .arc-fill {
+            -webkit-animation: arc-fill-right 4s 1.2s infinite ease-in;
+            animation: arc-fill-right 4s 1.2s infinite ease-in;
+            border-radius: 10em 0 0 10em;
+            transform-origin: 100% 50%;
+            left: -5em;
+        }
+
+    .arc-container .arc-left {
+        left: 0em;
+    }
+
+        .arc-container .arc-left .arc-fill {
+            -webkit-animation: arc-fill-left 4s 1.2s infinite ease-in;
+            animation: arc-fill-left 4s 1.2s infinite ease-in;
+            background: #fb2468;
+            border-radius: 0 10em 10em 0;
+            transform-origin: 0 50%;
+            left: 5.1em;
+        }
+
+    .arc-container .arc-dot {
+        background: #fb2468;
+        border-radius: 50%;
+        height: 1em;
+        width: 1em;
+        position: absolute;
+        top: 0;
+        left: 4.5em;
+    }
+
+    .arc-container .end {
+        -webkit-animation: arc-dot-1 4s 1.2s infinite ease-in;
+        animation: arc-dot-1 4s 1.2s infinite ease-in;
+        transform-origin: 50% 5em;
+    }
+
+.arc-background {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+    .arc-background.pink {
+        background: #b6033c;
+    }
+
+    .arc-background.green {
+        background: #6e9d01;
+    }
+
+    .arc-background.blue {
+        background: #079793;
+    }
+
+.arc-container.second {
+    position: absolute;
+    width: 8em;
+    height: 8em;
+    top: 1em;
+    left: 1em;
+}
+
+    .arc-container.second::before {
+        content: "";
+        width: 1em;
+        height: 1em;
+        position: absolute;
+        z-index: 10;
+    }
+
+    .arc-container.second::after {
+        content: "";
+        background: #111;
+        border-radius: 50%;
+        width: 6em;
+        height: 6em;
+        position: absolute;
+        top: 1em;
+        left: 1em;
+    }
+
+    .arc-container.second .progress-container {
+        width: 4em;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+    .arc-container.second .arc-fill {
+        background: #b3fe06;
+        border-radius: 50%;
+        width: 4em;
+        height: 8em;
+        position: absolute;
+    }
+
+    .arc-container.second .arc-right {
+        left: 4em;
+    }
+
+        .arc-container.second .arc-right .arc-fill {
+            -webkit-animation: arc-fill-2 4s 1.5s infinite ease-in-out;
+            animation: arc-fill-2 4s 1.5s infinite ease-in-out;
+            position: absolute;
+            border-radius: 8em 0 0 8em;
+            transform-origin: 100% 50%;
+            background: #b3fe06;
+            left: -4em;
+        }
+
+    .arc-container.second .arc-dot {
+        background: #b3fe06;
+        border-radius: 50%;
+        height: 1em;
+        width: 1em;
+        position: absolute;
+        top: 0;
+        left: 3.5em;
+    }
+
+    .arc-container.second .end {
+        -webkit-animation: arc-dot-2 4s 1.5s infinite ease-in-out;
+        animation: arc-dot-2 4s 1.5s infinite ease-in-out;
+        transform-origin: 50% 4em;
+    }
+
+.arc-container.third {
+    position: absolute;
+    width: 6em;
+    height: 6em;
+    top: 2em;
+    left: 2em;
+}
+
+    .arc-container.third::before {
+        content: "";
+        width: 1.5em;
+        height: 1.5em;
+        position: absolute;
+        z-index: 10;
+    }
+
+    .arc-container.third::after {
+        content: "";
+        background: #111;
+        border-radius: 50%;
+        width: 4em;
+        height: 4em;
+        position: absolute;
+        top: 1em;
+        left: 1em;
+    }
+
+    .arc-container.third .progress-container {
+        width: 3em;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+    .arc-container.third .arc-fill {
+        background: #10f4ee;
+        border-radius: 50%;
+        width: 3em;
+        height: 6em;
+        position: absolute;
+    }
+
+    .arc-container.third .arc-right {
+        left: 3em;
+    }
+
+        .arc-container.third .arc-right .arc-fill {
+            background: #10f4ee;
+            -webkit-animation: arc-fill-3 4s 1.5s infinite ease-in-out;
+            animation: arc-fill-3 4s 1.5s infinite ease-in-out;
+            position: absolute;
+            border-radius: 8em 0 0 8em;
+            transform-origin: 100% 50%;
+            left: -3em;
+        }
+
+    .arc-container.third .arc-dot {
+        background: #10f4ee;
+        border-radius: 50%;
+        height: 1em;
+        width: 1em;
+        position: absolute;
+        top: 0;
+        left: 2.5em;
+    }
+
+    .arc-container.third .end {
+        -webkit-animation: arc-dot-3 4s 1.5s infinite ease-in-out;
+        animation: arc-dot-3 4s 1.5s infinite ease-in-out;
+        transform-origin: 50% 3em;
+    }
+
+@-webkit-keyframes arc-fill-right {
+    0%, 6% {
+        transform: rotateZ(0);
+    }
+
+    24%, 94% {
+        transform: rotateZ(180deg);
+    }
+
+    95%, 100% {
+        transform: rotateZ(0);
+    }
+}
+
+@keyframes arc-fill-right {
+    0%, 6% {
+        transform: rotateZ(0);
+    }
+
+    24%, 94% {
+        transform: rotateZ(180deg);
+    }
+
+    95%, 100% {
+        transform: rotateZ(0);
+    }
+}
+
+@-webkit-keyframes arc-fill-left {
+    24% {
+        transform: rotateZ(0);
+    }
+
+    28%, 94% {
+        transform: rotateZ(40deg);
+    }
+
+    100% {
+        transform: rotateZ(0);
+    }
+}
+
+@keyframes arc-fill-left {
+    24% {
+        transform: rotateZ(0);
+    }
+
+    28%, 94% {
+        transform: rotateZ(40deg);
+    }
+
+    100% {
+        transform: rotateZ(0);
+    }
+}
+
+@-webkit-keyframes arc-dot-1 {
+    0%, 6% {
+        transform: none;
+    }
+
+    28%, 94% {
+        transform: rotateZ(220deg);
+    }
+
+    95%, 100% {
+        transform: none;
+    }
+}
+
+@keyframes arc-dot-1 {
+    0%, 6% {
+        transform: none;
+    }
+
+    28%, 94% {
+        transform: rotateZ(220deg);
+    }
+
+    95%, 100% {
+        transform: none;
+    }
+}
+
+@-webkit-keyframes arc-fill-2 {
+    20%, 90% {
+        transform: rotateZ(160deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@keyframes arc-fill-2 {
+    20%, 90% {
+        transform: rotateZ(160deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@-webkit-keyframes arc-dot-2 {
+    20%, 90% {
+        transform: rotateZ(160deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@keyframes arc-dot-2 {
+    20%, 90% {
+        transform: rotateZ(160deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@-webkit-keyframes arc-fill-3 {
+    20%, 90% {
+        transform: rotateZ(90deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@keyframes arc-fill-3 {
+    20%, 90% {
+        transform: rotateZ(90deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@-webkit-keyframes arc-dot-3 {
+    20%, 90% {
+        transform: rotateZ(90deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+@keyframes arc-dot-3 {
+    20%, 90% {
+        transform: rotateZ(90deg);
+    }
+
+    91%, 100% {
+        transform: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 html {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent; }

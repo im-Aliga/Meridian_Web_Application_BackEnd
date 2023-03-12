@@ -1,0 +1,155 @@
+﻿@using BackEndFinalProject.Areas.Client.ViewModels.Home.Modal
+@model ModalViewModel
+
+
+<button class="btn dismiss-button fas fa-times" type="button" data-dismiss="modal"></button>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-5">
+
+            <!--====== Product Detail ======-->
+            <div class="pd u-s-m-b-30">
+                <div class="pd-wrap">
+                    <div id="js-product-detail-modal">
+
+
+                        <div>
+
+                            <img class="u-img-fluid" src="~/@Model.ImgUrl" alt="">
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="u-s-m-t-15">
+                    <div id="js-product-detail-modal-thumbnail">
+
+
+                        <div>
+
+                            <img class="u-img-fluid" src="" alt="">
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Product Detail ======-->
+        </div>
+        <div class="col-lg-7">
+
+            <!--====== Product Right Side Details ======-->
+            <div class="pd-detail">
+                <div>
+
+                    <span class="pd-detail__name">@Model.Title</span>
+                </div>
+                <div>
+                    @if (Model.Discounts.Any())
+                    {
+                        <div class="pd-detail__inline">
+
+                            <span class="pd-detail__price">@Model.DiscountPrice</span>
+                            @foreach (var discount in Model.Discounts)
+                            {
+                                <span class="pd-detail__discount">(@discount.Percentage% OFF)</span>
+
+                                <del class="pd-detail__del">@Model.Price</del>
+
+                            }
+                        </div>
+
+                    }
+                    else
+                    {
+                      <div class="pd-detail__inline">
+
+                        <span class="pd-detail__price">@Model.Price$</span>
+
+                       
+                      </div>
+
+                    }
+                </div>
+              
+                <div class="u-s-m-b-15">
+                    <div class="pd-detail__inline">
+
+                        <span class="pd-detail__stock">@Model.InStock in stock</span>
+
+                      
+                    </div>
+                </div>
+                <div class="u-s-m-b-15">
+
+                    <span class="pd-detail__preview-desc"> @Model.Description</span>
+                </div>
+                <div class="u-s-m-b-15">
+                    
+                </div>
+                <div class="u-s-m-b-15">
+                   
+                </div>
+                <div class="u-s-m-b-15">
+                    <ul class="pd-social-list">
+                        <li>
+
+                            <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li>
+
+                            <a class="s-tw--color-hover" href="#"><i class="fab fa-twitter"></i></a>
+                        </li>
+                        <li>
+
+                            <a class="s-insta--color-hover" href="#"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li>
+
+                            <a class="s-wa--color-hover" href="#"><i class="fab fa-whatsapp"></i></a>
+                        </li>
+                        <li>
+
+                            <a class="s-gplus--color-hover" href="#"><i class="fab fa-google-plus-g"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="u-s-m-b-15">
+                    <form class="pd-detail__form">
+                        <div class="pd-detail-inline-2">
+                          
+                            <div class="u-s-m-b-15">
+
+                                <button class="btn btn--e-brand-b-2" type="submit">Add to Cart</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="u-s-m-b-15">
+
+                    <span class="pd-detail__label u-s-m-b-8">Product Policy:</span>
+                    <ul class="pd-detail__policy-list">
+                        <li>
+                            <i class="fas fa-check-circle u-s-m-r-8"></i>
+
+                            <span>Buyer Protection.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle u-s-m-r-8"></i>
+
+                            <span>Full Refund if you don't receive your order.</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle u-s-m-r-8"></i>
+
+                            <span>Returns accepted if product not as described.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--====== End - Product Right Side Details ======-->
+        </div>
+    </div>
+</div>

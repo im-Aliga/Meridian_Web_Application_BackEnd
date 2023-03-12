@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Client\Validators\" />
-    <Folder Include="Areas\Client\Views\Shared\Partials\" />
     <Folder Include="wwwroot\client\assets\images\newsletter\" />
     <Folder Include="wwwroot\client\assets\ludus\" />
     <Folder Include="wwwroot\client\assets\video\" />

@@ -544,7 +544,7 @@
             $modalProductDetailElement.slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                infinite:false,
+                infinite: false,
                 arrows: false,
                 dots: false,
                 fade: true,
@@ -554,13 +554,13 @@
             $modalProductDetailElementThumbnail.slick({
                 slidesToShow: 4,
                 slidesToScroll: 1,
-                infinite:false,
+                infinite: false,
                 arrows: true,
                 dots: false,
                 focusOnSelect: true,
                 asNavFor: $modalProductDetailElement,
-                prevArrow:'<div class="pt-prev"><i class="fas fa-angle-left"></i>',
-                nextArrow:'<div class="pt-next"><i class="fas fa-angle-right"></i>',
+                prevArrow: '<div class="pt-prev"><i class="fas fa-angle-left"></i>',
+                nextArrow: '<div class="pt-next"><i class="fas fa-angle-right"></i>',
                 responsive: [
                     {
                         breakpoint: 1200,
@@ -598,6 +598,8 @@
             });
         }
     };
+
+
 
 
 

@@ -1,0 +1,73 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Home
+@model HomeViewModel
+@foreach(var product in Model.Product)
+{
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item @product.Categories.Take(1).FirstOrDefault().Title">
+        <div class="product-o product-o--hover-on product-o--radius">
+            <div class="product-o__wrap">
+
+                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+
+                    <img class="aspect__img" src="~/@product.ImageUrl" alt="">
+                </a>
+                <div class="product-o__action-wrap">
+                    <ul class="product-o__action-list">
+                        <li>
+                            
+                            <a class="show-product-modal" asp-route="product-modal" asp-route-id="@product.Id" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View">ADD</a>
+                        </li>
+                        <li>
+
+                            <a data-modal="modal-1" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                        </li>
+                        <li>
+
+                            <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+
+            <span class="product-o__category">
+                @foreach(var categories in product.Categories)
+                {
+                  <a href="shop-side-version-2.html">@categories.Title</a>
+                }
+            </span>
+
+            <span class="product-o__name">
+
+                <a href="product-detail.html">@product.Title</a>
+            </span>
+            <div class="product-o__rating gl-rating-style">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+
+                <span class="product-o__review">(23)</span>
+            </div>
+            @if(product.DiscountPrice!=null)
+            {
+               <span class="product-o__price">
+                
+
+                $@product.DiscountPrice
+
+                <span class="product-o__discount">@product.Price</span>
+              </span>
+
+            }
+            else
+            {
+                <span class="product-o__price">
+
+
+                    $@product.Price
+
+                  
+                </span>
+            }
+
+        </div>
+    </div>
+}
+
