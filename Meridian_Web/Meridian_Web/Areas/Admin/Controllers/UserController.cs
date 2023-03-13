@@ -107,6 +107,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
                     UserAddress=address,
                     Password = BC.HashPassword(model.Password),
                     RoleId = model.RoleId,
+                    IsEmailConfirmed=true,
 
                 };
 

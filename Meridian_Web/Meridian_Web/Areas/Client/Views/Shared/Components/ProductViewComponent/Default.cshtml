@@ -14,11 +14,11 @@
                     <ul class="product-o__action-list">
                         <li>
                             
-                            <a class="show-product-modal" asp-route="product-modal" asp-route-id="@product.Id" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View">ADD</a>
+                            <a class="show-product-modal" asp-route="product-modal" asp-route-id="@product.Id" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View">VIEW</a>
                         </li>
                         <li>
 
-                            <a data-modal="modal-1" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                            <a asp-route="client-basket-add" asp-route-id="@product.Id" class="add-product-to-basket-btn" data-modal="modal-1" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
                         </li>
                         <li>
 

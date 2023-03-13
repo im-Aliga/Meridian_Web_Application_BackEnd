@@ -43,17 +43,34 @@ namespace Meridian_Web.Areas.Client.Controllers
                 return RedirectToAction("Login");
             else
             {
-                Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, true);
-               
-                if (loginResult.Succeeded)
-                    return Redirect(ReturnUrl);
+                    dynamic datas = loginInfo.Principal.Identity;
+                    string FirstName = datas.Claims[2].Value.ToString();
+                    string LastName = datas.Claims[3].Value.ToString();
+                    string Email = datas.Claims[4].Value.ToString();
+                var existingUser = await _dbContext.Users.FirstOrDefaultAsync(p => p.Email == Email);
+                if (existingUser !=null)
+                {
+                    // User already exists in database, log them in
+                    Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, true);
+                    if (loginResult.Succeeded)
+                        return Redirect(ReturnUrl);
+                    else
+                    {
+                        // Handle login failure
+                    }
+                }
+
                 else
                 {
+
                     User user = new User
                     {
-                        Email = loginInfo.Principal.FindFirst(ClaimTypes.Email).Value,
-                        FirstName = loginInfo.Principal.FindFirst(ClaimTypes.Name).Value
-                        
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        Email = Email,
+                        //Email = loginInfo.Principal.FindFirst(ClaimTypes.Email).Value,
+                        //FirstName = loginInfo.Principal.FindFirst(ClaimTypes.Name).Value
+
                     };
                     await _dbContext.AddAsync(user);
                     await _dbContext.SaveChangesAsync();
@@ -158,6 +175,15 @@ namespace Meridian_Web.Areas.Client.Controllers
             await _dbContext.SaveChangesAsync();
 
             return RedirectToRoute("client-auth-login");
+        }
+
+
+        [HttpGet("logout", Name = "client-auth-logout")]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            await _userService.SignOutAsync();
+
+            return RedirectToRoute("client-home-index");
         }
     }
 }
