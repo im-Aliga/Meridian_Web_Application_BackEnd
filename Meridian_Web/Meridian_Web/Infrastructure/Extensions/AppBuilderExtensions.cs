@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+
+using System.Globalization;
 
 namespace Meridian_Web.Infrastructure.Extensions
 {
@@ -15,18 +17,7 @@ namespace Meridian_Web.Infrastructure.Extensions
                 name: "default",
                 pattern: "{area=exists}/{controller=home}/{action=index}");
 
-            //app.Use(async (context, next) =>
-            //{
-            //    var cookieValue = context.Request.Cookies["Languages"];
-            //    if (!string.IsNullOrEmpty(cookieValue))
-            //    {
-            //        var culture = new CultureInfo(cookieValue);
-            //        Thread.CurrentThread.CurrentCulture = culture;
-            //        Thread.CurrentThread.CurrentUICulture = culture;
-            //    }
-
-            //    await next();
-            //});
+           
         }
     }
 }

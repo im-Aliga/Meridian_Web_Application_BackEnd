@@ -1,5 +1,7 @@
 ﻿
 using Meridian_Web.Database;
+using Meridian_Web.Database.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meridian_Web.Infrastructure.Configurations
@@ -12,6 +14,9 @@ namespace Meridian_Web.Infrastructure.Configurations
             {
                 o.UseSqlServer(configuration.GetConnectionString("AliPC"));
             });
+
+
+           
         }
     }
 }

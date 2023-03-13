@@ -3,6 +3,8 @@ using Meridian_Web.Services.Concretes;
 using Meridian_Web.Services.Abstract;
 using Meridian_Web.Services.Abstracts;
 using Meridian_Web.Services.Concretes;
+using Meridian_Web.Database.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Meridian_Web.Infrastructure.Configurations
 {
@@ -15,6 +17,7 @@ namespace Meridian_Web.Infrastructure.Configurations
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserActivationService, UserActivationService>();
+        
             //services.AddScoped<IBasketService, BasketService>();
             //services.AddScoped<IOrderService, OrderService>();
         }

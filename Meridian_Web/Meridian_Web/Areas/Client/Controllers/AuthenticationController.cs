@@ -1,8 +1,12 @@
 ﻿using Meridian_Web.Areas.Client.ViewModels.Authentication;
 using Meridian_Web.Database;
+using Meridian_Web.Database.Models;
 using Meridian_Web.Services.Abstracts;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Meridian_Web.Areas.Client.Controllers
 {
@@ -12,11 +16,66 @@ namespace Meridian_Web.Areas.Client.Controllers
     {
         private readonly DataContext _dbContext;
         private readonly IUserService _userService;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public AuthenticationController(DataContext dbContext, IUserService userService)
+        public AuthenticationController(DataContext dbContext, IUserService userService, SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _dbContext = dbContext;
             _userService = userService;
+            _signInManager = signInManager;
+            _userManager = userManager;
+        }
+
+        [HttpGet("googlelogin", Name = "client-auth-google-login")]
+        public IActionResult GoogleLogin(string ReturnUrl)
+        {
+            string redirectUrl = Url.Action("ExternalResponse", "Authentication", new { ReturnUrl = ReturnUrl });
+            AuthenticationProperties properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+            return new ChallengeResult("Google", properties);
+            
+        }
+       
+        public async Task<IActionResult> ExternalResponse(string ReturnUrl = "/")
+        {
+            ExternalLoginInfo loginInfo = await _signInManager.GetExternalLoginInfoAsync();
+            if (loginInfo == null)
+                return RedirectToAction("Login");
+            else
+            {
+                Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, true);
+               
+                if (loginResult.Succeeded)
+                    return Redirect(ReturnUrl);
+                else
+                {
+                    User user = new User
+                    {
+                        Email = loginInfo.Principal.FindFirst(ClaimTypes.Email).Value,
+                        FirstName = loginInfo.Principal.FindFirst(ClaimTypes.Name).Value
+                        
+                    };
+                    await _dbContext.AddAsync(user);
+                    await _dbContext.SaveChangesAsync();
+                    
+                    IdentityResult createResult = await _userManager.CreateAsync(user);
+                   
+                    if (createResult.Succeeded)
+                    {
+                       
+                        IdentityResult addLoginResult = await _userManager.AddLoginAsync(user, loginInfo);
+                      
+                        if (addLoginResult.Succeeded)
+                        {
+                            await _signInManager.SignInAsync(user, true);
+                           
+                            return Redirect(ReturnUrl);
+                        }
+                    }
+
+                }
+            }
+            return Redirect(ReturnUrl);
         }
 
 

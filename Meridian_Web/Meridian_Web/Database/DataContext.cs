@@ -2,6 +2,7 @@
 using Meridian_Web.Database.Models;
 using Meridian_Web.Database.Models.Common;
 using Meridian_Web.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meridian_Web.Database
@@ -56,6 +57,7 @@ namespace Meridian_Web.Database
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistProduct> WishlistProducts { get; set; }
+        public DbSet<IdentityUserLogin<Guid>> IdentityUserLogins { get; set; }
 
 
 
