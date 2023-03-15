@@ -98,15 +98,19 @@ namespace Meridian_Web.Areas.Client.Controllers
 
                 foreach (var cookieItem in productCookieViewModel)
                 {
-                    if (cookieItem.Quantity > 1)
+                    if (cookieItem.Id == id)
                     {
-                        cookieItem.Quantity -= 1;
-                        cookieItem.Total = cookieItem.Quantity * cookieItem.Price;
-                    }
-                    else
-                    {
-                        productCookieViewModel.RemoveAll(p => p.Id == cookieItem.Id);
-                        break;
+
+                        if (cookieItem.Quantity > 1)
+                        {
+                            cookieItem.Quantity -= 1;
+                            cookieItem.Total = cookieItem.Quantity * cookieItem.Price;
+                        }
+                        else
+                        {
+                            productCookieViewModel.RemoveAll(p => p.Id == cookieItem.Id);
+                            break;
+                        }
                     }
                 }
                 HttpContext.Response.Cookies.Append("products", JsonSerializer.Serialize(productCookieViewModel));
@@ -156,6 +160,9 @@ namespace Meridian_Web.Areas.Client.Controllers
 
             return RedirectToRoute("client-cart-list");
         }
+
+        
+        
 
 
     }

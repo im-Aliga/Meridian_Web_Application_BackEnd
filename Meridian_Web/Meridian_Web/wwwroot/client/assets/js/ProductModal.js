@@ -85,13 +85,17 @@ $(document).on("click", ".add-product-to-basket-btn", function (e) {
 
 $(document).on("click", ".plus-btn", function (e) {
     console.log("Hello 1");
-
     e.preventDefault();
-
-    fetch(e.target.href)
+    var url = e.target.href;
+    if (!url) {
+        var closestLink = $(e.target).closest('a');
+        url = closestLink.attr('href');
+    }
+    console.log(url)
+    fetch(url)
         .then(response => response.text())
         .then(data => {
-            $('.cartPageJs').html(data);
+            $('.cartPage').html(data);
 
             fetch(e.target.parentElement.nextElementSibling.href)
                 .then(response => response.text())
@@ -102,16 +106,20 @@ $(document).on("click", ".plus-btn", function (e) {
 })
 
 $(document).on("click", ".minus-btn", function (e) {
-    console.log("Hello 1");
+    console.log("Hello 2");
+    e.preventDefault()
+    var url = e.target.href;
+    if (!url) {
+        var closestLink = $(e.target).closest('a');
+        url = closestLink.attr('href');
+    }
 
-    e.preventDefault();
-
-    fetch(e.target.href)
+    fetch(url)
         .then(response => response.text())
         .then(data => {
-            $('.cartPageJs').html(data);
+            $('.cartPage').html(data);
 
-            fetch(e.target.nextElementSibling.href)
+            fetch(e.target.parentElement.nextElementSibling.href)
                 .then(response => response.text())
                 .then(data => {
                     $('.mini-cart').html(data);

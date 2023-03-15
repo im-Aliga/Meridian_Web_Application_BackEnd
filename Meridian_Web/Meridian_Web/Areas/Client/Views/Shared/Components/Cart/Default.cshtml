@@ -61,20 +61,20 @@
                                 <!--====== Input Counter ======-->
                                 <div class="input-counter">
                                     <a asp-route="client-individual-basket-delete" asp-route-id="@product.Id"
-                                   data-id="@product.Id" class="btn btn-dark minus-btn">
+                                      data-id="@product.Id" class="btn btn-dark minus-btn">
 
                                         <span class="input-counter__minus fas fa-minus"></span>
                                     </a>
 
-                                    <a asp-route="client-cartpagebasket-update" id="update-cart-url"></a>
+                                    <a asp-route="client-cartpagebasket-update"></a>
                                     <input asp-for="@product.Quantity" class="input-counter__text input-counter--text-primary-style" type="text" value="@product.Quantity" data-min="1" data-max="1000">
 
                                     <a asp-route="client-cartpagebasket-add" asp-route-id="@product.Id"
-                                   data-id="@product.Id" class="btn btn-dark plus-btn">
+                                     data-id="@product.Id" class="btn btn-dark plus-btn">
                                         
                                        <span class="input-counter__plus fas fa-plus"></span>
                                     </a>
-                                    <a asp-route="client-cartpagebasket-update" id=" update-cart-url"></a>
+                                    <a asp-route="client-cartpagebasket-update" ></a>
                                 </div>
                                 <!--====== End - Input Counter ======-->
                             </div>
@@ -82,7 +82,8 @@
                         <td>
                             <div class="table-p__del-wrap">
 
-                                <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
+
+                                <a class="far fa-trash-alt table-p__delete-link" asp-route="client-cart-delete" asp-route-id="@product.Id"></a>
                             </div>
                         </td>
                     </tr>
