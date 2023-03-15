@@ -4,7 +4,7 @@ using Meridian_Web.Services.Abstract;
 using Meridian_Web.Services.Abstracts;
 using Meridian_Web.Database.Models;
 using Microsoft.AspNetCore.Identity;
-using BackEndFinalProject.Services.Concretes;
+using Meridian_Web.Services.Concretes;
 
 namespace Meridian_Web.Infrastructure.Configurations
 {

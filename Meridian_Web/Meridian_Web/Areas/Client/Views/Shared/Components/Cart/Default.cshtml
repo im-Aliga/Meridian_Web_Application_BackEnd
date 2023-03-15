@@ -1,0 +1,119 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Basket
+@using Meridian_Web.Services.Abstracts
+@model List<ProductCookieViewModel>
+@inject IUserService _userservice
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+    <div class="table-responsive">
+        <table class="table-p">
+            <tbody>
+
+                <!--====== Row ======-->
+                @foreach (var product in Model)
+                {
+
+                    <tr>
+                        <td>
+                            <div class="table-p__box">
+                                <div class="table-p__img-wrap">
+
+                                    <img class="u-img-fluid" src="~/@product.ImageUrl" alt="">
+                                </div>
+                                <div class="table-p__info">
+
+                                    <span class="table-p__name">
+
+                                        <a href="product-detail.html">@product.Title</a>
+                                    </span>
+
+                                    <span class="table-p__category">
+
+                                        @* <a href="shop-side-version-2.html">Electronics</a>*@
+                                    </span>
+                                    <ul class="table-p__variant-list">
+                                        <li>
+
+                                            <span>Size: 22</span>
+                                        </li>
+                                        <li>
+
+                                            <span>Color: Red</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @if (product.DiscountPrice == null)
+                            {
+                                <span class="table-p__price">@product.Price</span>
+
+                            }
+                            else
+                            {
+                                <span class="table-p__price">@product.DiscountPrice</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="table-p__input-counter-wrap">
+
+                                <!--====== Input Counter ======-->
+                                <div class="input-counter">
+                                    <a asp-route="client-individual-basket-delete" asp-route-id="@product.Id"
+                                   data-id="@product.Id" class="btn btn-dark minus-btn">
+
+                                        <span class="input-counter__minus fas fa-minus"></span>
+                                    </a>
+
+                                    <a asp-route="client-cartpagebasket-update" id="update-cart-url"></a>
+                                    <input asp-for="@product.Quantity" class="input-counter__text input-counter--text-primary-style" type="text" value="@product.Quantity" data-min="1" data-max="1000">
+
+                                    <a asp-route="client-cartpagebasket-add" asp-route-id="@product.Id"
+                                   data-id="@product.Id" class="btn btn-dark plus-btn">
+                                        
+                                       <span class="input-counter__plus fas fa-plus"></span>
+                                    </a>
+                                    <a asp-route="client-cartpagebasket-update" id=" update-cart-url"></a>
+                                </div>
+                                <!--====== End - Input Counter ======-->
+                            </div>
+                        </td>
+                        <td>
+                            <div class="table-p__del-wrap">
+
+                                <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                <!--====== End - Row ======-->
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="route-box">
+        <div class="route-box__g1">
+
+            <a class="route-box__link" href="shop-side-version-2.html">
+                <i class="fas fa-long-arrow-alt-left"></i>
+
+                <span>CONTINUE SHOPPING</span>
+            </a>
+        </div>
+        <div class="route-box__g2">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

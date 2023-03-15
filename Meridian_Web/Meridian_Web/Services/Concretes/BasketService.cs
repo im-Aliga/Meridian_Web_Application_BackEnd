@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
-namespace BackEndFinalProject.Services.Concretes
+namespace Meridian_Web.Services.Concretes
 {
     public class BasketService : IBasketService
     {
@@ -40,6 +40,7 @@ namespace BackEndFinalProject.Services.Concretes
 
                 return new List<ProductCookieViewModel>();
             }
+
 
             return AddToCookie();
 
@@ -96,7 +97,9 @@ namespace BackEndFinalProject.Services.Concretes
                          : string.Empty,
                         1,
                         product.Price,
-                        product.Price));
+                        product.Price,
+                        product.DiscountPrice
+                        ));
                 }
                 else
                 {

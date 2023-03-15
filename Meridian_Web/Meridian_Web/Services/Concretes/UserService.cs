@@ -96,11 +96,32 @@ namespace Meridian_Web.Services.Concretes
 
         public async Task SignInAsync(string? email, string? password, string? role = null)
         {
-            var user = await _dataContext.Users.FirstAsync(u => u.Email == email);
+            var user = await _dataContext.Users.Include(x=>x.Basket).FirstAsync(u => u.Email == email);
             if (user is not null && BC.Verify(password, user.Password) && user.IsEmailConfirmed == true)
             {
 
                 await SignInAsync(user.Id, role);
+                //var productCookieValue = _httpContextAccessor.HttpContext!.Request.Cookies["products"];
+                //if (productCookieValue is not null)
+                //{
+                //    var basket = user.Basket;
+                //    var productsCookieViewModel = JsonSerializer.Deserialize<List<ProductCookieViewModel>>(productCookieValue);
+                //    foreach (var productCookieViewModel in productsCookieViewModel)
+                //    {
+                //        var product = await _dataContext.Products.FirstOrDefaultAsync(b => b.Id == productCookieViewModel.Id);
+                //        var basketProduct = new BasketProduct
+                //        {
+                //            Basket = basket,
+                //            ProductId = product!.Id,
+                //            Quantity = productCookieViewModel.Quantity,
+                //        };
+
+                //        await _dataContext.BasketProducts.AddAsync(basketProduct);
+                //        await _dataContext.SaveChangesAsync();
+                //    }
+
+                //    _httpContextAccessor.HttpContext!.Response.Cookies.Delete("products");
+                //}
             }
         }
 
@@ -165,6 +186,8 @@ namespace Meridian_Web.Services.Concretes
 
                         await _dataContext.BasketProducts.AddAsync(basketProduct);
                     }
+
+                    //_httpContextAccessor.HttpContext!.Response.Cookies.Delete("products");
                 }
             }
 

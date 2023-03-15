@@ -33,13 +33,13 @@ namespace Meridian_Web.Infrastructure.Extensions
                 })
                 .AddGoogle(x =>
                 {
-                      x.ClientId = configuration["GoogleClientId"];
-                      x.ClientSecret = configuration["GoogleClientSecret"];
+                    x.ClientId = configuration["GoogleClientId"];
+                    x.ClientSecret = configuration["GoogleClientSecret"];
                 });
-            
-            services.AddIdentity<User, IdentityRole<Guid>>()
-                  .AddEntityFrameworkStores<DataContext>()
-                   .AddDefaultTokenProviders();
+
+            //services.AddIdentity<User, IdentityRole<Guid>>()
+            //      .AddEntityFrameworkStores<DataContext>()
+            //       .AddDefaultTokenProviders();
 
 
 

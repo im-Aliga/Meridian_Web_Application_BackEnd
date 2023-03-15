@@ -16,84 +16,84 @@ namespace Meridian_Web.Areas.Client.Controllers
     {
         private readonly DataContext _dbContext;
         private readonly IUserService _userService;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        //private readonly SignInManager<User> _signInManager;
+        //private readonly UserManager<User> _userManager;
 
-        public AuthenticationController(DataContext dbContext, IUserService userService, SignInManager<User> signInManager, UserManager<User> userManager)
+        public AuthenticationController(DataContext dbContext, IUserService userService)
         {
             _dbContext = dbContext;
             _userService = userService;
-            _signInManager = signInManager;
-            _userManager = userManager;
+            //_signInManager = signInManager;
+            //_userManager = userManager;
         }
 
-        [HttpGet("googlelogin", Name = "client-auth-google-login")]
-        public IActionResult GoogleLogin(string ReturnUrl)
-        {
-            string redirectUrl = Url.Action("ExternalResponse", "Authentication", new { ReturnUrl = ReturnUrl });
-            AuthenticationProperties properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
-            return new ChallengeResult("Google", properties);
+        //[HttpGet("googlelogin", Name = "client-auth-google-login")]
+        //public IActionResult GoogleLogin(string ReturnUrl)
+        //{
+        //    string redirectUrl = Url.Action("ExternalResponse", "Authentication", new { ReturnUrl = ReturnUrl });
+        //    AuthenticationProperties properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
+        //    return new ChallengeResult("Google", properties);
             
-        }
+        //}
        
-        public async Task<IActionResult> ExternalResponse(string ReturnUrl = "/")
-        {
-            ExternalLoginInfo loginInfo = await _signInManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-                return RedirectToAction("Login");
-            else
-            {
-                    dynamic datas = loginInfo.Principal.Identity;
-                    string FirstName = datas.Claims[2].Value.ToString();
-                    string LastName = datas.Claims[3].Value.ToString();
-                    string Email = datas.Claims[4].Value.ToString();
-                var existingUser = await _dbContext.Users.FirstOrDefaultAsync(p => p.Email == Email);
-                if (existingUser !=null)
-                {
-                    // User already exists in database, log them in
-                    Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, true);
-                    if (loginResult.Succeeded)
-                        return Redirect(ReturnUrl);
-                    else
-                    {
-                        // Handle login failure
-                    }
-                }
+        //public async Task<IActionResult> ExternalResponse(string ReturnUrl = "/")
+        //{
+        //    ExternalLoginInfo loginInfo = await _signInManager.GetExternalLoginInfoAsync();
+        //    if (loginInfo == null)
+        //        return RedirectToAction("Login");
+        //    else
+        //    {
+        //            dynamic datas = loginInfo.Principal.Identity;
+        //            string FirstName = datas.Claims[2].Value.ToString();
+        //            string LastName = datas.Claims[3].Value.ToString();
+        //            string Email = datas.Claims[4].Value.ToString();
+        //        var existingUser = await _dbContext.Users.FirstOrDefaultAsync(p => p.Email == Email);
+        //        if (existingUser !=null)
+        //        {
+        //            // User already exists in database, log them in
+        //            Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.ExternalLoginSignInAsync(loginInfo.LoginProvider, loginInfo.ProviderKey, true);
+        //            if (loginResult.Succeeded)
+        //                return Redirect(ReturnUrl);
+        //            else
+        //            {
+        //                // Handle login failure
+        //            }
+        //        }
 
-                else
-                {
+        //        else
+        //        {
 
-                    User user = new User
-                    {
-                        FirstName = FirstName,
-                        LastName = LastName,
-                        Email = Email,
-                        //Email = loginInfo.Principal.FindFirst(ClaimTypes.Email).Value,
-                        //FirstName = loginInfo.Principal.FindFirst(ClaimTypes.Name).Value
+        //            User user = new User
+        //            {
+        //                FirstName = FirstName,
+        //                LastName = LastName,
+        //                Email = Email,
+        //                //Email = loginInfo.Principal.FindFirst(ClaimTypes.Email).Value,
+        //                //FirstName = loginInfo.Principal.FindFirst(ClaimTypes.Name).Value
 
-                    };
-                    await _dbContext.AddAsync(user);
-                    await _dbContext.SaveChangesAsync();
+        //            };
+        //            await _dbContext.AddAsync(user);
+        //            await _dbContext.SaveChangesAsync();
                     
-                    IdentityResult createResult = await _userManager.CreateAsync(user);
+        //            IdentityResult createResult = await _userManager.CreateAsync(user);
                    
-                    if (createResult.Succeeded)
-                    {
+        //            if (createResult.Succeeded)
+        //            {
                        
-                        IdentityResult addLoginResult = await _userManager.AddLoginAsync(user, loginInfo);
+        //                IdentityResult addLoginResult = await _userManager.AddLoginAsync(user, loginInfo);
                       
-                        if (addLoginResult.Succeeded)
-                        {
-                            await _signInManager.SignInAsync(user, true);
+        //                if (addLoginResult.Succeeded)
+        //                {
+        //                    await _signInManager.SignInAsync(user, true);
                            
-                            return Redirect(ReturnUrl);
-                        }
-                    }
+        //                    return Redirect(ReturnUrl);
+        //                }
+        //            }
 
-                }
-            }
-            return Redirect(ReturnUrl);
-        }
+        //        }
+        //    }
+        //    return Redirect(ReturnUrl);
+        //}
 
 
         [HttpGet("login", Name = "client-auth-login")]
@@ -101,7 +101,7 @@ namespace Meridian_Web.Areas.Client.Controllers
         {
             if (_userService.IsAuthenticated)
             {
-                return RedirectToRoute("client-account-dashboard");
+                return RedirectToRoute("client-home-index");
             }
 
             return View(new LoginViewModel());
@@ -128,6 +128,8 @@ namespace Meridian_Web.Areas.Client.Controllers
             }
 
             await _userService.SignInAsync(model!.Email, model!.Password);
+
+           
 
             return RedirectToRoute("client-home-index");
         }

@@ -57,7 +57,7 @@ namespace Meridian_Web.Database
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistProduct> WishlistProducts { get; set; }
-        public DbSet<IdentityUserLogin<Guid>> IdentityUserLogins { get; set; }
+        
 
 
 

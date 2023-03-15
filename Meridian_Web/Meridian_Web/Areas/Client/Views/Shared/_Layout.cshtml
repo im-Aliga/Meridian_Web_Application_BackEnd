@@ -1,4 +1,7 @@
 ﻿@using Meridian_Web.Areas.Admin.ViewComponents
+@using Meridian_Web.Areas.Client.ViewComponents
+@using Meridian_Web.Services.Abstracts
+@inject IUserService _userservice
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -11,7 +14,7 @@
     <title>Meridian - Watchs, GLassess, Wallets & more</title>
 
     <!--====== Google Font ======-->
-    <link  asp-append-version="true"  href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+    <link asp-append-version="true" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
 
     <!--====== Vendor Css ======-->
     <link asp-append-version="true" rel="stylesheet" href="~/client/assets/css/vendor.css">
@@ -31,7 +34,7 @@
     </div>
 
     <!--====== Main App ======-->
-    <div id="app" >
+    <div id="app">
 
         <!--====== Main Header ======-->
         <header class="header--style-1">
@@ -45,10 +48,14 @@
 
                         <!--====== Main Logo ======-->
 
-                        <a class="main-logo" href="index.html">
+                        <a class="main-logo" asp-route="client-home-index">
 
                             <img src="https://cdn.shopify.com/s/files/1/0564/1519/1240/files/100811_Meridian_230x.png?v=1619596611" alt="">
                         </a>
+
+
+
+
                         <!--====== End - Main Logo ======-->
                         <!--====== Search Form ======-->
                         <form class="main-form">
@@ -81,36 +88,48 @@
                                         <span class="js-menu-toggle"></span>
                                         <ul style="width:120px">
                                             <li>
-
+                                               @if (_userservice.IsAuthenticated)
+                                               {
                                                 <a href="dashboard.html">
                                                     <i class="fas fa-user-circle u-s-m-r-6"></i>
 
                                                     <span>Account</span>
                                                 </a>
+
+                                               }
                                             </li>
                                             <li>
+                                                @if (!_userservice.IsAuthenticated)
+                                                {
+                                                    <a asp-route="client-auth-register">
+                                                        <i class="fas fa-user-plus u-s-m-r-6"></i>
 
-                                                <a asp-route="client-auth-register">
-                                                    <i class="fas fa-user-plus u-s-m-r-6"></i>
+                                                        <span>Signup</span>
+                                                    </a>
 
-                                                    <span>Signup</span>
-                                                </a>
+                                                }
                                             </li>
                                             <li>
+                                                @if (!_userservice.IsAuthenticated)
+                                                {
+                                                    <a asp-route="client-auth-login">
+                                                        <i class="fas fa-lock u-s-m-r-6"></i>
 
-                                                <a asp-route="client-auth-login">
-                                                    <i class="fas fa-lock u-s-m-r-6"></i>
+                                                        <span>Signin</span>
+                                                    </a>
 
-                                                    <span>Signin</span>
-                                                </a>
+                                                }
                                             </li>
                                             <li>
+                                                @if (_userservice.IsAuthenticated)
+                                                {
+                                                    <a asp-route="client-auth-logout">
+                                                        <i class="fas fa-lock-open u-s-m-r-6"></i>
 
-                                                <a asp-route="client-auth-logout">
-                                                    <i class="fas fa-lock-open u-s-m-r-6"></i>
+                                                        <span>Signout</span>
+                                                    </a>
 
-                                                    <span>Signout</span>
-                                                </a>
+                                                }
                                             </li>
                                         </ul>
                                         <!--====== End - Dropdown ======-->
@@ -128,7 +147,6 @@
                                                 <a>Language<i class="fas fa-angle-down u-s-m-l-6"></i></a>
 
                                                 <!--====== Dropdown ======-->
-
                                                 @Html.Partial("_LanguagePartial")
                                                 <!--====== End - Dropdown ======-->
                                             </li>
@@ -195,6 +213,7 @@
 
                                         <span class="js-menu-toggle"></span>
                                         <div class="mini-cart cart-block">
+                                            @await Component.InvokeAsync(nameof(MiniBasketComponent))
 
                                         </div>
                                         <!--====== End - Dropdown ======-->
@@ -212,7 +231,7 @@
             <!--====== End - Nav 2 ======-->
         </header>
         <!--====== End - Main Header ======-->
-           @RenderBody()
+        @RenderBody()
         <!--====== Main Footer ======-->
         <footer>
             <div class="outer-footer">
@@ -401,9 +420,6 @@
         <div class="modal fade  product-modal-quick" id="quick-look">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content modal--shadow">
-
-                    
-
                 </div>
             </div>
         </div>
@@ -521,13 +537,13 @@
     <script src="https://www.google-analytics.com/analytics.js" async defer></script>
 
     <!--====== Vendor Js ======-->
-    <script  asp-append-version="true" src="~/client/assets/js/vendor.js"></script>
+    <script asp-append-version="true" src="~/client/assets/js/vendor.js"></script>
 
     <!--====== jQuery Shopnav plugin ======-->
     <script asp-append-version="true" src="~/client/assets/js/jquery.shopnav.js"></script>
 
     <!--====== App ======-->
-    <script  asp-append-version="true" src="~/client/assets/js/app.js"></script>
+    <script asp-append-version="true" src="~/client/assets/js/app.js"></script>
     <script asp-append-version="true" src="~/client/assets/js/ProductModal.js"></script>
     <script asp-append-version="true" src="~/client/assets/js/JavaScript.js"></script>
 

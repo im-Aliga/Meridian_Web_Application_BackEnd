@@ -65,10 +65,10 @@ namespace Meridian_Web.Areas.Client.Controllers
             {
                 return NotFound();
             }
-            var productDisconts = await _dbContext.ProductDisconts
-                .Where(pd => pd.ProductId == product.Id)
-                .Include(pd => pd.Discont)
-                .Select(pd => new ModalViewModel.DiscountList(pd.Discont.Id, pd.Discont.DiscontPers)).ToListAsync();
+                var productDisconts = await _dbContext.ProductDisconts
+                    .Where(pd => pd.ProductId == product.Id)
+                    .Include(pd => pd.Discont)
+                    .Select(pd => new ModalViewModel.DiscountList(pd.Discont.Id, pd.Discont.DiscontPers)).ToListAsync();
 
             var productColors = await _dbContext.ProductColors
                 .Where(pc => pc.ProductId == product.Id)

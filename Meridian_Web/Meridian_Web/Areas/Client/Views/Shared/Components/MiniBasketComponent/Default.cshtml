@@ -1,27 +1,29 @@
 ﻿@using Meridian_Web.Areas.Client.ViewModels.Basket
+@using Meridian_Web.Services.Abstracts
 @model List<ProductCookieViewModel>
+@inject IUserService _userservice
 
-    <!--====== Mini Product Container ======-->
-    <div class="mini-product-container gl-scroll u-s-m-b-15">
+<!--====== Mini Product Container ======-->
+<div class="mini-product-container gl-scroll u-s-m-b-15">
 
-        <!--====== Card for mini cart ======-->
-        <div class="card-mini-product">
-         @foreach(var product in Model)
-         {
+    <!--====== Card for mini cart ======-->
+    <div class="card-mini-product row">
+        @foreach (var product in Model)
+        {
             <div class="mini-product">
-                
-                   <div class="mini-product__image-wrapper">
+
+                <div class="mini-product__image-wrapper">
 
                     <a class="mini-product__link" href="product-detail.html">
 
                         <img class="u-img-fluid" src="~/@product.ImageUrl" alt="">
                     </a>
                 </div>
-                   <div class="mini-product__info-wrapper">
+                <div class="mini-product__info-wrapper">
 
                     <span class="mini-product__category">
 
-                      
+
                     </span>
 
                     <span class="mini-product__name">
@@ -30,34 +32,43 @@
                     </span>
 
                     <span class="mini-product__quantity">@product.Quantity</span>
-
-                    <span class="mini-product__price">$@product.Price</span>
+                    @if(product.DiscountPrice==null)
+                    {
+                      <span class="mini-product__price">$@product.Price</span>
+                    }
+                    else
+                    {
+                        <span class="mini-product__price">$@product.DiscountPrice</span>
+                    }
                 </div>
 
-                
+
             </div>
-            <a asp-route="client-basket-delete" asp-route-id=" @product.Id" data-id="@product.Id" class="mini-product__delete-link far fa-trash-alt remove-product-to-basket-btn"></a>
+            <a asp-route="client-basket-delete" asp-route-id=" @product.Id" data-id="" class="mini-product__delete-link far fa-trash-alt remove-product-to-basket-btn"></a>
 
-         }
+        }
 
-        </div>
-        <!--====== End - Card for mini cart ======-->
-       
     </div>
-    <!--====== End - Mini Product Container ======-->
-    <!--====== Mini Product Statistics ======-->
-    <div class="mini-product-stat">
-        <div class="mini-total">
+    <!--====== End - Card for mini cart ======-->
 
-            <span class="subtotal-text">SUBTOTAL</span>
+</div>
+<!--====== End - Mini Product Container ======-->
+<!--====== Mini Product Statistics ======-->
+<div class="mini-product-stat">
+    <div class="mini-total">
 
-            <span class="subtotal-value">$@Model!.Sum(pcvm => pcvm.Total)</span>
-        </div>
-        <div class="mini-action">
+        <span class="subtotal-text">SUBTOTAL</span>
 
-            <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
-
-            <a asp-route="client-cart-list" class="btn btn-dark">View Cart</a>
-        </div>
+        <span class="subtotal-value">$@Model!.Sum(pcvm => pcvm.Total)</span>
     </div>
-    <!--====== End - Mini Product Statistics ======-->
+    <div class="mini-action">
+        @if(_userservice.IsAuthenticated)
+        {
+            <a class="mini-link btn--e-brand-b-2" >PROCEED TO CHECKOUT</a>
+
+        }
+        <a asp-route="client-cart-list" class="mini-link btn--e-transparent-secondary-b-2">View Cart</a>
+    </div>
+</div>
+<!--====== End - Mini Product Statistics ======-->
+

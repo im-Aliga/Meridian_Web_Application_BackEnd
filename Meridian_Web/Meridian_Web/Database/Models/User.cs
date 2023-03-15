@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Meridian_Web.Database.Models
 {
-    public class User : IdentityUser<Guid>, IAuditable
+    public class User :BaseEntity<Guid> , IAuditable
     {
         public string? Email { get; set; }
         public string? FirstName { get; set; }
