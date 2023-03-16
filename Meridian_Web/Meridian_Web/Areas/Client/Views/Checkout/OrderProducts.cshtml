@@ -1,0 +1,152 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.OrderProducts;
+@model OrdersProductsViewModel
+
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-60">
+
+        <!--====== Section Content ======-->
+
+    </div>
+    <!--====== End - Section 1 ======-->
+    <!--====== Section 2 ======-->
+    <!--====== End - Section 2 ======-->
+    <!--====== Section 3 ======-->
+    <div class="u-s-p-b-60">
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="checkout-f">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div>
+                                <div class="container " style="margin-top:5%; text-aling:center;">
+                                    <div class="bezel-screen">
+                                        <div class="glass-screen">
+                                            <div class="inner-screen">
+                                                <div class="flex">
+                                                    <div class="icon-container"><img class="img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1362379/weatherIcon.png" /></div>
+                                                    <div class="icon-container"><img class="img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1362379/appleRunningIcon.png" /></div>
+                                                </div>
+                                                <div class="counter-container"><span class="main-text" id="js-clock"> </span><span class="main-text pink" id="js-walk"> </span><span class="main-text green" id="js-exercise"> </span><span class="main-text blue" id="js-stand">   </span></div>
+                                                <div class="animation-container">
+                                                    <div class="arc-container">
+                                                        <div class="arc-background pink"></div>
+                                                        <div class="progress-container arc-right">
+                                                            <div class="arc-fill"></div>
+                                                        </div>
+                                                        <div class="progress-container arc-left">
+                                                            <div class="arc-fill"></div>
+                                                        </div>
+                                                        <div class="arc-dot"></div>
+                                                        <div class="arc-dot end"></div>
+                                                    </div>
+                                                    <div class="arc-container second">
+                                                        <div class="arc-background green"></div>
+                                                        <div class="progress-container arc-right">
+                                                            <div class="arc-fill"></div>
+                                                        </div>
+                                                        <div class="arc-dot"></div>
+                                                        <div class="arc-dot end"></div>
+                                                    </div>
+                                                    <div class="arc-container third">
+                                                        <div class="arc-background blue"></div>
+                                                        <div class="progress-container arc-right">
+                                                            <div class="arc-fill"></div>
+                                                        </div>
+                                                        <div class="arc-dot"></div>
+                                                        <div class="arc-dot end"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-container"> <span class="sub-text">12:00 LUNCH BREAK</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display: flex;
+              justify-content: center; ">
+                                        <h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-top:20px;">Appreciate your time!</h1>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <h1 class="checkout-f__h1">ORDER SUMMARY</h1>
+
+                            <!--====== Order Summary ======-->
+                            <div class="o-summary">
+                                <div class="o-summary__section u-s-m-b-30">
+                                    <div class="o-summary__item-wrap gl-scroll">
+                                        @foreach (var product in Model.Products)
+                                        {
+                                            <div class="o-card">
+                                                <div class="o-card__flex">
+                                                    <div class="o-card__img-wrap">
+
+                                                        <img class="u-img-fluid" src="~/@product.ImgUrl" alt="">
+                                                    </div>
+                                                    <div class="o-card__info-wrap">
+
+                                                        <span class="o-card__name">
+
+                                                            <a href="product-detail.html">@product.Name</a>
+                                                        </span>
+
+                                                        <span class="o-card__quantity">Quantity x @product.Quantity</span>
+                                                        @if (product.DiscountPrice == null)
+                                                        {
+
+                                                            <span class="o-card__price">@product.Price</span>
+
+                                                        }
+                                                        <span class="o-card__price">@product.DiscountPrice</span>
+
+                                                    </div>
+                                                </div>
+
+                                                <a class="o-card__del far fa-trash-alt"></a>
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="o-summary__section u-s-m-b-30">
+                                    <div class="o-summary__box">
+                                        <table class="o-summary__table">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td>SUBTOTAL</td>
+                                                    <td>@Model.Summary.Total</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>GRAND TOTAL</td>
+                                                    <td>@Model.Summary.Total</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <form method="POST" asp-route="client-checkout-place-order" id="submit-form">
+
+                                <button class="btn btn--e-brand-b-2"  id="submit-form">PLACE ORDER</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!--====== End - Order Summary ======-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section Content ======-->
+</div>
+<!--====== End - Section 3 ======-->
+        

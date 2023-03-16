@@ -5,6 +5,7 @@ namespace Meridian_Web.Areas.Admin.Controllers
 {
     [Area("admin")]
     [Route("admin/dashboard")]
+    [Authorize(Roles = "admin")]
     public class DashboardController : Controller
     {
 
