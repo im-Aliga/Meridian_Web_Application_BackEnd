@@ -40,9 +40,6 @@
         </div>
     </div>
 
-
-
-
     <!--====== Section 1 ======-->
     <div class="u-s-p-y-60">
 
@@ -395,60 +392,62 @@
         <div class="section__content">
             <div class="container">
                 <div class="row">
-                    @foreach(var blog in Model.Blogs)
+                    @foreach (var blog in Model.Blogs)
                     {
-                      <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                        <div class="bp-mini bp-mini--img u-h-100">
-                            <div class="bp-mini__thumbnail">
+                        <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                            <div class="bp-mini bp-mini--img u-h-100">
+                                <div class="bp-mini__thumbnail">
 
-                                <!--====== Image Code ======-->
+                                    <!--====== Image Code ======-->
 
-                                <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
+                                    <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
 
-                                    <img class="aspect__img" src="~/@blog.ImageUrl" alt="">
-                                </a>
-                                <!--====== End - Image Code ======-->
-                            </div>
-                            <div class="bp-mini__content">
-                                <div class="bp-mini__stat">
-
-                                    <span class="bp-mini__stat-wrap">
-
-                                        <span class="bp-mini__publish-date">
-
-                                            <a>
-
-                                                <span>@blog.CreatedAt</span>
-                                            </a>
-                                        </span>
-                                    </span>
-
-
-
+                                        <img class="aspect__img" src="~/@blog.ImageUrl" alt="">
+                                    </a>
+                                    <!--====== End - Image Code ======-->
                                 </div>
+                                <div class="bp-mini__content">
+                                    <div class="bp-mini__stat">
+
+                                        <span class="bp-mini__stat-wrap">
+
+                                            <span class="bp-mini__publish-date">
+
+                                                <a>
+
+                                                    <span>@blog.CreatedAt</span>
+                                                </a>
+                                            </span>
+                                        </span>
 
 
-                                <span class="bp-mini__h1">
 
-                                    <a href="blog-detail.html">@blog.Title</a>
-                                </span>
-                                <p class="bp-mini__p">@blog.Description</p>
-                                <div class="blog-t-w">
+                                    </div>
+                                    <span class="bp-mini__h1">
 
-                                        @foreach(var tag in blog.Tags)
+                                        <a href="blog-detail.html">@blog.Title</a>
+                                    </span>
+                                    <p style="overflow: hidden;
+                                              text-overflow: ellipsis;
+                                              width: 296px;
+                                              white-space: revert;
+                                              height: 168px;" class="bp-mini__p">@blog.Description</p>
+                                    <div class="blog-t-w">
+
+                                        @foreach (var tag in blog.Tags)
                                         {
-                                            
-                                         <a class="gl-tag btn--e-transparent-hover-brand-b-2">@tag.Tagname</a>
+
+                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">@tag.Tagname</a>
                                         }
 
-                                  
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                        
+
                     }
-                    
+
                 </div>
             </div>
         </div>
@@ -480,66 +479,27 @@
                 <!--====== Testimonial Slider ======-->
                 <div class="slider-fouc">
                     <div class="owl-carousel" id="testimonial-slider">
-                        <div class="testimonial">
-                            <div class="testimonial__img-wrap">
 
-                                <img class="testimonial__img" src="~/client/assets/images/about/145204168_424534149846171_358830259671303374_n.jpg" alt="">
+                        @foreach (var feedBack in Model.FeedBacks)
+                        {
+                            <div class="testimonial">
+                                <div class="testimonial__img-wrap">
+
+                                    <img class="testimonial__img" src="~/@feedBack.ImgUrl" alt="">
+                                </div>
+                                <div class="testimonial__content-wrap">
+
+                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                    <blockquote class="testimonial__block-quote">
+                                        <p>"@feedBack.Context"</p>
+                                    </blockquote>
+
+                                    <span class="testimonial__author">@feedBack.FullName / @feedBack.Role</span>
+                                </div>
                             </div>
-                            <div class="testimonial__content-wrap">
 
-                                <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                <blockquote class="testimonial__block-quote">
-                                    <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                </blockquote>
+                        }
 
-                                <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="testimonial__img-wrap">
-
-                                <img class="testimonial__img" src="~/client/assets/images/about/85a0d1e7-95fd-4eb2-b3fe-6436953717c5.jpg" alt="">
-                            </div>
-                            <div class="testimonial__content-wrap">
-
-                                <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                <blockquote class="testimonial__block-quote">
-                                    <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                </blockquote>
-
-                                <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="testimonial__img-wrap">
-
-                                <img class="testimonial__img" src="~/client/assets/images/about/91a4fe8b-4bd0-4d56-89ed-1266cd21d346.jpg" alt="">
-                            </div>
-                            <div class="testimonial__content-wrap">
-
-                                <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                <blockquote class="testimonial__block-quote">
-                                    <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                </blockquote>
-
-                                <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                            </div>
-                        </div>
-                        <div class="testimonial">
-                            <div class="testimonial__img-wrap">
-
-                                <img class="testimonial__img" src="~/client/assets/images/about/91a4fe8b-4bd0-4d56-89ed-1266cd21d346.jpg" alt="">
-                            </div>
-                            <div class="testimonial__content-wrap">
-
-                                <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                <blockquote class="testimonial__block-quote">
-                                    <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
-                                </blockquote>
-
-                                <span class="testimonial__author">John D. / DVNTR Inc.</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!--====== End - Testimonial Slider ======-->
@@ -558,48 +518,18 @@
                 <!--====== Brand Slider ======-->
                 <div class="slider-fouc">
                     <div class="owl-carousel" id="brand-slider" data-item="5">
-                        <div class="brand-slide" style="height:120px;">
+                        @foreach (var brand in Model.Brands)
+                        {
+                            <div class="brand-slide" style="height:120px;">
 
-                            <a href="shop-side-version-2.html">
+                                <a href="shop-side-version-2.html">
 
-                                <img src="~/client/assets/images/brand/58252-100x100.png" alt="">
-                            </a>
-                        </div>
-                        <div class="brand-slide">
+                                    <img src="~/@brand.ImgUrl" alt="">
+                                </a>
+                            </div>
 
-                            <a href="shop-side-version-2.html">
+                        }
 
-                                <img src="~/client/assets/images/brand/bigot9ti-logo-100x100.png" alt="">
-                            </a>
-                        </div>
-                        <div class="brand-slide">
-
-                            <a href="shop-side-version-2.html">
-
-                                <img src="~/client/assets/images/brand/casio-100x100.png" alt="">
-                            </a>
-                        </div>
-                        <div class="brand-slide">
-
-                            <a href="shop-side-version-2.html">
-
-                                <img src="~/client/assets/images/brand/CRRJU-100x100.png" alt="">
-                            </a>
-                        </div>
-                        <div class="brand-slide">
-
-                            <a href="shop-side-version-2.html">
-
-                                <img src="~/client/assets/images/brand/curren-100x100.png" alt="">
-                            </a>
-                        </div>
-                        <div class="brand-slide">
-
-                            <a href="shop-side-version-2.html">
-
-                                <img src="~/client/assets/images/brand/edifice-100x100.png" alt="">
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <!--====== End - Brand Slider ======-->

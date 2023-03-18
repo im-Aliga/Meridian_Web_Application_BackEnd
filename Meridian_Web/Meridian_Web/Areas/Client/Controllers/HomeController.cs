@@ -67,16 +67,28 @@ namespace Meridian_Web.Areas.Client.Controllers
                        ))
                 .ToListAsync(), 
                 Blogs= await _dbContext.Blogs.Include(b=>b.BlogTags).Select(b=>new BlogListItemViewModel(
-                        b.Title,
-                        b.Description,
-                        b.CreatedAt,
-                        b.BlogTags.Select(b=>new TagList(b.Tag.TagName)).ToList(),
-                        b.BlogFile!.Take(1)!.FirstOrDefault() != null
+                       b.Title,
+                       b.Description,
+                       b.CreatedAt,
+                       b.BlogTags.Select(b=>new TagList(b.Tag.TagName)).ToList(),
+                       b.BlogFile!.Take(1)!.FirstOrDefault() != null
                         ? _fileService.GetFileUrl(b.BlogFile!.Take(1)!.FirstOrDefault()!.FileNameInFileSystem!, UploadDirectory.Blog)
                         : string.Empty
                     ))
-                .ToListAsync()
-                
+                .ToListAsync(),
+
+              FeedBacks=await _dbContext.FeedBacks.Select(f=>new FeedBackListItemViewModel(
+                       f.FullName,
+                       f.Context,
+                       f.Role,
+                       _fileService.GetFileUrl(f.ProfilePhoteInFileSystem,UploadDirectory.FeedBack)
+                  ))  
+               .ToListAsync(),
+              Brands= await _dbContext.Brands.Select(b=> new BrandListItemVIewModel(
+                  _fileService.GetFileUrl(b.PhoteInFileSystem,UploadDirectory.Brand)
+                  ))
+              .ToListAsync(),
+
             };
           
             return View(model);

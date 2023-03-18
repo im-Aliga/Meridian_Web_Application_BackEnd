@@ -24,8 +24,8 @@ namespace Meridian_Web.Areas.Admin.Validators.Admin.FeedBack
            .WithMessage("Context can't be empty")
            .MinimumLength(2)
            .WithMessage("Minimum length should be 2")
-           .MaximumLength(50)
-           .WithMessage("Maximum length should be 50");
+           .MaximumLength(200)
+           .WithMessage("Maximum length should be 200");
 
             RuleFor(avm => avm.Role)
            .NotNull()
