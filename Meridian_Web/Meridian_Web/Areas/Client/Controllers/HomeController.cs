@@ -44,6 +44,17 @@ namespace Meridian_Web.Areas.Client.Controllers
                        _fileService.GetFileUrl(b.BgImageNameInFileSystem, UploadDirectory.Slider)
                        ))
                    .ToListAsync(),
+
+                GlobalOffers=await _dbContext.GlobalOffers.Select(go=>new GlobalOfferViewModel(
+                       go.Title,
+                       go.MainContext,
+                       go.Context,
+                       go.ButtonContext,
+                       go.OfferTime
+
+                    
+                    ) )
+                .ToListAsync()
             };
           
             return View(model);
