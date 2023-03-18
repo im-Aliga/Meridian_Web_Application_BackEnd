@@ -27,7 +27,7 @@
                             <tr>
                                  
                                 <td>@blog.Title</td>
-                                <td>@blog.Description</td>
+                                <td style="word-wrap:break-word;">@blog.Description</td>
                                 <td>@blog.Proverb</td>
                                 <td>@blog.ProverbAuthor</td>
                                 <td>@string.Join( " and  ", blog.Categories.Select(c => $"{c.Title}"))</td>

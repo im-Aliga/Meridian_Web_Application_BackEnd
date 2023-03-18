@@ -1,0 +1,77 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Home;
+@model HomeViewModel
+
+@foreach(var bestseller in Model.Product)
+{
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+        <div class="product-o product-o--hover-on u-h-100">
+            <div class="product-o__wrap">
+
+                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+
+                    <img class="aspect__img" src="~/@bestseller.ImageUrl" alt="">
+                </a>
+                <div class="product-o__action-wrap">
+                    <ul class="product-o__action-list">
+                        <li>
+
+                            <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                        </li>
+                        <li>
+
+                            <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                        </li>
+                        <li>
+
+                            <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                        </li>
+                        <li>
+
+                            <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <span class="product-o__category">
+                @foreach(var category in bestseller.Categories)
+                {
+                <a href="shop-side-version-2.html">@category.Title</a>
+                    
+                }
+            </span>
+
+            <span class="product-o__name">
+
+                <a href="product-detail.html">@bestseller.Title</a>
+            </span>
+            <div class="product-o__rating gl-rating-style">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+
+                <span class="product-o__review">(23)</span>
+            </div>
+
+            @if (bestseller.DiscountPrice != null)
+            {
+                <span class="product-o__price">
+
+
+                    $@bestseller.DiscountPrice
+
+                    <span class="product-o__discount">@bestseller.Price</span>
+                </span>
+
+            }
+            else
+            {
+                <span class="product-o__price">
+
+
+                    $@bestseller.Price
+
+
+                </span>
+            }
+        </div>
+    </div>
+}

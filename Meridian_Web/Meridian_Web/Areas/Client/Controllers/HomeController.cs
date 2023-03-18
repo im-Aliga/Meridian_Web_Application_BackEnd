@@ -51,10 +51,32 @@ namespace Meridian_Web.Areas.Client.Controllers
                        go.Context,
                        go.ButtonContext,
                        go.OfferTime
-
-                    
-                    ) )
+                         ))
+                .ToListAsync(),
+                Banners=await _dbContext.Banners.Select(b=> new BannerListItemViewModel(
+                       b.Title,
+                       b.MainContext,
+                       b.Context,
+                       _fileService.GetFileUrl(b.PhoteInFileSystem,UploadDirectory.Banner)
+                       ))
+                .ToListAsync(),
+                PaymentBenefits=await _dbContext.Payments.Select(b=>new PaymentBenefitsViewModel(
+                       b.Title,
+                       b.Context,
+                       _fileService.GetFileUrl(b.ImageNameInFileSystem,UploadDirectory.Payment)
+                       ))
+                .ToListAsync(), 
+                Blogs= await _dbContext.Blogs.Include(b=>b.BlogTags).Select(b=>new BlogListItemViewModel(
+                        b.Title,
+                        b.Description,
+                        b.CreatedAt,
+                        b.BlogTags.Select(b=>new TagList(b.Tag.TagName)).ToList(),
+                        b.BlogFile!.Take(1)!.FirstOrDefault() != null
+                        ? _fileService.GetFileUrl(b.BlogFile!.Take(1)!.FirstOrDefault()!.FileNameInFileSystem!, UploadDirectory.Blog)
+                        : string.Empty
+                    ))
                 .ToListAsync()
+                
             };
           
             return View(model);
