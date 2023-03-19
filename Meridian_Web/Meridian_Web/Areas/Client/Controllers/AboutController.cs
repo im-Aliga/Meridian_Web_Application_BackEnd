@@ -40,7 +40,7 @@ namespace Meridian_Web.Areas.Client.Controllers
                     ))
                 .ToListAsync(),
 
-                FeedBacks=await _dataContext.FeedBacks.Select(fb=>new FeedBackListItemViewModel(
+                FeedBacks = await _dataContext.FeedBacks.Select(fb => new FeedBackListItemViewModel(
                    fb.FullName,
                    fb.Context,
                    fb.Role,
