@@ -31,8 +31,17 @@
                                 <td>@user.LastName</td>
                                 <td>@user.Email</td>
                                 <td>@user.Password</td>
-                                @*<td>@user.Address.City</td>
-                                <td>@user.Address.Address</td>*@
+                                @if (user != null && user.Address != null)
+                                {
+                                    <td>@user.Address.City</td>
+                                    <td>@user.Address.Address</td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td></td>
+                                }
+                                
                                 @if (@user.Roles != null)
                                 {
                                     <td>@user.Roles</td>

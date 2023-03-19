@@ -24,8 +24,8 @@ namespace Meridian_Web.Areas.Admin.Validators.Admin.About
            .WithMessage("ToURL can't be empty")
            .MinimumLength(10)
            .WithMessage("Minimum length should be 10")
-           .MaximumLength(200)
-           .WithMessage("Maximum length should be 200");
+           .MaximumLength(2000)
+           .WithMessage("Maximum length should be 2000");
         }
     }
 }
