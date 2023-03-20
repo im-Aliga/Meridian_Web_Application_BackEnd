@@ -6,7 +6,7 @@
         <div class="product-o product-o--hover-on product-o--radius">
             <div class="product-o__wrap">
 
-                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                <a class="aspect aspect--bg-grey aspect--square u-d-block">
 
                     <img class="aspect__img" src="~/@product.ImageUrl" alt="">
                 </a>
@@ -38,7 +38,7 @@
 
             <span class="product-o__name">
 
-                <a href="product-detail.html">@product.Title</a>
+                <a asp-route="client-productdetails-index" asp-route-id="@product.Id">@product.Title</a>
             </span>
             <div class="product-o__rating gl-rating-style">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>

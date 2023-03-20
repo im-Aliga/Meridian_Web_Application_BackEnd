@@ -7,7 +7,7 @@ using Meridian_Web.Database.Models;
 using Meridian_Web.Services.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static Meridian_Web.Areas.Admin.ViewModels.Product.ProductListViewModel;
+
 
 namespace Meridian_Web.Areas.Client.Controllers
 {
