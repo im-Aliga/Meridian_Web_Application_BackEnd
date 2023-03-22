@@ -19,6 +19,7 @@ namespace Meridian_Web.Infrastructure.Configurations
             services.AddScoped<IUserActivationService, UserActivationService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IWishlistService, WishlistService>();
         }
     }
 }

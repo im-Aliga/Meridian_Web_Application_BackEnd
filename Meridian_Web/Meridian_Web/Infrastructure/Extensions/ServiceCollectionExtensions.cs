@@ -30,12 +30,13 @@ namespace Meridian_Web.Infrastructure.Extensions
                     o.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                     o.LoginPath = "/auth/login";
                     o.AccessDeniedPath = "/admin/auth/login";
-                })
-                .AddGoogle(x =>
-                {
-                    x.ClientId = configuration["GoogleClientId"];
-                    x.ClientSecret = configuration["GoogleClientSecret"];
                 });
+
+                //.AddGoogle(x =>
+                //{
+                //    x.ClientId = configuration["GoogleClientId"];
+                //    x.ClientSecret = configuration["GoogleClientSecret"];
+                //});
 
             //services.AddIdentity<User, IdentityRole<Guid>>()
             //      .AddEntityFrameworkStores<DataContext>()

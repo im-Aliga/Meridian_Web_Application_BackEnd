@@ -1,29 +1,23 @@
-﻿
-using Meridian_Web.Areas.Client.ViewModels.Basket;
+﻿using Meridian_Web.Areas.Client.ViewModels.Basket;
+using Meridian_Web.Areas.Client.ViewModels.Wishlist;
 using Meridian_Web.Contracts.File;
-using Meridian_Web.Contracts.Identity;
 using Meridian_Web.Database;
 using Meridian_Web.Database.Models;
-using Meridian_Web.Exceptions;
 using Meridian_Web.Services.Abstract;
 using Meridian_Web.Services.Abstracts;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 namespace Meridian_Web.Services.Concretes
 {
-    public class BasketService : IBasketService
+    public class WishlistService :IWishlistService
     {
         private readonly DataContext _dataContext;
         private readonly IUserService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFileService _fileService;
 
-        public BasketService(DataContext dataContext, IUserService userService, IHttpContextAccessor httpContextAccessor, IFileService fileService)
+        public WishlistService(DataContext dataContext, IUserService userService, IHttpContextAccessor httpContextAccessor, IFileService fileService)
         {
             _dataContext = dataContext;
             _userService = userService;
@@ -31,14 +25,13 @@ namespace Meridian_Web.Services.Concretes
             _fileService = fileService;
         }
 
-
-        public async Task<List<ProductCookieViewModel>> AddBasketProductAsync(Product product)
+        public async Task<List<WishlistProductCookieVIewModel>> AddWishlistProductAsync(Product product)
         {
             if (_userService.IsAuthenticated)
             {
                 await AddToDatabaseAsync();
 
-                return new List<ProductCookieViewModel>();
+                return new List<WishlistProductCookieVIewModel>();
             }
 
 
@@ -48,66 +41,66 @@ namespace Meridian_Web.Services.Concretes
 
 
 
-            
+
             async Task AddToDatabaseAsync()
             {
-                var basketProduct = await _dataContext.BasketProducts
-                    .FirstOrDefaultAsync(bp => bp.Basket.UserId == _userService.CurrentUser.Id && bp.ProductId == product.Id);
-                if (basketProduct is not null)
+                var wishlistProduct = await _dataContext.WishlistProducts
+                    .FirstOrDefaultAsync(bp => bp.Wishlist.UserId == _userService.CurrentUser.Id && bp.ProductId == product.Id);
+                if (wishlistProduct is not null)
                 {
-                    basketProduct.Quantity++;
+                    wishlistProduct.Quantity++;
                 }
                 else
                 {
-                    var basket = await _dataContext.Baskets.FirstAsync(b => b.UserId == _userService.CurrentUser.Id);
+                    var wishlist = await _dataContext.Wishlists.FirstAsync(b => b.UserId == _userService.CurrentUser.Id);
 
-                    basketProduct = new BasketProduct
+                    wishlistProduct = new WishlistProduct
                     {
                         Quantity = 1,
-                        BasketId = basket.Id,
+                        WishlistId = wishlist.Id,
                         ProductId = product.Id,
                     };
 
-                    await _dataContext.BasketProducts.AddAsync(basketProduct);
+                    await _dataContext.WishlistProducts.AddAsync(wishlistProduct);
                 }
 
                 await _dataContext.SaveChangesAsync();
             }
 
 
-           
-            List<ProductCookieViewModel> AddToCookie()
+
+            List<WishlistProductCookieVIewModel> AddToCookie()
             {
 
-                var productCookieValue = _httpContextAccessor.HttpContext.Request.Cookies["products"];
+                var productCookieValue = _httpContextAccessor.HttpContext.Request.Cookies["wishlistproducts"];
                 var productsCookieViewModel = productCookieValue is not null
-                    ? JsonSerializer.Deserialize<List<ProductCookieViewModel>>(productCookieValue)
-                    : new List<ProductCookieViewModel> { };
+                    ? JsonSerializer.Deserialize<List<WishlistProductCookieVIewModel>>(productCookieValue)
+                    : new List<WishlistProductCookieVIewModel> { };
 
                 var productCookieViewModel = productsCookieViewModel!.FirstOrDefault(pcvm => pcvm.Id == product.Id);
 
                 if (productCookieViewModel is null)
                 {
                     productsCookieViewModel
-                        !.Add(new ProductCookieViewModel(
+                        !.Add(new WishlistProductCookieVIewModel(
                         product.Id,
                         product.Title,
                         product.ProductImages!.Take(1)!.FirstOrDefault()! != null
                          ? _fileService.GetFileUrl(product.ProductImages!.Take(1)!.FirstOrDefault()!.ImageNameInFileSystem!, UploadDirectory.Product)
                          : string.Empty,
-                        1,
                         product.Price,
                         product.DiscountPrice,
-                        product.Price
+                        1
+                       
                         ));
                 }
                 else
                 {
                     productCookieViewModel.Quantity += 1;
-                    productCookieViewModel.Total = productCookieViewModel.Quantity * productCookieViewModel.Price;
+                  
                 }
 
-                _httpContextAccessor.HttpContext.Response.Cookies.Append("products", JsonSerializer.Serialize(productsCookieViewModel));
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("wishlistproducts", JsonSerializer.Serialize(productsCookieViewModel));
 
                 return productsCookieViewModel;
             }

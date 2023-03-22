@@ -29,7 +29,8 @@ namespace Meridian_Web.Areas.Client.Controllers
         public async Task<IActionResult> AddProductAsync([FromRoute] int id)
         {
             var product = await _dataContext.Products
-                .Include(b => b.ProductImages).FirstOrDefaultAsync(b => b.Id == id);
+                .Include(b => b.ProductImages)
+                .FirstOrDefaultAsync(b => b.Id == id);
             if (product is null)
             {
                 return NotFound();

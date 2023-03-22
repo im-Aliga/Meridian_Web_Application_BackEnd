@@ -1,0 +1,24 @@
+﻿@using Meridian_Web.Areas.Admin.ViewModels.Order
+@using Meridian_Web.Contracts.Order;
+
+
+@model UpdateOrderViewModel
+<div class="col-12 grid-margin stretch-card">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h4 class="card-title">Update Discount</h4>
+            <form method="POST" asp-route="admin-order-update" asp-route-id="@Model.Id" class="forms-sample">
+                <div class="form-group">
+                    <select asp-for="Status"
+                            class="form-control"
+                            asp-items="Html.GetEnumSelectList<OrderStatus>()">
+                        <option>Select Status</option>
+                    </select>
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Submit</button>
+
+            </form>
+        </div>
+    </div>
+</div>

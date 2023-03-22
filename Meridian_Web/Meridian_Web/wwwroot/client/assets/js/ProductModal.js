@@ -81,6 +81,23 @@ $(document).on("click", ".add-product-to-basket-btn", function (e) {
         })
 })
 
+$(document).on("click", ".add-product-to-wishlist-btn", function (e) {
+
+    e.preventDefault();
+    var url = e.target.href;
+    if (!url) {
+        var closestLink = $(e.target).closest('a');
+        url = closestLink.attr('href');
+    }
+    console.log(url)
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            console.log(data)
+            $('.wishlist-cart').html(data);
+        })
+})
+
 
 
 $(document).on("click", ".plus-btn", function (e) {

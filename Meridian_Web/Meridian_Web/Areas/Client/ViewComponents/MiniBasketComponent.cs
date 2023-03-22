@@ -38,9 +38,10 @@ namespace Meridian_Web.Areas.Client.ViewComponents
                             : String.Empty,
                             bp.Quantity,
                             bp.Product.Price,
-                            bp.Product.Price * bp.Quantity,
-                            bp.Product.DiscountPrice
-                        
+                            bp.Product.DiscountPrice,
+                            bp.Product.Price * bp.Quantity
+                          
+
 
                             ))
 

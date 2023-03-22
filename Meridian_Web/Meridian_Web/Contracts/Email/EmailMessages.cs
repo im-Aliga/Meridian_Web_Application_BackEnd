@@ -1,11 +1,13 @@
-﻿namespace Meridian_Web.Contracts.Email
+﻿using Meridian_Web.Contracts.Order;
+
+namespace Meridian_Web.Contracts.Email
 {
     public static class EmailMessages
     {
         public static class Subject
         {
-            public const string ACTIVATION_MESSAGE = $"Hesabin aktivlesdirilmesi";
-            public const string ORDER_ACTIVATION_MESSAGE = $"Hesabin aktivdi";
+            public const string ACTIVATION_MESSAGE = $"Account Activation";
+            public const string ORDER_ACTIVATION_MESSAGE = $"Order has been aproverd";
         }
 
         public static class Body

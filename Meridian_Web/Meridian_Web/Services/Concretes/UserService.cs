@@ -1,6 +1,7 @@
 ﻿
 using Meridian_Web.Areas.Client.ViewModels.Authentication;
 using Meridian_Web.Areas.Client.ViewModels.Basket;
+using Meridian_Web.Areas.Client.ViewModels.Wishlist;
 using Meridian_Web.Contracts.Email;
 using Meridian_Web.Contracts.Identity;
 using Meridian_Web.Database;
@@ -134,7 +135,9 @@ namespace Meridian_Web.Services.Concretes
         {
             var user = await CreateUserAsync();
             var basket = await CreateBasketAsync();
+            var wishlist = await CreatWishlistAsync();
             await CreteBasketProductsAsync();
+            await CreteWishlistProductsAsync();
 
             await _userActivationService.SendActivationUrlAsync(user);
 
@@ -149,6 +152,7 @@ namespace Meridian_Web.Services.Concretes
                     LastName = model.LastName,
                     Email = model.Email,
                     Password = BC.HashPassword(model.Password),
+               
                 };
                 await _dataContext.Users.AddAsync(user);
 
@@ -165,6 +169,16 @@ namespace Meridian_Web.Services.Concretes
                 await _dataContext.Baskets.AddAsync(basket);
 
                 return basket;
+            }
+            async Task<Wishlist> CreatWishlistAsync()
+            {
+                var wishlist = new Wishlist
+                {
+                    User = user
+                };
+                await _dataContext.Wishlists.AddAsync(wishlist);
+                return wishlist;
+
             }
 
             async Task CreteBasketProductsAsync()
@@ -187,7 +201,29 @@ namespace Meridian_Web.Services.Concretes
                         await _dataContext.BasketProducts.AddAsync(basketProduct);
                     }
 
-                    //_httpContextAccessor.HttpContext!.Response.Cookies.Delete("products");
+                  
+                }
+            }
+            async Task CreteWishlistProductsAsync()
+            {
+                //Add products to wishlist if cookie exists
+                var productCookieValue = _httpContextAccessor.HttpContext!.Request.Cookies["wishlistproducts"];
+                if (productCookieValue is not null)
+                {
+                    var productsCookieViewModel = JsonSerializer.Deserialize<List<WishlistProductCookieVIewModel>>(productCookieValue);
+                    foreach (var productCookieViewModel in productsCookieViewModel)
+                    {
+                        var product = await _dataContext.Products.FirstOrDefaultAsync(b => b.Id == productCookieViewModel.Id);
+                        var wishlistProduct = new WishlistProduct
+                        {
+                            Wishlist = wishlist,
+                            ProductId = product!.Id,
+                        };
+
+                        await _dataContext.WishlistProducts.AddAsync(wishlistProduct);
+                    }
+
+
                 }
             }
 

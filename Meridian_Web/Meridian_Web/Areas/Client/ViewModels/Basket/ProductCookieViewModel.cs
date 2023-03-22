@@ -1,4 +1,6 @@
-﻿namespace Meridian_Web.Areas.Client.ViewModels.Basket
+﻿using Meridian_Web.Database.Models;
+
+namespace Meridian_Web.Areas.Client.ViewModels.Basket
 {
     public class ProductCookieViewModel
     {
@@ -11,19 +13,27 @@
         public decimal? DiscountPrice { get; set; }
         public decimal Total { get; set; }
 
-
-
-        public ProductCookieViewModel(int id, string? title, string? imageUrl, int quantity, decimal price, decimal total, decimal? discountPrice)
+        public ProductCookieViewModel()
         {
-            Id = id;
+            
+        }
+        public ProductCookieViewModel(int ıd, string? title, string? ımageUrl, int quantity, decimal price, decimal? discountPrice, decimal total)
+        {
+            Id = ıd;
             Title = title;
-            ImageUrl = imageUrl;
+            ImageUrl = ımageUrl;
             Quantity = quantity;
             Price = price;
-            Total = total;
             DiscountPrice = discountPrice;
-
+            Total = total;
         }
+  
+
+
+
+     
+
+
 
 
 
