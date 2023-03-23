@@ -144,6 +144,14 @@ namespace Meridian_Web.Areas.Client.Controllers
             return PartialView("~/Areas/Client/Views/Shared/Partials/_ModalPartial.cshtml", model);
         }
 
+        [HttpGet("indexsearch", Name = "client-homesearch-index")]
+        public async Task<IActionResult> Search(string searchBy, string search)
+        {
+
+            return RedirectToAction("Index", "ShopPage", new { searchBy = searchBy, search = search });
+
+        }
+
 
     }
 }

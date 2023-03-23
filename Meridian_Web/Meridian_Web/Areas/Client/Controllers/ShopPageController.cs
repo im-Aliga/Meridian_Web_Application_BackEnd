@@ -52,7 +52,7 @@ namespace Meridian_Web.Areas.Client.Controllers
             }
             else
             {
-                productsQuery = productsQuery.OrderBy(p => p.Price);
+                productsQuery = productsQuery.OrderBy(p => p.DiscountPrice);
             }
 
             var newProduct = await productsQuery.Select(p => new ListItemViewModel(

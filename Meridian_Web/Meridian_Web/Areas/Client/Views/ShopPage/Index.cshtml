@@ -19,28 +19,23 @@
                                     <span class="js-shop-grid-target is-active">Grid</span>
 
                                 </div>
-                                <form>
-                                    <div class="tool-style__form-wrap">
-                                        <div class="u-s-m-b-8">
-                                            <select class="select-box select-box--transparent-b-2">
-                                                <option>Show: 8</option>
-                                                <option selected>Show: 12</option>
-                                                <option>Show: 16</option>
-                                                <option>Show: 28</option>
-                                            </select>
+
+                                <div style="visibility:hidden;opacity:0;" class="tool-style__form-wrap">
+                                    @using (Html.BeginForm("Index", "ShopPage", FormMethod.Get))
+                                    {
+                                        <div style="display:none" class="d-none">
+                                            <b>Search By :</b>
+                                            @Html.RadioButton("searchBy","Name",true) <text>Name</text>
+                                            <br />
                                         </div>
-                                        <div class="u-s-m-b-8">
-                                            <select class="select-box select-box--transparent-b-2">
-                                                <option selected>Sort By: Newest Items</option>
-                                                <option>Sort By: Latest Items</option>
-                                                <option>Sort By: Best Selling</option>
-                                                <option>Sort By: Best Rating</option>
-                                                <option>Sort By: Lowest Price</option>
-                                                <option>Sort By: Highest Price</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
+                                       
+
+
+                                        @Html.TextBox("search")
+                                        <button class="search-btn" type="submit" aria-label="searchbtn">search</button>
+                                    }
+                                </div>
+
                             </div>
                         </div>
                         <div class="shop-p__collection">
@@ -74,7 +69,7 @@
                                                 </div>
                                                 <div class="product-m__name">
 
-                                                    <a href="product-detail.html">@product.Description</a>
+                                                    <a href="product-detail.html">@product.Name</a>
                                                 </div>
                                                 <div class="product-m__rating gl-rating-style">
                                                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
@@ -175,7 +170,7 @@
                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-category" data-toggle="collapse"></span>
                             </div>
                             <div class="shop-w__wrap collapse show" id="s-category">
-                               
+
                                 @await Component.InvokeAsync(nameof(ShopPageCategory))
 
                             </div>
@@ -232,7 +227,7 @@
                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-color" data-toggle="collapse"></span>
                             </div>
                             <div class="shop-w__wrap collapse show" id="s-color">
-                               
+
                                 @await Component.InvokeAsync(nameof(ShopPageColor))
 
                             </div>
@@ -246,7 +241,7 @@
                                 <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-size" data-toggle="collapse"></span>
                             </div>
                             <div class="shop-w__wrap collapse" id="s-size">
-                              @await Component.InvokeAsync(nameof(ShopPageSize))
+                                @await Component.InvokeAsync(nameof(ShopPageSize))
                             </div>
                         </div>
                     </div>

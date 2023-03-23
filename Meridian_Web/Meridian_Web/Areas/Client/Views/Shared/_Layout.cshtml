@@ -59,14 +59,31 @@
 
                         <!--====== End - Main Logo ======-->
                         <!--====== Search Form ======-->
-                        <form class="main-form">
+                        
 
-                            <label for="main-search"></label>
+                          @*  <label for="main-search"></label>
 
                             <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">
 
+                            <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>*@
+
+
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get, new {@class="main-form"}))
+                            {
+
+                                <div style="display:none;" class="d-none">
+                                    <b>Search By :</b>
+                                    @Html.RadioButton("searchBy","Name",true)<text>Name</text>
+                                    <br />
+                                </div>
+
+                            @Html.TextBox("search", null, new {@class="input-text input-text--border-radius input-text--style-1",@id="main-search",@placeholder="Search",@type="text"})
+
+
                             <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>
-                        </form>
+
+                            }
+                        
                         <!--====== End - Search Form ======-->
                         <!--====== Dropdown Main plugin ======-->
                         <div class="menu-init" id="navigation">
