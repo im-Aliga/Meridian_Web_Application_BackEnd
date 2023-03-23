@@ -1,0 +1,20 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.ShopPage;
+@model List<CategoryListItemViewModel>
+<ul class="shop-w__category-list gl-scroll">
+
+    @foreach (var category in Model)
+    {
+        <li class="has-list">
+
+            <a asp-route="client-shoppage-index" asp-route-categoryId="@category.Id">@category.Title</a>
+
+            <span class="category-list__text u-s-m-l-6">@Model.Count()</span>
+
+            <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
+
+        </li>
+
+    }
+
+
+</ul>

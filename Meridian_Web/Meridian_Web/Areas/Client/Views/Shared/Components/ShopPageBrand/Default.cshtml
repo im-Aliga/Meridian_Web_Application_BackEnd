@@ -1,0 +1,19 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.ShopPage;
+@model List<BrandListItemVIewModel>
+<ul class="shop-w__list-2">
+
+    @foreach (var brand in Model)
+    {
+
+        <li>
+            <div class="list__content">
+
+                <a asp-route="client-shoppage-index" asp-route-brandId="@brand.Id"><span>@brand.Title</span></a>
+
+            </div>
+
+            <span class="shop-w__total-text">@Model.Count()</span>
+        </li>
+    }
+
+</ul>
