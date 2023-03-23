@@ -232,57 +232,9 @@
                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-color" data-toggle="collapse"></span>
                             </div>
                             <div class="shop-w__wrap collapse show" id="s-color">
-                                <ul class="shop-w__list gl-scroll">
-                                    <li>
-                                        <div class="color__check">
+                               
+                                @await Component.InvokeAsync(nameof(ShopPageColor))
 
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-
-                                        </div>
-
-                                        <span class="shop-w__total-text">(2)</span>
-                                    </li>
-                                    <li>
-                                        <div class="color__check">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-
-                                        </div>
-
-
-                                        <span class="shop-w__total-text">(4)</span>
-                                    </li>
-                                    <li>
-                                        <div class="color__check">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-
-                                        </div>
-
-
-                                        <span class="shop-w__total-text">(6)</span>
-                                    </li>
-                                    <li>
-                                        <div class="color__check">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-
-                                        </div>
-
-
-                                        <span class="shop-w__total-text">(8)</span>
-                                    </li>
-                                    <li>
-                                        <div class="color__check">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-
-                                        </div>
-
-
-                                        <span class="shop-w__total-text">(10)</span>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -294,74 +246,19 @@
                                 <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-size" data-toggle="collapse"></span>
                             </div>
                             <div class="shop-w__wrap collapse" id="s-size">
-                                <ul class="shop-w__list gl-scroll">
-                                    <li>
+                              @await Component.InvokeAsync(nameof(ShopPageSize))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-s-m-b-30">
+                        <div class="shop-w">
+                            <div class="shop-w__intro-wrap">
+                                <h1 class="shop-w__h">TAG</h1>
 
-                                        <!--====== Check Box ======-->
-                                        <div class="check-box">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-                                        </div>
-                                        <!--====== End - Check Box ======-->
-
-                                        <span class="shop-w__total-text">(2)</span>
-                                    </li>
-                                    <li>
-
-                                        <!--====== Check Box ======-->
-                                        <div class="check-box">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-                                        </div>
-                                        <!--====== End - Check Box ======-->
-
-                                        <span class="shop-w__total-text">(4)</span>
-                                    </li>
-                                    <li>
-
-                                        <!--====== Check Box ======-->
-                                        <div class="check-box">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-                                        </div>
-                                        <!--====== End - Check Box ======-->
-
-                                        <span class="shop-w__total-text">(6)</span>
-                                    </li>
-                                    <li>
-
-                                        <!--====== Check Box ======-->
-                                        <div class="check-box">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-                                        </div>
-                                        <!--====== End - Check Box ======-->
-
-                                        <span class="shop-w__total-text">(8)</span>
-                                    </li>
-                                    <li>
-
-                                        <!--====== Check Box ======-->
-                                        <div class="check-box">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-                                        </div>
-                                        <!--====== End - Check Box ======-->
-
-                                        <span class="shop-w__total-text">(10)</span>
-                                    </li>
-                                    <li>
-
-                                        <!--====== Check Box ======-->
-                                        <div class="check-box">
-
-                                            <a href="" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> Red</span></a>
-                                        </div>
-                                        <!--====== End - Check Box ======-->
-
-                                        <span class="shop-w__total-text">(12)</span>
-                                    </li>
-                                </ul>
+                                <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-size" data-toggle="collapse"></span>
+                            </div>
+                            <div class="shop-w__wrap collapse" id="s-size">
+                                @await Component.InvokeAsync(nameof(ShopPageTag))
                             </div>
                         </div>
                     </div>

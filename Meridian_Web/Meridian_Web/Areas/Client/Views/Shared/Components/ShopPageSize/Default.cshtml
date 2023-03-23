@@ -1,0 +1,21 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.ShopPage;
+@model List<SizeListItemViewModel>
+
+<ul class="shop-w__list gl-scroll">
+    @foreach (var size in Model)
+    {
+        <li>
+
+            <!--====== Check Box ======-->
+            <div class="check-box">
+
+                <a asp-route="client-shoppage-index" asp-route-sizeId="@size.Id" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> @size.Title</span></a>
+            </div>
+            <!--====== End - Check Box ======-->
+
+            <span class="shop-w__total-text">@Model.Count()</span>
+        </li>
+
+    }
+
+</ul>

@@ -1,0 +1,18 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.ShopPage;
+@model List<ColorListItemViewModel>
+<ul class="shop-w__list gl-scroll">
+    @foreach (var color in Model)
+    {
+        <li>
+            <div class="color__check">
+
+                <a asp-route="client-shoppage-index" asp-route-colorId="@color.Id" style="text-decoration:none;"><span style="color: black; font-size: 15px; letter-spacing: normal;"> @color.Title</span></a>
+
+            </div>
+
+            <span class="shop-w__total-text">@Model.Count()</span>
+        </li>
+
+    }
+
+</ul>
