@@ -1,4 +1,5 @@
 ﻿@using Meridian_Web.Areas.Client.ViewModels.BlogDetails;
+@using Meridian_Web.Areas.Client.ViewModels.Comment;
 @model BlogDetailsViewModel
 <div class="app-content">
 
@@ -113,35 +114,39 @@
                     <div class="col-lg-12">
                         <div class="d-meta__comment-arena">
 
-                            <span class="d-meta__text u-s-m-b-36">6 thoughts on "Wait till is open"</span>
+                            <span class="d-meta__text u-s-m-b-36"> @Model.Comment.Count thoughts on "Wait till is open"</span>
                             <div class="d-meta__comments u-s-m-b-30">
                                 <ol>
                                     <li>
 
                                         <!--====== Comment ======-->
-                                        <div class="d-meta__p-comment">
+                                        @foreach(var comment in Model.Comment)
+                                        {
+                                          <div class="d-meta__p-comment">
                                             <div class="p-comment__wrap1">
                                                 <div class="aspect aspect--square p-comment__img-wrap">
 
-                                                    <img src="images/blog/avatar-2.jpg" alt="">
+                                                  @*  <img src="images/blog/avatar-2.jpg" alt="">*@
                                                 </div>
                                             </div>
                                             <div class="p-comment__wrap2">
 
-                                                <span class="p-comment__author">Dayle</span>
+                                                <span class="p-comment__author">@comment.Name</span>
 
                                                 <span class="p-comment__timestamp">
 
                                                     <a href="#">
 
-                                                        <span>25 March 2015 at 3:55pm</span>
+                                                        <span>@comment.CreatedAt</span>
                                                     </a>
                                                 </span>
-                                                <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                <p class="p-comment__paragraph">@comment.Email</p>
 
 
                                             </div>
                                         </div>
+                                            
+                                        }
                                         <!--====== End - Comment ======-->
 
                                     </li>
@@ -154,12 +159,39 @@
 
 
 
-
-
-
                             <form method="POST" asp-route="client-blogdetails-comment" asp-route-blogId="@Model.Id" class="respond__form">
-                               
+
+                              
+                                <div class="respond__group">
+                                    <div class="u-s-m-b-15">
+
+                                        <label class="gl-label" for="comment">COMMENT *</label>
+                                        <textarea asp-for="Context" class="text-area text-area--primary-style" id="comment"></textarea>
+                                    </div>
+                                    <div>
+                                        <p class="u-s-m-b-30">
+
+                                            <label class="gl-label" for="responder-name">NAME *</label>
+
+                                            <input asp-for="Name" class="input-text input-text--primary-style" type="text" id="responder-name">
+                                        </p>
+                                        <p class="u-s-m-b-30">
+
+                                            <label class="gl-label" for="responder-email">EMAIL *</label>
+
+                                            <input asp-for="Email" class="input-text input-text--primary-style" type="text" id="responder-email">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <button class="btn btn--e-brand-shadow" type="submit">POST COMMENT</button>
+                                </div>
+                              
                             </form>
+
+
+                          
 
 
 

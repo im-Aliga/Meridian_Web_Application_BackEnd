@@ -1,17 +1,27 @@
 ﻿
+using Meridian_Web.Areas.Client.ViewModels.Comment;
+
 namespace Meridian_Web.Areas.Client.ViewModels.BlogDetails
 {
+    
+
     public class BlogDetailsViewModel
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Proverb { get; set; }
-        public string ProverbAuthor { get; set; }
+        public int? Id { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public string? Proverb { get; set; }
+        public string? ProverbAuthor { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<CatagoryViewModeL> Catagories { get; set; }
-        public List<TagViewModeL> Tags { get; set; }
-        public List<FileViewModeL> Files { get; set; }
+        public string? Name { get; set; }
+        public string? Context { get; set; }
+        public string? Email { get; set; }
+        
+        public List<CatagoryViewModeL>? Catagories { get; set; }
+        public List<TagViewModeL>? Tags { get; set; }
+        public List<FileViewModeL>? Files { get; set; }
+        public List<CommentViewModel>? Comment { get; set; }
+
 
 
 

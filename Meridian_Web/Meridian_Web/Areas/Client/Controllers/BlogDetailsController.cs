@@ -34,6 +34,7 @@ namespace Meridian_Web.Areas.Client.Controllers
             {
                 return NotFound();
             }
+           
 
             var model = new BlogDetailsViewModel
             {
@@ -49,7 +50,9 @@ namespace Meridian_Web.Areas.Client.Controllers
                       .Select(ps => new BlogDetailsViewModel.TagViewModeL(ps.Tag.TagName, ps.Tag.Id)).ToList(),
                 Files = _dbContext.BlogFiles.Where(p => p.BlogId == blog.Id)
                 .Select(p => new BlogDetailsViewModel.FileViewModeL
-                (_fileService.GetFileUrl(p.FileNameInFileSystem, UploadDirectory.Blog), p.IsShowVideo, p.IsShowImage,p.IsShowVideo)).ToList()
+                (_fileService.GetFileUrl(p.FileNameInFileSystem, UploadDirectory.Blog), p.IsShowVideo, p.IsShowImage,p.IsShowVideo)).ToList(),
+                Comment=_dbContext.Comments.Where(p=>p.BlogId==blog.Id).Select(bc=>new CommentViewModel(bc.Id,bc.Name,bc.Email,bc.Context,bc.CreatedAt)).ToList(),
+                
 
             };
             return View(model);
@@ -62,7 +65,11 @@ namespace Meridian_Web.Areas.Client.Controllers
             {
                 return View();
             }
-
+            var product = await _dbContext.Blogs.FirstOrDefaultAsync(p => p.Id == blogId);
+            if(product == null)
+            {
+                return NotFound();
+            }
             var model = new Comment
             {
                 BlogId = blogId,
@@ -74,10 +81,10 @@ namespace Meridian_Web.Areas.Client.Controllers
 
             };
 
-            await _dbContext.AddAsync(model);
+            await _dbContext.Comments.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToRoute("client-blogdetails-index");
+            return RedirectToRoute("client-blogdetails-index" , new {id=blogId} );
         }
     }
 }
