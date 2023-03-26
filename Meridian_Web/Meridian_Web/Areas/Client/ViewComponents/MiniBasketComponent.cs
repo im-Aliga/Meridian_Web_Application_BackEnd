@@ -39,8 +39,21 @@ namespace Meridian_Web.Areas.Client.ViewComponents
                             bp.Quantity,
                             bp.Product.Price,
                             bp.Product.DiscountPrice,
-                            bp.Product.Price * bp.Quantity
-                          
+                            bp.Product.Price * bp.Quantity,
+                            bp.SizeId,
+                            _dataContext.ProductSizes
+                            .Include(ps => ps.Size)
+                            .Where(ps => ps.ProductId == bp.Product.Id)
+                            .Select(ps => new SizeListItemViewModel(ps.SizeId, ps.Size.Name)).ToList(),
+                            bp.ColorId,
+                             _dataContext.ProductColors
+                            .Include(ps => ps.Color)
+                            .Where(ps => ps.ProductId == bp.Product.Id)
+                            .Select(ps => new ColorListItemViewModel(ps.ColorId, ps.Color.Name)).ToList()
+
+
+
+
 
 
                             ))

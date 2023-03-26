@@ -34,11 +34,11 @@
                                     <ul class="table-p__variant-list">
                                         <li>
 
-                                            <span>Size: </span>
+                                            <span>Size:@product.Sizes.FirstOrDefault().Name </span>
                                         </li>
                                         <li>
 
-                                            <span>Color:</span>
+                                            <span>Color: @product.Colors.FirstOrDefault().Name</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -60,7 +60,7 @@
 
                                 <!--====== Input Counter ======-->
                                 <div class="input-counter">
-                                    <a asp-route="client-individual-basket-delete" asp-route-id="@product.Id"
+                                    <a asp-route="client-individual-basket-delete" asp-route-id="@product.Id" asp-route-sizeId="@product.SizeId" asp-route-colorId="@product.SizeId"
                                       data-id="@product.Id" class="btn btn-dark minus-btn">
 
                                         <span class="input-counter__minus fas fa-minus"></span>

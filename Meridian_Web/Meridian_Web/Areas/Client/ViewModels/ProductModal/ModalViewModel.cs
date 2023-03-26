@@ -12,9 +12,15 @@ namespace BackEndFinalProject.Areas.Client.ViewModels.Home.Modal
         public int InStock { get; set; }
         public string ImgUrl { get; set; }
         public List<DiscountList>? Discounts { get; set; }
-        public List<ColorViewModeL> Colors { get; set; }
-        public List<SizeViewModeL> Sizes { get; set; }
-        public ModalViewModel(int ıd, string title, string description, decimal price, decimal? discountPrice, int ınStock, string ımgUrl, List<DiscountList>? discounts, List<ColorViewModeL> colors, List<SizeViewModeL> sizes)
+        public int? ColorId { get; set; }
+        public List<ColorViewModeL>? Colors { get; set; }
+        public int? SizeId { get; set; }
+        public List<SizeViewModeL>? Sizes { get; set; }
+        public ModalViewModel()
+        {
+            
+        }
+        public ModalViewModel(int ıd, string title, string description, decimal price, decimal? discountPrice, int ınStock, string ımgUrl, List<DiscountList>? discounts, List<ColorViewModeL>? colors, List<SizeViewModeL>? sizes)
         {
             Id = ıd;
             Title = title;

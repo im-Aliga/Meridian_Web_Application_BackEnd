@@ -44,7 +44,7 @@
 
 
             </div>
-            <a asp-route="client-basket-delete" asp-route-id=" @product.Id" data-id="" class="mini-product__delete-link far fa-trash-alt remove-product-to-basket-btn"></a>
+            <a asp-route="client-basket-delete" asp-route-id=" @product.Id" asp-route-sizeId="@product.SizeId" asp-route-colorId="@product.ColorId" class="mini-product__delete-link far fa-trash-alt remove-product-to-basket-btn"></a>
 
         }
 

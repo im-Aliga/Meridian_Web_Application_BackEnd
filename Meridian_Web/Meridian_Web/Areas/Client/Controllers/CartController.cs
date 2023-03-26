@@ -1,4 +1,5 @@
-﻿using Meridian_Web.Areas.Client.ViewComponents;
+﻿using BackEndFinalProject.Areas.Client.ViewModels.Home.Modal;
+using Meridian_Web.Areas.Client.ViewComponents;
 using Meridian_Web.Areas.Client.ViewModels.Basket;
 using Meridian_Web.Database;
 using Meridian_Web.Services.Abstract;
@@ -32,7 +33,7 @@ namespace Meridian_Web.Areas.Client.Controllers
         }
 
         [HttpGet("add/{id}", Name = "client-cartpagebasket-add")]
-        public async Task<IActionResult> AddProduct([FromRoute] int id)
+        public async Task<IActionResult> AddProduct([FromRoute] int id,ModalViewModel model)
         {
             var product = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product is null)
@@ -40,13 +41,13 @@ namespace Meridian_Web.Areas.Client.Controllers
                 return NotFound();
             }
 
-            var productCookiViewModel = await _basketService.AddBasketProductAsync(product);
+            var productCookiViewModel = await _basketService.AddBasketProductAsync(product,model);
             if (productCookiViewModel.Any())
             {
                 return ViewComponent(nameof(Cart), productCookiViewModel);
             }
 
-            return ViewComponent(nameof(Cart));
+            return ViewComponent(nameof(Cart),product);
         }
 
 

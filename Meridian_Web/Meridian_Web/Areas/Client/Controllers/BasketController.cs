@@ -1,4 +1,5 @@
-﻿using Meridian_Web.Areas.Client.ViewComponents;
+﻿using BackEndFinalProject.Areas.Client.ViewModels.Home.Modal;
+using Meridian_Web.Areas.Client.ViewComponents;
 using Meridian_Web.Areas.Client.ViewModels.Basket;
 using Meridian_Web.Database;
 using Meridian_Web.Services.Abstract;
@@ -26,7 +27,7 @@ namespace Meridian_Web.Areas.Client.Controllers
             _userService = userService;
         }
         [HttpGet("add/{id}", Name = "client-basket-add")]
-        public async Task<IActionResult> AddProductAsync([FromRoute] int id)
+        public async Task<IActionResult> AddProductAsync([FromRoute] int id,ModalViewModel model)
         {
             var product = await _dataContext.Products
                 .Include(b => b.ProductImages)
@@ -36,17 +37,17 @@ namespace Meridian_Web.Areas.Client.Controllers
                 return NotFound();
             }
 
-            var productsCookieViewModel = await _basketService.AddBasketProductAsync(product);
+            var productsCookieViewModel = await _basketService.AddBasketProductAsync(product,model);
             if (productsCookieViewModel.Any())
             {
                 return ViewComponent(nameof(MiniBasketComponent), productsCookieViewModel);
             }
 
-            return ViewComponent(nameof(MiniBasketComponent));
+            return ViewComponent(nameof(MiniBasketComponent),product);
         }
 
-        [HttpGet("delete/{id}", Name = "client-basket-delete")]
-        public async Task<IActionResult> DeleteProductAsync([FromRoute] int id)
+        [HttpGet("delete/{id}/{sizeId}/{colorId}", Name = "client-basket-delete")]
+        public async Task<IActionResult> DeleteProductAsync([FromRoute] int id, [FromRoute] int sizeId, [FromRoute] int colorId)
         {
             var product = await _dataContext.Products.FirstOrDefaultAsync(b => b.Id == id);
             if (product is null)
@@ -62,7 +63,7 @@ namespace Meridian_Web.Areas.Client.Controllers
 
             if (_userService.IsAuthenticated)
             {
-                var basketProduct = await _dataContext.BasketProducts.FirstOrDefaultAsync(bp => bp.ProductId == product.Id);
+                var basketProduct = await _dataContext.BasketProducts.FirstOrDefaultAsync(bp => bp.ProductId == product.Id&&bp.SizeId==sizeId&&bp.ColorId==colorId);
                 _dataContext.BasketProducts.Remove(basketProduct);
                 await _dataContext.SaveChangesAsync();
 
@@ -73,7 +74,7 @@ namespace Meridian_Web.Areas.Client.Controllers
 
 
             var productsCookieViewModel = JsonSerializer.Deserialize<List<ProductCookieViewModel>>(productCookieValue);
-            productsCookieViewModel!.RemoveAll(pcvm => pcvm.Id == id);
+            productsCookieViewModel!.RemoveAll(pcvm => pcvm.Id == id&& pcvm.SizeId == sizeId&& pcvm.ColorId == colorId);
 
             HttpContext.Response.Cookies.Append("products", JsonSerializer.Serialize(productsCookieViewModel), new CookieOptions
             {

@@ -67,13 +67,15 @@ namespace Meridian_Web.Areas.Client.Controllers
                        ))
                 .ToListAsync(), 
                 Blogs= await _dbContext.Blogs.Include(b=>b.BlogTags).Select(b=>new BlogListItemViewModel(
+                      
                        b.Title,
                        b.Description,
                        b.CreatedAt,
                        b.BlogTags.Select(b=>new TagList(b.Tag.TagName)).ToList(),
                        b.BlogFile!.Take(1)!.FirstOrDefault() != null
                         ? _fileService.GetFileUrl(b.BlogFile!.Take(1)!.FirstOrDefault()!.FileNameInFileSystem!, UploadDirectory.Blog)
-                        : string.Empty
+                        : string.Empty,
+                       b.Id
                     ))
                 .ToListAsync(),
 

@@ -1,4 +1,5 @@
 ﻿
+using BackEndFinalProject.Areas.Client.ViewModels.Home.Modal;
 using Meridian_Web.Areas.Client.ViewModels.Basket;
 using Meridian_Web.Contracts.File;
 using Meridian_Web.Contracts.Identity;
@@ -32,8 +33,14 @@ namespace Meridian_Web.Services.Concretes
         }
 
 
-        public async Task<List<ProductCookieViewModel>> AddBasketProductAsync(Product product)
+        public async Task<List<ProductCookieViewModel>> AddBasketProductAsync(Product product,ModalViewModel model)
         {
+            model = new ModalViewModel
+            {
+                SizeId = model.SizeId != null ? model.SizeId : _dataContext.Sizes.FirstOrDefault().Id,
+                ColorId=model.ColorId!=null ? model.ColorId:_dataContext.Colors.FirstOrDefault().Id,
+            };
+
             if (_userService.IsAuthenticated)
             {
                 await AddToDatabaseAsync();
@@ -51,8 +58,8 @@ namespace Meridian_Web.Services.Concretes
             
             async Task AddToDatabaseAsync()
             {
-                var basketProduct = await _dataContext.BasketProducts
-                    .FirstOrDefaultAsync(bp => bp.Basket.UserId == _userService.CurrentUser.Id && bp.ProductId == product.Id);
+                var basketProduct = await _dataContext.BasketProducts.Include(p=>p.Basket)
+                    .FirstOrDefaultAsync(bp => bp.Basket.UserId == _userService.CurrentUser.Id && bp.ProductId == product.Id&&bp.SizeId==model.SizeId &&bp.ColorId==model.ColorId);
                 if (basketProduct is not null)
                 {
                     basketProduct.Quantity++;
@@ -66,6 +73,8 @@ namespace Meridian_Web.Services.Concretes
                         Quantity = 1,
                         BasketId = basket.Id,
                         ProductId = product.Id,
+                        SizeId=model.SizeId,
+                        ColorId=model.ColorId
                     };
 
                     await _dataContext.BasketProducts.AddAsync(basketProduct);
@@ -84,9 +93,9 @@ namespace Meridian_Web.Services.Concretes
                     ? JsonSerializer.Deserialize<List<ProductCookieViewModel>>(productCookieValue)
                     : new List<ProductCookieViewModel> { };
 
-                var productCookieViewModel = productsCookieViewModel!.FirstOrDefault(pcvm => pcvm.Id == product.Id);
+                var productCookieViewModel = productsCookieViewModel!.FirstOrDefault(pcvm => pcvm.Id == product.Id&&pcvm.SizeId==model.SizeId&&pcvm.ColorId==model.ColorId);
 
-                if (productCookieViewModel is null)
+                if (productCookieViewModel is null || productCookieViewModel.SizeId != model.SizeId||productCookieViewModel.ColorId!=model.ColorId)
                 {
                     productsCookieViewModel
                         !.Add(new ProductCookieViewModel(
@@ -98,7 +107,17 @@ namespace Meridian_Web.Services.Concretes
                         1,
                         product.Price,
                         product.DiscountPrice,
-                        product.Price
+                        product.Price,
+                        model.SizeId,
+                       _dataContext.ProductSizes
+                       .Include(ps => ps.Size)
+                       .Where(ps => ps.ProductId == product.Id)
+                       .Select(ps => new SizeListItemViewModel(ps.SizeId, ps.Size.Name)).ToList(),
+                        model.ColorId,
+                        _dataContext.ProductColors
+                       .Include(ps => ps.Color)
+                       .Where(ps => ps.ProductId == product.Id)
+                       .Select(ps => new ColorListItemViewModel(ps.ColorId, ps.Color.Name)).ToList()
                         ));
                 }
                 else

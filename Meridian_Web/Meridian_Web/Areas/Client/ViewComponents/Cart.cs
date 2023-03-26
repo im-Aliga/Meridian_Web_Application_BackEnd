@@ -27,30 +27,37 @@ namespace Meridian_Web.Areas.Client.ViewComponents
             _fileService = fileService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(List<ProductCookieViewModel> viewModel = null)
+        public async Task<IViewComponentResult> InvokeAsync(List<ProductCookieViewModel>? viewModel = null)
         {
             if (_userService.IsAuthenticated)
             {
-              
+
 
 
                 var model = await _dataContext.BasketProducts
-                   
+
                     .Where(bp => bp.Basket.UserId == _userService.CurrentUser.Id)
                     .Select(bp =>
                         new ProductCookieViewModel(
-                            bp.ProductId,
+                             bp.ProductId,
                             bp.Product!.Title,
-                            bp.Product.ProductImages.Take(1).FirstOrDefault()! != null
-                            ? _fileService.GetFileUrl(bp.Product.ProductImages!.Take(1)!.FirstOrDefault()!.ImageNameInFileSystem!, UploadDirectory.Product)
+                            bp.Product.ProductImages.Take(1).FirstOrDefault() != null
+                            ? _fileService.GetFileUrl(bp.Product.ProductImages.Take(1).FirstOrDefault()!.ImageNameInFileSystem, UploadDirectory.Product)
                             : String.Empty,
                             bp.Quantity,
                             bp.Product.Price,
                             bp.Product.DiscountPrice,
-                            bp.Product.Price * bp.Quantity
-                          
-                           
-
+                            bp.Product.Price * bp.Quantity,
+                            bp.SizeId,
+                            _dataContext.ProductSizes
+                            .Include(ps => ps.Size)
+                            .Where(ps => ps.ProductId == bp.Product.Id)
+                            .Select(ps => new SizeListItemViewModel(ps.SizeId, ps.Size.Name)).ToList(),
+                            bp.ColorId,
+                             _dataContext.ProductColors
+                            .Include(ps => ps.Color)
+                            .Where(ps => ps.ProductId == bp.Product.Id)
+                            .Select(ps => new ColorListItemViewModel(ps.ColorId, ps.Color.Name)).ToList()
                             ))
                     .ToListAsync();
 

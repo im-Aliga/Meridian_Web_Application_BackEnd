@@ -1,10 +1,11 @@
-﻿using Meridian_Web.Areas.Client.ViewModels.Basket;
+﻿using BackEndFinalProject.Areas.Client.ViewModels.Home.Modal;
+using Meridian_Web.Areas.Client.ViewModels.Basket;
 using Meridian_Web.Database.Models;
 
 namespace Meridian_Web.Services.Abstract
 {
     public interface IBasketService
     {
-        Task<List<ProductCookieViewModel>> AddBasketProductAsync(Product product);
+        Task<List<ProductCookieViewModel>> AddBasketProductAsync(Product product,ModalViewModel model);
     }
 }

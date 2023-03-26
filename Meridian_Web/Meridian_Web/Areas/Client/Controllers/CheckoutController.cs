@@ -65,22 +65,30 @@ namespace DemoApplication.Areas.Client.Controllers
         [HttpPost("place-order", Name = "client-checkout-place-order")]
         public async Task<IActionResult> PlaceOrder()
         {
-            var basketProducts = await _dataContext.BasketProducts
-                    .Include(bp => bp.Product)
-                    .Where(bp => bp.Basket!.UserId == _userService.CurrentUser.Id)
-                    .ToListAsync();
+            if (_userService.CurrentUser.UserAddress != null)
+            {
+              
 
-            var order = await CreateOrderAsync();
+                var basketProducts = await _dataContext.BasketProducts
+                        .Include(bp => bp.Product)
+                        .Where(bp => bp.Basket!.UserId == _userService.CurrentUser.Id)
+                        .ToListAsync();
 
-            await CreateAndFulfillOrderProductsAsync(order, basketProducts);
+                var order = await CreateOrderAsync();
 
-            order.Total = order.OrderProducts!.Sum(op => op.Total);
+                await CreateAndFulfillOrderProductsAsync(order, basketProducts);
 
-            await ResetBasketAsync(basketProducts);
+                order.Total = order.OrderProducts!.Sum(op => op.Total);
 
-            await _dataContext.SaveChangesAsync();
+                await ResetBasketAsync(basketProducts);
+
+                await _dataContext.SaveChangesAsync();
+            }
+           
 
 
+
+            
             return RedirectToRoute("client-home-index");
 
 
@@ -100,7 +108,7 @@ namespace DemoApplication.Areas.Client.Controllers
                         ProductId = basketProduct.ProductId,
                         Price = basketProduct.Product!.Price,
                         Quantity = basketProduct.Quantity,
-                        Total = (decimal)(basketProduct.Product!.DiscountPrice==null?basketProduct.Product.Price*basketProduct.Quantity:basketProduct.Product.DiscountPrice*basketProduct.Quantity),
+                        Total = (decimal)(basketProduct.Product!.DiscountPrice == null ? basketProduct.Product.Price * basketProduct.Quantity : basketProduct.Product.DiscountPrice * basketProduct.Quantity),
                     };
 
                     await _dataContext.AddAsync(orderProduct);
