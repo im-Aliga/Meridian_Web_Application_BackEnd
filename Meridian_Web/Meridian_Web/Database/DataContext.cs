@@ -1,4 +1,5 @@
 ﻿using BackEndFinalProject.Database.Models;
+using FoodCorner.Database.Models;
 using Meridian_Web.Database.Models;
 using Meridian_Web.Database.Models.Common;
 using Meridian_Web.Extensions;
@@ -54,6 +55,7 @@ namespace Meridian_Web.Database
         public DbSet<TeamMember> TeamMembers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserActivation> UserActivations { get; set; }
+        public DbSet<PasswordForget> PasswordForgets { get; set; }
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistProduct> WishlistProducts { get; set; }

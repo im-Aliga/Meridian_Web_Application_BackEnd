@@ -8,11 +8,13 @@ namespace Meridian_Web.Contracts.Email
         {
             public const string ACTIVATION_MESSAGE = $"Account Activation";
             public const string ORDER_ACTIVATION_MESSAGE = $"Order has been aproverd";
+            public const string CHANGEPASSWORD_MESSAGE = $"CHANGE PASSWORD";
         }
 
         public static class Body
         {
             public const string ACTIVATION_MESSAGE = $"Thanks for signing up with Meridian!\r\nYou must follow this link to activate your account : {EmailMessageKeywords.ACTIVATION_URL}";
+            public const string CHANGEPASSWORD_MESSAGE = $"Sizin change urlniz : {EmailMessageKeywords.CHANGEPASSWORD_URL}";
         }
     }
 }
