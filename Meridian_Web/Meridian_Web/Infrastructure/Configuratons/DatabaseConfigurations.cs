@@ -16,7 +16,7 @@ namespace Meridian_Web.Infrastructure.Configurations
             });
 
 
-           
+
         }
     }
 }

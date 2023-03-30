@@ -30,7 +30,9 @@ namespace Meridian_Web.Areas.Client.Controllers
         [HttpGet("~/", Name = "client-home-index")]
         [HttpGet("index")]
         public async Task<IActionResult> IndexAsync()
-        {   var  model = new HomeViewModel
+        {
+
+            var model = new HomeViewModel
             {
 
                 Sliders = await _dbContext.Sliders.OrderBy(s => s.Order).Select(b => new SliderListItemVIewModel(
@@ -45,7 +47,7 @@ namespace Meridian_Web.Areas.Client.Controllers
                        ))
                    .ToListAsync(),
 
-                GlobalOffers=await _dbContext.GlobalOffers.Select(go=>new GlobalOfferViewModel(
+                GlobalOffers = await _dbContext.GlobalOffers.Select(go => new GlobalOfferViewModel(
                        go.Title,
                        go.MainContext,
                        go.Context,
@@ -53,25 +55,25 @@ namespace Meridian_Web.Areas.Client.Controllers
                        go.OfferTime
                          ))
                 .ToListAsync(),
-                Banners=await _dbContext.Banners.Select(b=> new BannerListItemViewModel(
+                Banners = await _dbContext.Banners.Select(b => new BannerListItemViewModel(
                        b.Title,
                        b.MainContext,
                        b.Context,
-                       _fileService.GetFileUrl(b.PhoteInFileSystem,UploadDirectory.Banner)
+                       _fileService.GetFileUrl(b.PhoteInFileSystem, UploadDirectory.Banner)
                        ))
                 .ToListAsync(),
-                PaymentBenefits=await _dbContext.Payments.Select(b=>new PaymentBenefitsViewModel(
+                PaymentBenefits = await _dbContext.Payments.Select(b => new PaymentBenefitsViewModel(
                        b.Title,
                        b.Context,
-                       _fileService.GetFileUrl(b.ImageNameInFileSystem,UploadDirectory.Payment)
+                       _fileService.GetFileUrl(b.ImageNameInFileSystem, UploadDirectory.Payment)
                        ))
-                .ToListAsync(), 
-                Blogs= await _dbContext.Blogs.Include(b=>b.BlogTags).Select(b=>new BlogListItemViewModel(
-                      
+                .ToListAsync(),
+                Blogs = await _dbContext.Blogs.Include(b => b.BlogTags).Select(b => new BlogListItemViewModel(
+
                        b.Title,
                        b.Description,
                        b.CreatedAt,
-                       b.BlogTags.Select(b=>new TagList(b.Tag.TagName)).ToList(),
+                       b.BlogTags.Select(b => new TagList(b.Tag.TagName)).ToList(),
                        b.BlogFile!.Take(1)!.FirstOrDefault() != null
                         ? _fileService.GetFileUrl(b.BlogFile!.Take(1)!.FirstOrDefault()!.FileNameInFileSystem!, UploadDirectory.Blog)
                         : string.Empty,
@@ -79,20 +81,20 @@ namespace Meridian_Web.Areas.Client.Controllers
                     ))
                 .ToListAsync(),
 
-              FeedBacks=await _dbContext.FeedBacks.Select(f=>new FeedBackListItemViewModel(
-                       f.FullName,
-                       f.Context,
-                       f.Role,
-                       _fileService.GetFileUrl(f.ProfilePhoteInFileSystem,UploadDirectory.FeedBack)
-                  ))  
+                FeedBacks = await _dbContext.FeedBacks.Select(f => new FeedBackListItemViewModel(
+                         f.FullName,
+                         f.Context,
+                         f.Role,
+                         _fileService.GetFileUrl(f.ProfilePhoteInFileSystem, UploadDirectory.FeedBack)
+                    ))
                .ToListAsync(),
-              Brands= await _dbContext.Brands.Select(b=> new BrandListItemVIewModel(
-                  _fileService.GetFileUrl(b.PhoteInFileSystem,UploadDirectory.Brand)
-                  ))
+                Brands = await _dbContext.Brands.Select(b => new BrandListItemVIewModel(
+                    _fileService.GetFileUrl(b.PhoteInFileSystem, UploadDirectory.Brand)
+                    ))
               .ToListAsync(),
 
             };
-          
+
             return View(model);
 
         }
@@ -102,9 +104,9 @@ namespace Meridian_Web.Areas.Client.Controllers
         {
             var product = await _dbContext.Products
                 .Include(p => p.ProductImages)
-                .Include(p=>p.ProductDisconts)
-                .Include(p=>p.ProductColors)
-                .Include(p=>p.ProductSizes)
+                .Include(p => p.ProductDisconts)
+                .Include(p => p.ProductColors)
+                .Include(p => p.ProductSizes)
                  .FirstOrDefaultAsync(p => p.Id == id);
 
 
@@ -112,10 +114,10 @@ namespace Meridian_Web.Areas.Client.Controllers
             {
                 return NotFound();
             }
-                var productDisconts = await _dbContext.ProductDisconts
-                    .Where(pd => pd.ProductId == product.Id)
-                    .Include(pd => pd.Discont)
-                    .Select(pd => new ModalViewModel.DiscountList(pd.Discont.Id, pd.Discont.DiscontPers)).ToListAsync();
+            var productDisconts = await _dbContext.ProductDisconts
+                .Where(pd => pd.ProductId == product.Id)
+                .Include(pd => pd.Discont)
+                .Select(pd => new ModalViewModel.DiscountList(pd.Discont.Id, pd.Discont.DiscontPers)).ToListAsync();
 
             var productColors = await _dbContext.ProductColors
                 .Where(pc => pc.ProductId == product.Id)

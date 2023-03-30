@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Meridian_Web.Migrations
 {
-    public partial class Initial : Migration
+    public partial class createddb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -232,6 +232,20 @@ namespace Meridian_Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IdentityUserLogin<Guid>",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUserLogin<Guid>", x => new { x.LoginProvider, x.ProviderKey });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Navbars",
                 columns: table => new
                 {
@@ -276,7 +290,7 @@ namespace Meridian_Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DiscountPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiscountPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     InStock = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -750,6 +764,30 @@ namespace Meridian_Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PasswordForgets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ActivationUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActivationToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpiredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PasswordForgets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PasswordForgets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserActivations",
                 columns: table => new
                 {
@@ -825,6 +863,8 @@ namespace Meridian_Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BasketId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: true),
+                    ColorId = table.Column<int>(type: "int", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -839,11 +879,21 @@ namespace Meridian_Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_BasketProducts_Colors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "Colors",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_BasketProducts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BasketProducts_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -905,15 +955,40 @@ namespace Meridian_Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
+                values: new object[] { 1, new DateTime(2022, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin", new DateTime(2022, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
+                values: new object[] { 2, new DateTime(2022, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "moderator", new DateTime(2022, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "CreatedAt", "Name", "UpdatedAt" },
+                values: new object[] { 3, new DateTime(2022, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "hr", new DateTime(2022, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
             migrationBuilder.CreateIndex(
                 name: "IX_BasketProducts_BasketId",
                 table: "BasketProducts",
                 column: "BasketId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BasketProducts_ColorId",
+                table: "BasketProducts",
+                column: "ColorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BasketProducts_ProductId",
                 table: "BasketProducts",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketProducts_SizeId",
+                table: "BasketProducts",
+                column: "SizeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Baskets_UserId",
@@ -964,6 +1039,11 @@ namespace Meridian_Web.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PasswordForgets_UserId",
+                table: "PasswordForgets",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1106,7 +1186,13 @@ namespace Meridian_Web.Migrations
                 name: "GlobalOffers");
 
             migrationBuilder.DropTable(
+                name: "IdentityUserLogin<Guid>");
+
+            migrationBuilder.DropTable(
                 name: "OrderProducts");
+
+            migrationBuilder.DropTable(
+                name: "PasswordForgets");
 
             migrationBuilder.DropTable(
                 name: "Payments");

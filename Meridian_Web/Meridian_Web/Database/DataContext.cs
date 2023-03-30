@@ -5,6 +5,7 @@ using Meridian_Web.Database.Models.Common;
 using Meridian_Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Meridian_Web.Database
 {
@@ -139,5 +140,16 @@ namespace Meridian_Web.Database
             }
         } 
         #endregion
+    }
+
+    public class BloggingContextFactory : IDesignTimeDbContextFactory<DataContext>
+    {
+        public DataContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
+            optionsBuilder.UseSqlServer("Server=DESKTOP-J810F6D\\SQLEXPRESS;Database=MeridianData;Trusted_Connection=True;TrustServerCertificate=True;");
+
+            return new DataContext(optionsBuilder.Options);
+        }
     }
 }

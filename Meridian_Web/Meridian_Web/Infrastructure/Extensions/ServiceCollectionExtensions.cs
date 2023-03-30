@@ -44,6 +44,7 @@ namespace Meridian_Web.Infrastructure.Extensions
 
 
 
+            services.ConfigureDatabase(configuration);
             services.AddSession();
 
             services.AddHttpContextAccessor();
@@ -52,7 +53,6 @@ namespace Meridian_Web.Infrastructure.Extensions
 
             services.AddUrlHelper();
 
-            services.ConfigureDatabase(configuration);
 
             services.ConfigureOptions(configuration);
 

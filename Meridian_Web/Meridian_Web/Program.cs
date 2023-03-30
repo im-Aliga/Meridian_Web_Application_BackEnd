@@ -1,3 +1,4 @@
+using Meridian_Web.Infrastructure.Configurations;
 using Meridian_Web.Infrastructure.Extensions;
 
 namespace Meridian_Web
@@ -12,6 +13,7 @@ namespace Meridian_Web
             //Register services (IoC container)
             builder.Services.ConfigureServices(builder.Configuration);
 
+            //builder.Services.ConfigureDatabase(builder.Configuration);
             //setup
             var app = builder.Build();
 
