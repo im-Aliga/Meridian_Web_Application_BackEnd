@@ -65,9 +65,14 @@ namespace DemoApplication.Areas.Client.Controllers
         [HttpPost("place-order", Name = "client-checkout-place-order")]
         public async Task<IActionResult> PlaceOrder()
         {
-            if (_userService.CurrentUser.UserAddress != null)
+            var adress= _dataContext.UserAddresses.FirstOrDefault(p=>p.UserId == _userService.CurrentUser.Id);
+
+            if (adress == null)
             {
               
+               return RedirectToRoute("client-account-edit-address");
+
+            }
 
                 var basketProducts = await _dataContext.BasketProducts
                         .Include(bp => bp.Product)
@@ -83,13 +88,10 @@ namespace DemoApplication.Areas.Client.Controllers
                 await ResetBasketAsync(basketProducts);
 
                 await _dataContext.SaveChangesAsync();
-            }
-           
-
+               return RedirectToRoute("client-home-index");
 
 
             
-            return RedirectToRoute("client-home-index");
 
 
 

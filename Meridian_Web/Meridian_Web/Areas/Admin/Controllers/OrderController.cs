@@ -1,6 +1,7 @@
 ﻿using Meridian_Web.Areas.Admin.ViewModels.Category;
 using Meridian_Web.Areas.Admin.ViewModels.FeedBack;
 using Meridian_Web.Areas.Admin.ViewModels.Order;
+using Meridian_Web.Areas.Client.ViewModels.OrderProducts;
 using Meridian_Web.Contracts.Email;
 using Meridian_Web.Contracts.File;
 using Meridian_Web.Contracts.Order;
@@ -85,6 +86,30 @@ namespace BackEndFinalProject.Areas.Admin.Controllers
         }
 
         #endregion
+
+        [HttpGet("list/{id}", Name = "admin-orderProduct-list")]
+        public async Task<IActionResult> OrderProductList(string id)
+        {
+            var order = await _dataContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+
+            if (order is null)
+            {
+                return NotFound();
+            }
+
+            var model = await _dataContext.OrderProducts.Where(o => o.OrderId == order.Id)
+                .Select(pc => new OrderProductListItemViewModel(
+                        pc.Id,
+                        pc.Product.ProductImages.Take(1).FirstOrDefault() != null
+                        ? _fileService.GetFileUrl(pc.Product.ProductImages.Take(1).FirstOrDefault().ImageNameInFileSystem, UploadDirectory.Product)
+                        : String.Empty,
+                        pc.Product.Title,
+                        pc.Quantity,
+                        (int)pc.Total)).ToListAsync();
+
+
+            return View(model);
+        }
     }
 }
 

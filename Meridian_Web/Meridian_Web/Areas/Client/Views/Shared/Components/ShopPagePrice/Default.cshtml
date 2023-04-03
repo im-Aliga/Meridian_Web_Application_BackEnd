@@ -1,0 +1,23 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Price;
+@model PriceViewModel
+
+<form method="POST" asp-route="client-shoppage-price" class="shop-w__form-p">
+    <div class="shop-w__form-p-wrap">
+        <div>
+
+            <label for="price-min"></label>
+
+            <input asp-for="StartPrice" class="searchproductPrice input-text input-text--primary-style" type="text" id="price-min" placeholder="Min">
+        </div>
+        <div>
+
+            <label for="price-max"></label>
+
+            <input asp-for="EndPrice" class="input-text input-text--primary-style" type="text" id="price-max" placeholder="Max">
+        </div>
+        <div>
+
+            <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit"></button>
+        </div>
+    </div>
+</form>

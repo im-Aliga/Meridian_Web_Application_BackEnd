@@ -184,26 +184,7 @@
                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
                             </div>
                             <div class="shop-w__wrap collapse show" id="s-price">
-                                <form class="shop-w__form-p">
-                                    <div class="shop-w__form-p-wrap">
-                                        <div>
-
-                                            <label for="price-min"></label>
-
-                                            <input class="input-text input-text--primary-style" type="text" id="price-min" placeholder="Min">
-                                        </div>
-                                        <div>
-
-                                            <label for="price-max"></label>
-
-                                            <input class="input-text input-text--primary-style" type="text" id="price-max" placeholder="Max">
-                                        </div>
-                                        <div>
-
-                                            <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" type="submit"></button>
-                                        </div>
-                                    </div>
-                                </form>
+                                @await Component.InvokeAsync(nameof(ShopPagePrice))
                             </div>
                         </div>
                     </div>

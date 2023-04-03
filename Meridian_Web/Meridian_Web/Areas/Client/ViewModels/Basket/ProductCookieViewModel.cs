@@ -17,7 +17,11 @@ namespace Meridian_Web.Areas.Client.ViewModels.Basket
         public int? ColorId { get; set; }
         public List<ColorListItemViewModel>Colors { get; set; }
 
-        
+
+        public ProductCookieViewModel()
+        {
+            
+        }
 
         public ProductCookieViewModel(int ıd, string? title, string? ımageUrl, int quantity, decimal price, decimal? discountPrice, decimal total, int? sizeId, List<SizeListItemViewModel> sizes, int? colorId, List<ColorListItemViewModel> colors)
         {
@@ -57,14 +61,18 @@ namespace Meridian_Web.Areas.Client.ViewModels.Basket
     }
     public class SizeListItemViewModel
     {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
         public SizeListItemViewModel(int ıd, string name)
         {
             Id = ıd;
             Name = name;
         }
-
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public SizeListItemViewModel()
+        {
+            
+        }
     }
     public class ColorListItemViewModel
     {
@@ -72,6 +80,10 @@ namespace Meridian_Web.Areas.Client.ViewModels.Basket
         {
             Id = ıd;
             Name = name;
+        }
+        public ColorListItemViewModel()
+        {
+            
         }
 
         public int Id { get; set; } 

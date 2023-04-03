@@ -1,4 +1,5 @@
-﻿using Meridian_Web.Areas.Client.ViewModels.ShopPage;
+﻿using Meridian_Web.Areas.Client.ViewModels.Price;
+using Meridian_Web.Areas.Client.ViewModels.ShopPage;
 using Meridian_Web.Contracts.File;
 using Meridian_Web.Database;
 using Meridian_Web.Services.Abstract;
@@ -27,7 +28,7 @@ namespace Meridian_Web.Areas.Client.Controllers
         }
 
         [HttpGet("index", Name = "client-shoppage-index")]
-        public async Task<IActionResult> Index(string searchBy, string search, [FromQuery]int?sizeId ,[FromQuery]int?brandId, [FromQuery] int? categoryId, [FromQuery] int? colorId, [FromQuery] int? tagId)
+        public async Task<IActionResult> Index(string searchBy, string search, [FromQuery]int?sizeId ,[FromQuery]int?brandId, [FromQuery] int? categoryId, [FromQuery] int? colorId, [FromQuery] int? tagId,int? startPrice,int? endPrice)
         {
             var productsQuery = _dataContext.Products.AsQueryable();
 
@@ -49,6 +50,10 @@ namespace Meridian_Web.Areas.Client.Controllers
                     .Where(p => sizeId == null || p.ProductSizes!.Any(ps => ps.SizeId == sizeId))
                     .Where(p => brandId == null || p.ProductBrands!.Any(ps => ps.BrandId == brandId));
 
+            }
+            else if(startPrice is not null || endPrice is not null)
+            {
+                productsQuery.GroupBy(p=>p.Price > startPrice);
             }
             else
             {
@@ -75,5 +80,19 @@ namespace Meridian_Web.Areas.Client.Controllers
             return View(newProduct);
 
         }
+
+
+        [HttpPost("price", Name = "client-shoppage-price")]
+        public async Task<IActionResult> Price(PriceViewModel model) 
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToRoute("client-shoppage-index");
+            }
+            return RedirectToRoute("client-shoppage-index", new { startPrice = model.StartPrice , endPrice = model.EndPrice });
+        }
+
+
+
     }
 }

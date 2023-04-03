@@ -1,0 +1,29 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Account;
+@model EditAdressViewModel
+<div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+    <div class="dash__pad-2">
+        <h1 class="dash__h1 u-s-m-b-14">Edit Address</h1>
+
+        <span class="dash__text u-s-m-b-30">We need an address where we could deliver products.</span>
+        <form asp-route="client-account-edit-address" class="dash-address-manipulation">
+            <div class="gl-inline">
+                <div class="u-s-m-b-30">
+
+                    <label class="gl-label" for="address-phone">Address *</label>
+
+                    <input asp-for="Adress" class="input-text input-text--primary-style" type="text" id="address-phone" placeholder="Address">
+                </div>
+                <div class="u-s-m-b-30">
+
+                    <label class="gl-label" for="address-street"> City *</label>
+
+                    <input asp-for="City" class="input-text input-text--primary-style" type="text" id="address-street" placeholder="City">
+                </div>
+            </div>
+            
+          
+
+            <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+        </form>
+    </div>
+</div>

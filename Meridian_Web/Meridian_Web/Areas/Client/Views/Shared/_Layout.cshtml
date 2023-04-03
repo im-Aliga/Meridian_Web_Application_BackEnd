@@ -108,7 +108,7 @@
                                             <li>
                                                @if (_userservice.IsAuthenticated)
                                                {
-                                                <a href="dashboard.html">
+                                                    <a asp-route="client-account-dashboard">
                                                     <i class="fas fa-user-circle u-s-m-r-6"></i>
 
                                                     <span>Account</span>
@@ -543,6 +543,9 @@
     </div>
     <!--====== End - Main App ======-->
     <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         window.ga = function () {
             ga.q.push(arguments)

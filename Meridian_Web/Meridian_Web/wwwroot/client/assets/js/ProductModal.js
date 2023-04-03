@@ -145,3 +145,42 @@ $(document).on("click", ".minus-btn", function (e) {
 })
 
 
+//$(".searchproductPrice").change(function (e) {
+//    e.preventDefault();
+
+//    console.log("salam")
+
+//    let minPrice = e.target;
+///*    let MinPrice = parseInt(minPrice);*/
+//    console.log(minPrice);
+
+//    //let maxPrice = e.target.parentElement.firstElementChild.children[1].innerText.slice(1);
+//    //let MaxPrice = parseInt(maxPrice);
+
+//    //let aHref = document.querySelector(".shoppage-url").href;
+
+//    //$.ajax(
+//    //    {
+//    //        url: aHref,
+
+//    //        data: {
+//    //            MinPrice: MinPrice,
+//    //            MaxPrice: MaxPrice
+//    //        },
+
+//    //        success: function (response) {
+//    //            $('.shopPageProduct').html(response);
+
+
+//    //        },
+//    //        error: function (err) {
+//    //            $(".product-details-modal").html(err.responseText);
+
+//    //        }
+
+//    //    });
+
+
+//});
+
+

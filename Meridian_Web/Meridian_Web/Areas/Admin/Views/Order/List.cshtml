@@ -27,10 +27,14 @@
                                 <td>@order.UpdatedAt</td>
                                 <td class="text-end">
                                     <a asp-route="admin-order-update" asp-route-id="@order.Id" class="btn-outline-secondary p-3">Update</a>
+                                    <a asp-route="admin-orderProduct-list" asp-route-id="@order.Id" class="btn-outline-secondary p-3">View</a>
+                                    
                                     <form class="d-none" method="POST" asp-route="admin-order-delete" asp-route-id="@order.Id" id="delete-@order.Id">
                                     </form>
 
                                     <button type="submit" form="delete-@order.Id" class="btn-outline-danger p-3">Delete</button>
+
+
                                 </td>
                             </tr>
                         }

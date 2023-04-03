@@ -1,0 +1,33 @@
+﻿@using Meridian_Web.Areas.Client.ViewModels.Account
+@model List<OrderViewModel>
+
+<div class="" id="orders">
+    <div class="myaccount-content">
+        <h3>Orders</h3>
+        <div class="myaccount-table table-responsive text-center">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.CreatAt</td>
+                            <td>@item.Status</td>
+                            <td>₼@item.Total</td>
+                            <td><a asp-route="client-orderProduct-list" asp-route-id="@item.Id" class="btn btn-save">View</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
