@@ -80,10 +80,12 @@ namespace Meridian_Web.Areas.Client.Controllers
                 return NotFound();
             }
 
-            if (newUser.CurrentPassword == user.Password)
+            if(!await _userService.CheckPasswordAsync(user.Email , newUser.CurrentPassword))
             {
+                ModelState.AddModelError(string.Empty, "Current password is not matched");
                 return View(newUser);
             }
+          
             user.FirstName = newUser.Name;
             user.LastName = newUser.Surname;
             user.Email = newUser.Email;

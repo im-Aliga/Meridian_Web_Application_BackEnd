@@ -35,11 +35,7 @@ namespace Meridian_Web.Services.Concretes
 
         public async Task<List<ProductCookieViewModel>> AddBasketProductAsync(Product product,ModalViewModel model)
         {
-            model = new ModalViewModel
-            {
-                SizeId = model.SizeId != null ? model.SizeId : _dataContext.Sizes.FirstOrDefault().Id,
-                ColorId=model.ColorId!=null ? model.ColorId:_dataContext.Colors.FirstOrDefault().Id,
-            };
+            
 
             if (_userService.IsAuthenticated)
             {
@@ -87,6 +83,11 @@ namespace Meridian_Web.Services.Concretes
            
             List<ProductCookieViewModel> AddToCookie()
             {
+                model = new ModalViewModel
+                {
+                    SizeId = model.SizeId != null ? model.SizeId : _dataContext.Sizes.FirstOrDefault().Id,
+                    ColorId = model.ColorId != null ? model.ColorId : _dataContext.Colors.FirstOrDefault().Id,
+                };
 
                 var productCookieValue = _httpContextAccessor.HttpContext.Request.Cookies["products"];
                 var productsCookieViewModel = productCookieValue is not null

@@ -12,7 +12,7 @@
             
         }
 
-        public int? StartPrice { get; set; }
-        public int? EndPrice { get; set; } 
+        public decimal? StartPrice { get; set; }
+        public decimal? EndPrice { get; set; } 
     }
 }

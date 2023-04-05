@@ -28,9 +28,15 @@ namespace Meridian_Web.Areas.Client.Controllers
         }
 
         [HttpGet("index", Name = "client-shoppage-index")]
-        public async Task<IActionResult> Index(string searchBy, string search, [FromQuery]int?sizeId ,[FromQuery]int?brandId, [FromQuery] int? categoryId, [FromQuery] int? colorId, [FromQuery] int? tagId,int? startPrice,int? endPrice)
+        public async Task<IActionResult> Index(string searchBy, string search, [FromQuery]int?sizeId ,[FromQuery]int?brandId, [FromQuery] int? categoryId, [FromQuery] int? colorId, [FromQuery] int? tagId,decimal? startPrice,decimal? endPrice)
         {
-            var productsQuery = _dataContext.Products.AsQueryable();
+            var productsQuery = _dataContext.Products
+                    .Include(p => p.ProductCatagories)
+                    .Include(p => p.ProductColors)
+                    .Include(p => p.ProductTags)
+                    .Include(p => p.ProductSizes)
+                    .Include(p => p.ProductBrands)
+                    .AsQueryable();
 
             if (searchBy == "Name")
             {
@@ -39,11 +45,6 @@ namespace Meridian_Web.Areas.Client.Controllers
             else if (categoryId is not null || colorId is not null || tagId is not null || brandId is not null || sizeId is not null)
             {
                 productsQuery = productsQuery
-                    .Include(p => p.ProductCatagories)
-                    .Include(p => p.ProductColors)
-                    .Include(p => p.ProductTags)
-                    .Include(p => p.ProductSizes)
-                    .Include(p => p.ProductBrands)
                     .Where(p => categoryId == null || p.ProductCatagories!.Any(pc => pc.CategoryId == categoryId))
                     .Where(p => colorId == null || p.ProductColors!.Any(pc => pc.ColorId == colorId))
                     .Where(p => tagId == null || p.ProductTags!.Any(pt => pt.TagId == tagId))
@@ -53,14 +54,24 @@ namespace Meridian_Web.Areas.Client.Controllers
             }
             else if (startPrice is not null || endPrice is not null)
             {
-                productsQuery.GroupBy(p => p.Price > startPrice);
+                if (productsQuery.Any(p => p.DiscountPrice == null))
+                {
+                    productsQuery = productsQuery.Where(p => p.Price >= startPrice && p.Price <= endPrice);
+
+                }
+
+                productsQuery = productsQuery.Where(p => p.DiscountPrice >= startPrice && p.DiscountPrice <= endPrice);
+
+
             }
             else
             {
                 productsQuery = productsQuery.OrderBy(p => p.DiscountPrice);
             }
 
-            var newProduct = await productsQuery.Select(p => new ListItemViewModel(
+            var model = new List<ListItemViewModel>();
+
+            model = productsQuery.Select(p => new ListItemViewModel(
                                p.Id,
                                p.Title,
                                p.Content,
@@ -75,9 +86,10 @@ namespace Meridian_Web.Areas.Client.Controllers
                                 p.ProductSizes.Select(p => p.Size).Select(p => new SizeViewModeL(p.Name)).ToList(),
                                 p.ProductTags.Select(p => p.Tag).Select(p => new TagViewModel(p.TagName)).ToList(),
                                 p.ProductBrands.Select(p=>p.Brand).Select(p=> new BrandViewModel(p.Name)).ToList()
-                                )).ToListAsync();
+                                ))
+                .ToList();
 
-            return View(newProduct);
+            return View(model);
 
         }
 

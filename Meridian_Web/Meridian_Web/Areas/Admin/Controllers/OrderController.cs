@@ -72,7 +72,9 @@ namespace BackEndFinalProject.Areas.Admin.Controllers
 
             var stausMessageDto = PrepareStausMessage(order.User.Email);
             _emailService.Send(stausMessageDto);
-            await _dataContext.SaveChangesAsync();
+
+
+           await _dataContext.SaveChangesAsync();
 
             return RedirectToRoute("admin-order-list");
             MessageDto PrepareStausMessage(string email)

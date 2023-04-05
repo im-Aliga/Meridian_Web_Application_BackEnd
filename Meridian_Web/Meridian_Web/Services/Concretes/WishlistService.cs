@@ -73,6 +73,7 @@ namespace Meridian_Web.Services.Concretes
             {
 
                 var productCookieValue = _httpContextAccessor.HttpContext.Request.Cookies["wishlistproducts"];
+
                 var productsCookieViewModel = productCookieValue is not null
                     ? JsonSerializer.Deserialize<List<WishlistProductCookieVIewModel>>(productCookieValue)
                     : new List<WishlistProductCookieVIewModel> { };

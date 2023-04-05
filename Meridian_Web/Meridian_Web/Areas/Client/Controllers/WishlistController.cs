@@ -35,7 +35,9 @@ namespace Meridian_Web.Areas.Client.Controllers
         [HttpGet("add/{id}", Name = "client-wishlist-add")]
         public async Task<IActionResult> AddProduct([FromRoute] int id)
         {
-            var product = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var product = await _dataContext.Products
+                .Include(p => p.ProductImages)
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (product is null)
             {
                 return NotFound();
